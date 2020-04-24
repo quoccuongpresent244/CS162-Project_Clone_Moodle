@@ -1,0 +1,31 @@
+3
+
+19126001
+20010401 
+Trinh Van Minh
+2001 04 01
+19APCS2
+
+19126002
+abcdef
+Do Vuong Phuc
+2001 01 01
+19CLC5
+
+19126084
+20010109
+Tran Hai Anh Dien
+2001 01 09
+19APCS2
+
+
+
+
+
+
+
+
+
+
+
+

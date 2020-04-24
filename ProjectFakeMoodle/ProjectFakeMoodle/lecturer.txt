@@ -1,0 +1,19 @@
+3
+
+dbtien
+abcdef
+Dinh Ba Tien
+Tien si
+1
+
+nmhuy
+abcdef
+Nguyen Minh Huy
+Thac si
+1
+
+nhminh 
+abcdef
+Nguyen Hai Minh
+Thac si
+0
