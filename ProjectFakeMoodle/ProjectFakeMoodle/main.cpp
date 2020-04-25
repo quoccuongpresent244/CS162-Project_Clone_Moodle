@@ -71,7 +71,7 @@ int main()
 	}
 
 	//studentFeature(hocsinh[0]);
-
+    //check git pull
 
 	return  0;
 }
