@@ -6,8 +6,9 @@
 #include <string>
 
 using namespace std;
-struct Date {
-	int d, m, y;
+struct classes {
+	string classname;
+	int numofstu;
 };
 
 struct staff {
@@ -20,7 +21,7 @@ struct student {
 	string id;
 	string password;
 	string fullname;
-	Date dob;
+	string dob;
 	string clas;
 	//int type;
 };
@@ -32,9 +33,10 @@ struct lecturer {
 	int gender;
 };
 
-void loadStaff(ifstream& fin, staff a[], const int n);
-void loadLecturer(ifstream& fin, lecturer a[], const int n);
-void loadStudent(ifstream& fin, student a[], const int n);
+void loadStaff(ifstream& fin, staff*& a, const int n);
+void loadLecturer(ifstream& fin, lecturer*& a, const int n);
+void loadStudent(ifstream& fin, student*& hocsinh, const int Nstudent, classes*& lophoc, int& Nclass);
+void updateAllClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc);
 
 void login(staff giaovu[], lecturer giaovien[], student hocsinh[],
 	const int Nstaff, const int Nlecturer, const int Nstudent);
@@ -42,5 +44,11 @@ void login(staff giaovu[], lecturer giaovien[], student hocsinh[],
 void staffFeature(staff a);
 void lecturerFeature(lecturer a);
 void studentFeature(student a);
+
+void importCSV(int& Nstudent, int& studentCapa, student*& hocsinh, classes*& lophoc, int& Nclass);
+void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, classes* lophoc, int Nclass);
+
+void updateStudentTXT(student* student, const int Nstudent, string filename);
+void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc, string classname);
 
 #endif

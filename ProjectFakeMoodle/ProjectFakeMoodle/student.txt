@@ -1,7 +1,7 @@
-3
+4
 
 19126001
-20010401 
+20010401
 Trinh Van Minh
 2001 04 01
 19APCS2
@@ -10,22 +10,16 @@ Trinh Van Minh
 abcdef
 Do Vuong Phuc
 2001 01 01
-19CLC5
+19APCS1
 
 19126084
 20010109
 Tran Hai Anh Dien
 2001 01 09
-19APCS2
+19APCS1
 
-
-
-
-
-
-
-
-
-
-
-
+19126099
+20010901
+Duong Chan
+2001 09 01
+19APCS1
