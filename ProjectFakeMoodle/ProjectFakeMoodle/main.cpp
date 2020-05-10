@@ -11,6 +11,11 @@ int main()
 	classes* lophoc = new classes[100];
 	int Nclass=0;
 
+	/*int courseCapa = 20;
+	course* khoahoc = new course[20];
+	int Ncourse = 0;*/
+
+
 	staff* giaovu=nullptr;
 	lecturer* giaovien = nullptr;
 	student* hocsinh = nullptr;
@@ -80,7 +85,7 @@ int main()
 		cout << endl;
 	}
 
-
+	//viewListOfClasses(lophoc, Nclass);
 	
 
 	//importCSV(Nstudent, studentCapa, hocsinh, lophoc ,Nclass);
@@ -88,7 +93,11 @@ int main()
 
 	//login(giaovu, giaovien, hocsinh, Nstaff, Nlecturer, Nstudent);
 
+	//viewListOfStudentsInClass();
 
+	//importCourseCSV(lophoc, Nclass);
+	addANewCourse();
+	//editACourse();
 
 	delete[]lophoc;
 	delete[]giaovu;

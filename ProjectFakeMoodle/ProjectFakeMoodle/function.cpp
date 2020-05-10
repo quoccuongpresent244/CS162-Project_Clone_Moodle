@@ -52,7 +52,6 @@ void loadStaff(ifstream& fin, staff*& a, const int n) {
 		fin >> a[i].gender;
 	}
 }
-
 void loadLecturer(ifstream& fin, lecturer*& a, const int n) {
 
 	for (int i = 0; i < n; i++) {
@@ -65,7 +64,6 @@ void loadLecturer(ifstream& fin, lecturer*& a, const int n) {
 		fin >> a[i].gender;
 	}
 }
-
 void loadStudent(ifstream& fin, student*& hocsinh, const int Nstudent, classes*& lophoc, int& Nclass) {
 	//load data, execute data to calculate number of class? name of class? number of student in each class?
 
@@ -132,6 +130,56 @@ void updateAllClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes
 		fout.close();
 	}
 }
+void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc, string classname) {
+
+	// update file txt student-[class] after modifying it
+
+	int tmp;
+	ofstream f2;
+	string filename = "student-" + classname + ".txt";
+	f2.open(filename);
+	if (!f2.is_open()) {
+		cout << "cannot open file f2";
+	}
+	else {
+		for (int i = 0; i < Nclass; i++) {
+			if (lophoc[i].classname == classname) {
+				tmp = i; break;
+			}
+		}
+		f2 << lophoc[tmp].numofstu;                            //similarly
+		for (int i = 0; i < Nstudent; i++) {
+			if (hocsinh[i].clas == classname) {
+				f2 << endl << endl;
+				f2 << hocsinh[i].id << endl;
+				f2 << hocsinh[i].password << endl;
+				f2 << hocsinh[i].fullname << endl;
+				f2 << hocsinh[i].dob << endl;
+				f2 << hocsinh[i].clas;
+			}
+		}
+	}
+}
+void updateStudentTXT(student* hocsinh, const int Nstudent, string filename) {
+	ofstream fout;
+	fout.open(filename);
+	if (!fout.is_open()) {
+		cout << "cannot open, cannot write fout";
+	}
+	else {
+		fout << Nstudent;
+		for (int i = 0; i < Nstudent; i++) {
+			fout << endl << endl;
+			fout << hocsinh[i].id << endl;
+			fout << hocsinh[i].password << endl;
+			fout << hocsinh[i].fullname << endl;
+			fout << hocsinh[i].dob << endl;
+			fout << hocsinh[i].clas;
+		}
+	}
+	fout.close();
+	return;
+}
 
 
 void staffFeature(staff a) {
@@ -175,7 +223,7 @@ void staffFeature(staff a) {
 
 }
 //Function for Staff
-
+//CLASS
 void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& lophoc, int& Nclass) {
 	// import data from CSV file to program and rewrite file student.txt and student-class.txt
 
@@ -259,7 +307,6 @@ void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& l
 	f2.close();
 	return;
 }
-
 void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, classes* lophoc, int Nclass) {
 	if (Nstudent == studentCapa) {
 		student* tmpHocsinh = new student[Nstudent + 10];                 //increase slots for hocsinh pointer
@@ -307,59 +354,338 @@ void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, clas
 	updateAClassTXT(hocsinh, Nstudent, Nclass, lophoc, tmpclassname);
 	return;
 }
+void viewListOfClasses(classes* lophoc, int Nclass) {
+	cout << "List of classes: \n";
+	for (int i = 0; i < Nclass; i++)
+		cout << "Classname: " << lophoc[i].classname << ", Number of students: "
+		<< lophoc[i].numofstu << endl;
+}
+void viewListOfStudentsInClass() {
+	string classname;
+	cout << "Enter classname you want to view: ";
+	getline(cin, classname, '\n');
 
-void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc, string classname) {
-        
-	// update file txt student-[class] after modifying it
-
-	int tmp;
-	ofstream f2;
 	string filename = "student-" + classname + ".txt";
-	f2.open(filename);
+	ifstream fin;
+	string id, password, fullname, dob, clas;
+	int nstudent;
+	fin.open(filename);
+	if (!fin.is_open()) {
+		cout << "cannot open file";
+	}
+	else {
+		fin >> nstudent;
+		fin.ignore(1000, '\n');
+
+		cout << "Students in class of " << classname << " are:" << endl;;
+		for (int i = 0; i < nstudent; i++) {
+			fin.get();
+			getline(fin, id);
+			getline(fin, password);
+			getline(fin, fullname);
+			getline(fin, dob);
+			getline(fin, clas);
+
+			cout << endl;
+			cout << id << endl;
+			cout << fullname << endl;
+			cout << dob << endl;
+			cout << clas << endl;
+		}
+	}
+}
+
+//COURSE
+void importCourseCSV() {
+	string acayear, semester, classname, addressCSV;
+	string no, courseID, courseName, clas, instructor, instructorUsername, degree, gender, startDate,
+		endDate, dayOfWeek, startTime, endTime, room;
+
+	cout << "Enter academic year (yyyy-yyyy): ";
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
+	cout << "Enter class name: ";
+	getline(cin, classname, '\n');
+	cout << "Enter file csv address: ";
+	getline(cin, addressCSV, '\n');
+
+	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\All files\\19APCS1-schedule.csv
+
+	course* khoahoc = new course[10];
+	int Ncourse = 0;
+	int courseCapa = 10;
+
+	ifstream fin;
+	fin.open(addressCSV);
+	if (!fin.is_open()) {
+		cout << "cannot open file";
+	}
+	else {
+		getline(fin, no, '\n');
+		while (fin.good()) {
+			getline(fin, no, ',');
+			getline(fin, courseID, ',');
+			getline(fin, courseName, ',');
+			getline(fin, clas, ',');
+			getline(fin, instructorUsername, ',');
+			getline(fin, instructor, ',');
+			getline(fin, degree, ',');
+			getline(fin, gender, ',');
+			getline(fin, startDate, ',');
+			getline(fin, endDate, ',');
+			getline(fin, dayOfWeek, ',');
+			getline(fin, startTime, ',');
+			getline(fin, endTime, ',');
+			getline(fin, room, '\n');
+
+			string tmpstartDate = startDate;
+			tmpstartDate.replace(4, 1, " ");
+			tmpstartDate.replace(7, 1, " ");
+
+			string tmpendDate = endDate;
+			tmpendDate.replace(4, 1, " ");
+			tmpendDate.replace(7, 1, " ");
+
+			if (Ncourse == courseCapa) {         
+				course* tmpkhoahoc = new course[Ncourse + 10];
+				for (int i = 0; i < Ncourse; i++)
+					tmpkhoahoc[i] = khoahoc[i];
+				delete[] khoahoc;
+				khoahoc = tmpkhoahoc;
+				courseCapa += 10;
+			}
+
+			khoahoc[Ncourse].courseID = courseID;
+			khoahoc[Ncourse].courseName = courseName;
+			khoahoc[Ncourse].clas = clas;
+			khoahoc[Ncourse].instructor = instructor; 
+			khoahoc[Ncourse].instructorUsername = instructorUsername;
+			khoahoc[Ncourse].degree = degree;
+			khoahoc[Ncourse].gender = gender;
+			khoahoc[Ncourse].startDate = tmpstartDate;
+			khoahoc[Ncourse].endDate = tmpendDate;
+			khoahoc[Ncourse].dayOfWeek = dayOfWeek;
+			khoahoc[Ncourse].startTime = startTime;
+			khoahoc[Ncourse].endTime = endTime;
+			khoahoc[Ncourse].room = room;
+			khoahoc[Ncourse].status = 1;
+			++Ncourse;
+		}
+	}
+	fin.close();
+
+
+	string coursename = acayear + "-" + semester + "-schedule-" + classname + ".txt";
+	updateClassScheduleTXT(khoahoc, Ncourse, coursename);
+
+
+	for (int i = 0; i < Ncourse; i++) {
+		string tmpcourseID = khoahoc[i].courseID;
+		string coursestudent = acayear + "-" + semester + "-" + classname + "-" + tmpcourseID + "-student.txt";
+		
+		updateCourseStudentTXT(coursestudent, classname);
+	}
+	delete[]khoahoc;
+} 
+void addANewCourse() {
+	string acayear, semester, classname, coursename;
+
+	cout << "Enter academic year (yyyy-yyyy): ";
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
+	cout << "Enter class name: ";
+	getline(cin, classname, '\n');
+	coursename = acayear + "-" + semester + "-schedule-" + classname + ".txt";
+
+	course* khoahoc = nullptr;
+	int Ncourse=0;
+
+	loadClassScheduleTXT(khoahoc, Ncourse, coursename);
+	
+
+	cout << "New course: \n";
+	cout << "Enter courseID: ";				getline(cin, khoahoc[Ncourse].courseID, '\n');
+	string courseID = khoahoc[Ncourse].courseID;
+	cout << "Enter courseName: ";			getline(cin, khoahoc[Ncourse].courseName, '\n');
+	khoahoc[Ncourse].clas = classname;
+	cout << "Enter instructor: ";			getline(cin, khoahoc[Ncourse].instructor, '\n');
+	cout << "Enter instructorUsername: ";	getline(cin, khoahoc[Ncourse].instructorUsername, '\n');
+	cout << "Enter degree: ";				getline(cin, khoahoc[Ncourse].degree, '\n');
+	cout << "Enter gender: ";				getline(cin, khoahoc[Ncourse].gender, '\n');
+	cout << "Enter startDate(yyyy mm dd): ";getline(cin, khoahoc[Ncourse].startDate, '\n');
+	cout << "Enter endDate(yyyy mm dd): ";	getline(cin, khoahoc[Ncourse].endDate, '\n');
+	cout << "Enter dayOfWeek: ";			getline(cin, khoahoc[Ncourse].dayOfWeek, '\n');
+	cout << "Enter startTime(hh:mm): ";		getline(cin, khoahoc[Ncourse].startTime, '\n');
+	cout << "Enter endTime(hh:mm): ";		getline(cin, khoahoc[Ncourse].endTime, '\n');
+	cout << "Enter room: ";					getline(cin, khoahoc[Ncourse].room, '\n');
+	++Ncourse;
+
+	updateClassScheduleTXT(khoahoc, Ncourse, coursename);
+	
+	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
+
+	updateCourseStudentTXT(coursestudent, classname);
+
+	delete[] khoahoc;
+}
+void editACourse() {
+	string acayear, semester, classname, coursename;
+
+	cout << "Enter academic year (yyyy-yyyy): ";
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
+	cout << "Enter class name: ";
+	getline(cin, classname, '\n');
+	coursename = acayear + "-" + semester + "-schedule-" + classname + ".txt";
+
+	course* khoahoc = nullptr;
+	int Ncourse=0;
+
+	loadClassScheduleTXT(khoahoc, Ncourse, coursename);
+	
+
+	string courseID;
+	cout << "CourseID of the course that you want to modify: ";
+	getline(cin, courseID, '\n');
+	cout << "Modify: \n";
+	for (int i = 0; i < Ncourse; i++) {
+		if (khoahoc[i].courseID == courseID) {
+			cout << "Enter courseName: ";			getline(cin, khoahoc[i].courseName, '\n');
+			khoahoc[i].clas = classname;
+			cout << "Enter instructor: ";			getline(cin, khoahoc[i].instructor, '\n');
+			cout << "Enter instructorUsername: ";	getline(cin, khoahoc[i].instructorUsername, '\n');
+			cout << "Enter degree: ";				getline(cin, khoahoc[i].degree, '\n');
+			cout << "Enter gender: ";				getline(cin, khoahoc[i].gender, '\n');
+			cout << "Enter startDate(yyyy mm dd): ";getline(cin, khoahoc[i].startDate, '\n');
+			cout << "Enter endDate(yyyy mm dd): ";	getline(cin, khoahoc[i].endDate, '\n');
+			cout << "Enter dayOfWeek: ";			getline(cin, khoahoc[i].dayOfWeek, '\n');
+			cout << "Enter startTime(hh:mm): ";		getline(cin, khoahoc[i].startTime, '\n');
+			cout << "Enter endTime(hh:mm): ";		getline(cin, khoahoc[i].endTime, '\n');
+			cout << "Enter room: ";					getline(cin, khoahoc[i].room, '\n');
+			break;
+		}
+	}
+
+	updateClassScheduleTXT(khoahoc, Ncourse, coursename);
+	
+	delete[] khoahoc;
+}
+void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename) {
+	ofstream f2;
+
+	f2.open(coursename);
 	if (!f2.is_open()) {
 		cout << "cannot open file f2";
 	}
 	else {
-		for (int i = 0; i < Nclass; i++) {
-			if (lophoc[i].classname == classname) {
-				tmp = i; break;
-			}
-		}
-		f2 << lophoc[tmp].numofstu;                            //similarly
-		for (int i = 0; i < Nstudent; i++) {
-			if (hocsinh[i].clas == classname) {
-				f2 << endl << endl;
-				f2 << hocsinh[i].id << endl;
-				f2 << hocsinh[i].password << endl;
-				f2 << hocsinh[i].fullname << endl;
-				f2 << hocsinh[i].dob << endl;
-				f2 << hocsinh[i].clas;
-			}
+		f2 << Ncourse;
+		for (int i = 0; i < Ncourse; i++) {
+			f2 << endl << endl;
+			f2 << khoahoc[i].courseID << endl;
+			f2 << khoahoc[i].courseName << endl;
+			f2 << khoahoc[i].clas << endl;
+			f2 << khoahoc[i].instructor << endl;
+			f2 << khoahoc[i].instructorUsername << endl;
+			f2 << khoahoc[i].degree << endl;
+			f2 << khoahoc[i].gender << endl;
+			f2 << khoahoc[i].startDate << endl;
+			f2 << khoahoc[i].endDate << endl;
+			f2 << khoahoc[i].dayOfWeek << endl;
+			f2 << khoahoc[i].startTime << endl;
+			f2 << khoahoc[i].endTime << endl;
+			f2 << khoahoc[i].room;
 		}
 	}
+	f2.close();
 }
-
-
-void updateStudentTXT(student* hocsinh, const int Nstudent, string filename) {
-	ofstream fout;
-	fout.open(filename);
-	if (!fout.is_open()) {
-		cout << "cannot open, cannot write fout";
+void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename) {
+	ifstream fin;
+	fin.open(coursename);
+	if (!fin.is_open()) {
+		cout << "cannot open file\n";
+		khoahoc = new course[1];
 	}
 	else {
-		fout << Nstudent;
-		for (int i = 0; i < Nstudent; i++) {
-			fout << endl << endl;
-			fout << hocsinh[i].id << endl;
-			fout << hocsinh[i].password << endl;
-			fout << hocsinh[i].fullname << endl;
-			fout << hocsinh[i].dob << endl;
-			fout << hocsinh[i].clas;
+		fin >> Ncourse;
+		fin.ignore(1000, '\n');
+		khoahoc = new course[Ncourse + 1];
+		for (int i = 0; i < Ncourse; i++) {
+			fin.get();
+			getline(fin, khoahoc[i].courseID, '\n');
+			getline(fin, khoahoc[i].courseName, '\n');
+			getline(fin, khoahoc[i].clas, '\n');
+			getline(fin, khoahoc[i].instructor, '\n');
+			getline(fin, khoahoc[i].instructorUsername, '\n');
+			getline(fin, khoahoc[i].degree, '\n');
+			getline(fin, khoahoc[i].gender, '\n');
+			getline(fin, khoahoc[i].startDate, '\n');
+			getline(fin, khoahoc[i].endDate, '\n');
+			getline(fin, khoahoc[i].dayOfWeek, '\n');
+			getline(fin, khoahoc[i].startTime, '\n');
+			getline(fin, khoahoc[i].endTime, '\n');
+			getline(fin, khoahoc[i].room, '\n');
 		}
 	}
-	fout.close();
-	return;
+	fin.close();
 }
+void updateCourseStudentTXT(string coursestudent, string classname) {
+	stuincourse* hs = nullptr;
+	int Nstudent;
+
+	ofstream fo3;
+	
+	fo3.open(coursestudent);
+	if (!fo3.is_open()) {
+		cout << "cannot open file";
+	}
+	else {
+		ifstream fi4;
+		fi4.open("student-" + classname + ".txt");
+		if (!fi4.is_open()) {
+			cout << "cannot open file";
+		}
+		else {
+			fi4 >> Nstudent;
+			fo3 << Nstudent;
+			hs = new stuincourse[Nstudent + 1];
+
+			fi4.ignore(1000, '\n');
+			for (int i = 0; i < Nstudent; i++) {
+				fi4.get();
+				getline(fi4, hs[i].id, '\n');
+				getline(fi4, hs[i].password, '\n');
+				getline(fi4, hs[i].fullname, '\n');
+				getline(fi4, hs[i].dob, '\n');
+				getline(fi4, hs[i].clas, '\n');
+				hs[i].midterm = -1;
+				hs[i].final = -1;
+				hs[i].bonus = -1;
+				hs[i].final = -1;
+
+				fo3 << endl << endl;
+				fo3 << hs[i].id << endl;
+				fo3 << hs[i].password << endl;
+				fo3 << hs[i].fullname << endl;
+				fo3 << hs[i].dob << endl;
+				fo3 << hs[i].clas << endl;
+				fo3 << hs[i].midterm << endl;
+				fo3 << hs[i].final << endl;
+				fo3 << hs[i].bonus << endl;
+				fo3 << hs[i].final;
+			}
+		}
+		fi4.close();
+		fo3.close();
+	}
+
+	delete[]hs;
+}
+
+
+
 
 
 void lecturerFeature(lecturer a) {
@@ -423,3 +749,4 @@ void studentFeature(student a) {
 
 	//}
 }
+
