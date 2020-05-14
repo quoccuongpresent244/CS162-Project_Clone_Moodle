@@ -1,4 +1,3 @@
-#include <iostream>
 #include "function.h"
 
 using namespace std;
@@ -9,9 +8,9 @@ int main()
 	int staffCapa, lecturerCapa, studentCapa;
 
 	classes* lophoc = new classes[100];
-	int Nclass=0;
+	int Nclass = 0;
 
-	staff* giaovu=nullptr;
+	staff* giaovu = nullptr;
 	lecturer* giaovien = nullptr;
 	student* hocsinh = nullptr;
 
@@ -22,7 +21,7 @@ int main()
 	}
 	else {
 		fin1 >> Nstaff;
-		giaovu = new staff[Nstaff+10];
+		giaovu = new staff[Nstaff + 10];
 		loadStaff(fin1, giaovu, Nstaff);
 		fin1.close();
 		staffCapa = Nstaff + 10;
@@ -77,16 +76,18 @@ int main()
 		cout << hocsinh[i].fullname << endl;
 		cout << hocsinh[i].dob << endl;
 		cout << hocsinh[i].clas << endl;
+		cout << hocsinh[i].status << endl;
 		cout << endl;
 	}
 
 
-	
+
 
 	//importCSV(Nstudent, studentCapa, hocsinh, lophoc ,Nclass);
 	//addAStudenttoClass(Nstudent, studentCapa, hocsinh, lophoc, Nclass);
 
-	//login(giaovu, giaovien, hocsinh, Nstaff, Nlecturer, Nstudent);
+	login(giaovu, giaovien, hocsinh, Nstaff, Nlecturer, Nstudent);
+	RemoveAStudent(hocsinh, lophoc);
 
 
 

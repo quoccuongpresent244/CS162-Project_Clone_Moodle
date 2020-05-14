@@ -1,6 +1,6 @@
 #include "function.h"
 
-void firstMenu(){
+void firstMenu() {
 	/*int x;
 	cout << "1. Login\n";
 	cout << "2. Exit\n";
@@ -13,7 +13,7 @@ void firstMenu(){
 }
 
 void login(staff* giaovu, lecturer* giaovien, student* hocsinh,
-	const int Nstaff,const int Nlecturer,const int Nstudent) 
+	const int Nstaff, const int Nlecturer, const int Nstudent)
 {
 	string usernameX, passwordX;
 	cout << "username: ";
@@ -68,15 +68,15 @@ void loadLecturer(ifstream& fin, lecturer*& a, const int n) {
 
 void loadStudent(ifstream& fin, student*& hocsinh, const int Nstudent, classes*& lophoc, int& Nclass) {
 	//load data, execute data to calculate number of class? name of class? number of student in each class?
-
-	fin.ignore(1000, '\n');
 	for (int i = 0; i < Nstudent; i++) {
+		fin.ignore(1000, '\n');
 		fin.get();
 		getline(fin, hocsinh[i].id);
 		getline(fin, hocsinh[i].password);
 		getline(fin, hocsinh[i].fullname);
 		getline(fin, hocsinh[i].dob);
 		getline(fin, hocsinh[i].clas);
+		fin >> hocsinh[i].status;
 
 		if (Nclass == 0) {
 			lophoc[0].classname = hocsinh[i].clas;
@@ -106,12 +106,12 @@ void loadStudent(ifstream& fin, student*& hocsinh, const int Nstudent, classes*&
 	updateAllClassTXT(hocsinh, Nstudent, Nclass, lophoc);
 }
 
-void updateAllClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc) {   
+void updateAllClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc) {
 	//using for updating all data to file txt (student-19APCS1; student-19APCS2...)
 
-	for (int i = 0; i < Nclass; i++) {                        
+	for (int i = 0; i < Nclass; i++) {
 		ofstream fout;
-		string filename = "student-" + lophoc[i].classname +".txt";
+		string filename = "student-" + lophoc[i].classname + ".txt";
 		fout.open(filename);
 		if (!fout.is_open()) {
 			cout << "cannot open file";
@@ -125,7 +125,8 @@ void updateAllClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes
 					fout << hocsinh[j].password << endl;
 					fout << hocsinh[j].fullname << endl;
 					fout << hocsinh[j].dob << endl;
-					fout << hocsinh[j].clas;
+					fout << hocsinh[j].clas << endl;
+					fout << hocsinh[j].status;
 				}
 			}
 		}
@@ -167,7 +168,7 @@ void staffFeature(staff a) {
 	/*int t;
 	cin >> t;
 	switch (t) {
-	case 1: 
+	case 1:
 	}*/
 
 
@@ -176,11 +177,11 @@ void staffFeature(staff a) {
 }
 //Function for Staff
 
-void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& lophoc, int& Nclass) {
+void importCSV(int& Nstudent, int& studentCapa, student*& hocsinh, classes*& lophoc, int& Nclass) {
 	// import data from CSV file to program and rewrite file student.txt and student-class.txt
 
 	string no, studentID, fullname, dob, clas;
-	int tmp = Nstudent;
+	int tmp = Nstudent, status;
 
 	string addressCSV;
 
@@ -200,7 +201,8 @@ void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& l
 			getline(fin, studentID, ',');
 			getline(fin, fullname, ',');
 			getline(fin, dob, ',');
-			getline(fin, clas, '\n');
+			getline(fin, clas, ',');
+			fin >> status;
 
 			//2001/04/01 20010401 2001 04 01
 			string tmpPass = dob;
@@ -225,6 +227,7 @@ void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& l
 			hocsinh[Nstudent].fullname = fullname;
 			hocsinh[Nstudent].dob = tmpdob;
 			hocsinh[Nstudent].clas = clas;
+			hocsinh[Nstudent].status = status;
 			++Nstudent;
 
 		}
@@ -235,7 +238,7 @@ void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& l
 	++Nclass;
 
 	ofstream f2;
-	Classname = "student-" + Classname+".txt";        
+	Classname = "student-" + Classname + ".txt";
 	f2.open(Classname);                                // just create new file txt student-[class] to store data.
 	if (!f2.is_open()) {
 		cout << "cannot open file f2";
@@ -248,7 +251,8 @@ void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& l
 			f2 << hocsinh[i].password << endl;
 			f2 << hocsinh[i].fullname << endl;
 			f2 << hocsinh[i].dob << endl;
-			f2 << hocsinh[i].clas;
+			f2 << hocsinh[i].clas << endl;
+			f2 << hocsinh[i].status;
 		}
 	}
 
@@ -263,7 +267,7 @@ void importCSV(int & Nstudent, int & studentCapa, student*& hocsinh, classes*& l
 void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, classes* lophoc, int Nclass) {
 	if (Nstudent == studentCapa) {
 		student* tmpHocsinh = new student[Nstudent + 10];                 //increase slots for hocsinh pointer
-		for (int i = 0; i < Nstudent; i++)          
+		for (int i = 0; i < Nstudent; i++)
 			tmpHocsinh[i] = hocsinh[i];
 		delete[] hocsinh;
 		hocsinh = tmpHocsinh;
@@ -295,7 +299,7 @@ void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, clas
 	getline(cin, hocsinh[Nstudent].clas, '\n');
 
 	string tmpclassname = hocsinh[Nstudent].clas;         //no need to worry about
-	++Nstudent; 
+	++Nstudent;
 
 	for (int i = 0; i < Nclass; i++) {
 		if (lophoc[i].classname == tmpclassname) {
@@ -309,7 +313,7 @@ void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, clas
 }
 
 void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc, string classname) {
-        
+
 	// update file txt student-[class] after modifying it
 
 	int tmp;
@@ -333,7 +337,8 @@ void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* 
 				f2 << hocsinh[i].password << endl;
 				f2 << hocsinh[i].fullname << endl;
 				f2 << hocsinh[i].dob << endl;
-				f2 << hocsinh[i].clas;
+				f2 << hocsinh[i].clas << endl;
+				f2 << hocsinh[i].status;
 			}
 		}
 	}
@@ -354,7 +359,8 @@ void updateStudentTXT(student* hocsinh, const int Nstudent, string filename) {
 			fout << hocsinh[i].password << endl;
 			fout << hocsinh[i].fullname << endl;
 			fout << hocsinh[i].dob << endl;
-			fout << hocsinh[i].clas;
+			fout << hocsinh[i].clas << endl;
+			fout << hocsinh[i].status;
 		}
 	}
 	fout.close();
@@ -369,7 +375,7 @@ void lecturerFeature(lecturer a) {
 		cout << "\t \t Xin chao thay " << a.fullname << endl;
 	cout << "Thong tin giang vien: \n";
 	cout << "Tai khoan: " << a.username << endl;
-	cout << "Ho va ten: " << a.fullname<<endl;
+	cout << "Ho va ten: " << a.fullname << endl;
 	cout << "Hoc vi: " << a.degree << endl;
 	if (a.gender == 0)
 		cout << "Gioi tinh: Nu\n";
@@ -399,7 +405,7 @@ void lecturerFeature(lecturer a) {
 }
 
 void studentFeature(student a) {
-	cout << "\t \tXin chao ban " << a.fullname<<endl;
+	cout << "\t \tXin chao ban " << a.fullname << endl;
 
 	cout << "Thong tin sinh vien: \n";
 	cout << "Ma so sinh vien: " << a.id << endl;
@@ -422,4 +428,158 @@ void studentFeature(student a) {
 	//case 1:
 
 	//}
+}
+
+void LoadStudent(student* hocsinh, int numofstu, ifstream& f)
+{
+	for (int i = 0; i < numofstu; ++i)
+	{
+		f.get();
+		getline(f, hocsinh[i].id);
+		getline(f, hocsinh[i].password);
+		getline(f, hocsinh[i].fullname);
+		getline(f, hocsinh[i].dob);
+		getline(f, hocsinh[i].clas);
+		f >> hocsinh[i].status;
+	}
+	f.close();
+}
+
+void Remove(student* hocsinh, int numofstu, string tmpID)
+{
+	for (int i = 0; i < numofstu; ++i)
+	{
+		if (hocsinh[i].id == tmpID)
+		{
+			cout << "Student: " << hocsinh[i].fullname << endl;
+			cout << "Class: " << hocsinh[i].clas << endl;
+			cout << "Do you want to remove this student ? (if yes input 1, else input 0)." << endl;
+			int k;
+			cin >> k;
+			if (k == 0) return;
+			hocsinh[i].status = 0;
+			break;
+		}
+	}
+}
+
+void RemoveAStudent(student* hocsinh, classes* lophoc)
+{
+	ifstream f;
+	string tmpID;
+	string tmpClass;
+	int numofstu;
+	cout << "Enter the class of this student: " << endl;
+	cin.ignore();
+	getline(cin, tmpClass);
+	cout << "ID: " << endl;
+	getline(cin, tmpID);
+	string filename = "student-" + tmpClass + ".txt";
+	f.open(filename);
+	if (!f.is_open())
+		cout << "Can not open file." << endl;
+	else
+	{
+		f >> numofstu;
+		LoadStudent(hocsinh, numofstu, f);
+		Remove(hocsinh, numofstu, tmpID);
+		updateStudentTXT(hocsinh, numofstu, filename);
+	}
+}
+
+void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string tmpClass)
+{
+	for (int i = 0; i < numofstu; ++i)
+	{
+		if (hocsinh[i].id == tmpID)
+		{
+			cout << "Student: " << hocsinh[i].fullname << endl;
+			cout << "Class: " << hocsinh[i].clas << endl;
+			cout << "Do you want to change this student's class ? (if yes input 1, else input 0)." << endl;
+			int k;
+			cin >> k;
+			if (k == 0) return;
+			ofstream f1, f2;
+			f1.open("student-" + tmpClass + ".txt");
+			if (!f1.is_open())
+				cout << "Can not open file." << endl;
+			else
+			{
+				f1 << numofstu - 1;
+				for (int j = 0; j < numofstu; ++j)
+				{
+					if (j != i)
+					{
+						f1 << endl << endl;
+						f1 << hocsinh[j].id << endl;
+						f1 << hocsinh[j].password << endl;
+						f1 << hocsinh[j].fullname << endl;
+						f1 << hocsinh[j].dob << endl;
+						f1 << hocsinh[j].clas << endl;
+						f1 << hocsinh[j].status;
+					}
+				}
+				f1.close();
+			}
+			cout << "Enter the new class of this student: " << endl;
+			string tmpNew;
+			getline(cin, tmpNew);
+			ifstream f;
+			int numofstu1;
+			f.open("student-" + tmpNew + ".txt");
+			if (!f.is_open())
+				cout << "Can not open file." << endl;
+			else
+			{
+				f >> numofstu1;
+				LoadStudent(hocsinh, numofstu1, f);
+			}
+			f2.open("student-" + tmpNew + ".txt");
+			if (!f2.is_open())
+				cout << "Can not open file." << endl;
+			else
+			{
+				f2 << numofstu1 + 1;
+				for (int l = 0; l < numofstu1; ++l)
+				{
+					f2 << endl << endl;
+					f2 << hocsinh[l].id << endl;
+					f2 << hocsinh[l].password << endl;
+					f2 << hocsinh[l].fullname << endl;
+					f2 << hocsinh[l].dob << endl;
+					f2 << hocsinh[l].clas << endl;
+					f2 << hocsinh[l].status;
+				}
+				f2 << endl << endl;
+				f2 << hocsinh[i].id << endl;
+				f2 << hocsinh[i].password << endl;
+				f2 << hocsinh[i].fullname << endl;
+				f2 << hocsinh[i].dob << endl;
+				f2 << hocsinh[i].clas << endl;
+				f2 << hocsinh[i].status;
+				f2.close();
+			}
+		}
+	}
+}
+
+void ChangeClass(student* hocsinh, classes* lophoc)
+{
+	ifstream f;
+	string tmpID;
+	string tmpClass;
+	int numofstu;
+	cout << "Enter the class of this student: " << endl;
+	getline(cin, tmpClass);
+	cout << "ID: " << endl;
+	getline(cin, tmpID);
+	f.open("student-" + tmpClass + ".txt");
+	if (!f.is_open())
+		cout << "Can not open file." << endl;
+	else
+	{
+		f >> numofstu;
+		LoadStudent(hocsinh, numofstu, f);
+		DeleteAndAddStudent(hocsinh, numofstu, tmpID, tmpClass);
+	}
 }
