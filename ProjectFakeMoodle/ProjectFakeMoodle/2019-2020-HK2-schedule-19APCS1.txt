@@ -1,0 +1,43 @@
+3
+
+CS162
+Introduction to Programming
+19APCS1
+Dinh Ba Tien
+dbtien
+TS
+Male
+2020 04 06
+2020 06 01
+MON
+7:30
+11:30
+I42
+
+CM101
+Communications
+19APCS1
+Duong Nguyen Vu
+dnvu
+GS
+Male
+2020 04 07
+2020 06 02
+SAT
+13:30
+17:30
+I23
+
+MTH212
+Calculus 2
+19APCS1
+Nguyen Van Anh
+nvanh
+GS
+Male
+2020 04 06
+2020 06 08
+MON
+07:30
+09:30
+I25
