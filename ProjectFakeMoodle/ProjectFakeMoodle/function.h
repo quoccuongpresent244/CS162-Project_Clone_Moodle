@@ -23,6 +23,7 @@ struct student {
 	string fullname;
 	string dob;
 	string clas;
+	int status;
 	//int type;
 };
 struct lecturer {
@@ -38,7 +39,7 @@ void loadLecturer(ifstream& fin, lecturer*& a, const int n);
 void loadStudent(ifstream& fin, student*& hocsinh, const int Nstudent, classes*& lophoc, int& Nclass);
 void updateAllClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc);
 
-void login(staff giaovu[], lecturer giaovien[], student hocsinh[],
+void login(staff* giaovu, lecturer* giaovien, student* hocsinh,
 	const int Nstaff, const int Nlecturer, const int Nstudent);
 
 void staffFeature(staff a);
@@ -51,4 +52,12 @@ void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, clas
 void updateStudentTXT(student* student, const int Nstudent, string filename);
 void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc, string classname);
 
+void LoadStudent(student* hocsinh, int numofstu, ifstream& f);
+void Remove(student* hocsinh, int numofstu, string tmpID);
+void RemoveAStudent();
+
+void ChangeClass();
+void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string tmpClass);
+
 #endif
+
