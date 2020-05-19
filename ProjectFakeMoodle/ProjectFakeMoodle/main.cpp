@@ -87,7 +87,7 @@ int main()
 	//addAStudenttoClass(Nstudent, studentCapa, hocsinh, lophoc, Nclass);
 
 	login(giaovu, giaovien, hocsinh, Nstaff, Nlecturer, Nstudent);
-	//RemoveAStudent();
+	RemoveAStudent();
 	//ChangeClass();
 
 

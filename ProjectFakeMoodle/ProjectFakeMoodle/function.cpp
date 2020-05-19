@@ -445,7 +445,7 @@ void LoadStudent(student* hocsinh, int numofstu, ifstream& f)
 	f.close();
 }
 
-void Remove(student* hocsinh, int numofstu, string tmpID)
+void Remove(student* hocsinh, int numofstu, string tmpID, string tmpClass)
 {
 	for (int i = 0; i < numofstu; ++i)
 	{
@@ -458,8 +458,37 @@ void Remove(student* hocsinh, int numofstu, string tmpID)
 			cin >> k;
 			if (k == 0) return;
 			hocsinh[i].status = 0;
-			cout << "This student has been removed !" << endl;
-			break;
+			ofstream fout;
+			fout.open("student-" + tmpClass + ".txt");
+			if (!fout.is_open()) 
+				cout << "cannot open, cannot write fout";
+			else
+			{
+				fout << numofstu - 1;
+				for (int j = 0; j < numofstu; j++)
+				{
+					if (j != i)
+					{
+						fout << endl << endl;
+						fout << hocsinh[j].id << endl;
+						fout << hocsinh[j].password << endl;
+						fout << hocsinh[j].fullname << endl;
+						fout << hocsinh[j].dob << endl;
+						fout << hocsinh[j].clas << endl;
+						fout << hocsinh[j].status;
+					}
+				}
+				fout << endl << endl;
+				fout << hocsinh[i].id << endl;
+				fout << hocsinh[i].password << endl;
+				fout << hocsinh[i].fullname << endl;
+				fout << hocsinh[i].dob << endl;
+				fout << hocsinh[i].clas << endl;
+				fout << hocsinh[i].status;
+				fout.close();
+				cout << "This student has been removed !";
+			}
+			return;
 		}
 	}
 }
@@ -482,8 +511,7 @@ void RemoveAStudent()
 		f >> numofstu;
 		student* hocsinh1 = new student[numofstu];
 		LoadStudent(hocsinh1, numofstu, f);
-		Remove(hocsinh1, numofstu, tmpID);
-		updateStudentTXT(hocsinh1, numofstu, "student-" + tmpClass + ".txt");
+		Remove(hocsinh1, numofstu, tmpID, tmpClass);
 		delete[]hocsinh1;
 	}
 }

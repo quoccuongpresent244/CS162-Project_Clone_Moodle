@@ -53,7 +53,7 @@ void updateStudentTXT(student* student, const int Nstudent, string filename);
 void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc, string classname);
 
 void LoadStudent(student* hocsinh, int numofstu, ifstream& f);
-void Remove(student* hocsinh, int numofstu, string tmpID);
+void Remove(student* hocsinh, int numofstu, string tmpID, string tmpClass);
 void RemoveAStudent();
 
 void ChangeClass();
