@@ -109,6 +109,7 @@ void updateCourseStudentTXT(string coursetudent, string classname);
 
 void staffMenuShow();
 void staffFeature(staff a);
+void lecturerMenuShow();
 void lecturerFeature(lecturer a);
 void studentFeature(student a);
 

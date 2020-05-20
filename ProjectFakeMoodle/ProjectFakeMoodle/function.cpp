@@ -13,7 +13,7 @@ void firstMenu()
 	int x;
 	cout << "1. Login\n";
 	cout << "2. Exit\n";
-	cout << "What you want: (1-2): \n";
+	cout << "What you want: (1-2): ";
 	cin >> x;
 	switch (x)
 	{
@@ -281,7 +281,7 @@ void staffMenuShow()
 {
 	cout << "Menu: \n";
 
-	cout << "------------------------CLASS------------------------";
+	cout << "------------------------CLASS------------------------\n";
 	cout << "1. Import students of a class\n";
 	cout << "2. Add a new student to a class\n";
 	cout << "3. Edit an existing student\n";
@@ -291,7 +291,7 @@ void staffMenuShow()
 	cout << "7. View list of student in a class\n";
 	cout << "8. Change your password\n\n";
 
-	cout << "------------------------COURSE------------------------";
+	cout << "------------------------COURSE------------------------\n";
 	cout << "9. Create / update / delete / view academic years, and semesters" << endl;
 	cout << "10. Import a course" << endl;
 	cout << "11. Manually add a new course" << endl;
@@ -301,7 +301,7 @@ void staffMenuShow()
 	cout << "15. Add a specific student to a course\n";
 	cout << "16. View list of courses in the current semester\n";
 
-	cout << "Please choose menu (1-8): ";
+	cout << "Please choose menu (1-16): ";
 }
 void staffFeature(staff a)
 {
@@ -1203,6 +1203,23 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 	delete[] hs;
 }
 
+
+void lecturerMenuShow() {
+	cout << "Menu: \n";
+
+	cout << "------------------------COURSE------------------------\n";
+	cout << "1. View list of courses in the current semester\n";
+	cout << "2. View list of students of a course\n";
+	cout << "------------------------ATTENDANCE------------------------\n";
+	cout << "3. View attendance list of a course\n";
+	cout << "4. Edit an attendance\n";
+	cout << "------------------------SCOREBOARD------------------------\n";
+	cout << "5. Import scoreboard of a course (midterm, final, bonus) from CSV file\n";
+	cout << "6. Edit grade of a student\n";
+	cout << "7. View a scoreboard\n";
+	
+	cout << "Please choose menu (1-7): ";
+}
 void lecturerFeature(lecturer a)
 {
 	if (a.gender == 0)
@@ -1220,18 +1237,45 @@ void lecturerFeature(lecturer a)
 	cout << endl
 		 << endl;
 
-	cout << "Menu: \n";
+	lecturerMenuShow();
 
-	cout << "1. View list of courses in the current semester\n";
-	cout << "2. View list of students of a course\n";
-	cout << "3. View attendance list of a course\n";
-	cout << "4. Edit an attendance\n";
-	cout << "5. Import scoreboard of a course\n";
-	cout << "6. Edit grade of a student\n";
-	cout << "7. View a scoreboard\n";
-	cout << "8. Change your password\n";
+	int con = 1;
+	int t;
+	cin >> t;
+	while (con == 1)
+	{
+		switch (t)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		default:
+			cout << "Wrong choice\n";
+			break;
+		}
 
-	cout << "Please choose menu (1-8)\n";
+		cout << "Do you want to continue (0.No 1.Yes): ";
+		cin >> con;
+
+		if (con == 1)
+		{
+			lecturerMenuShow();
+			cin >> t;
+		}
+		else
+			return;
+	}
 }
 
 void studentFeature(student a)
