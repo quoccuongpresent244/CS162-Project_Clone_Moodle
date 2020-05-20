@@ -665,6 +665,88 @@ void RemoveAStudent()
 	}
 }
 
+void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string tmpClass)
+{
+	for (int i = 0; i < numofstu; ++i)
+	{
+		if (hocsinh[i].id == tmpID)
+		{
+			cout << "Student: " << hocsinh[i].fullname << endl;
+			cout << "Class: " << hocsinh[i].clas << endl;
+			cout << "Do you want to change this student's class ? (if yes input 1, else input 0)." << endl;
+			int k;
+			cin >> k;
+			if (k == 0) return;
+			ofstream f1, f2;
+			f1.open("student-" + tmpClass + ".txt");
+			if (!f1.is_open())
+				cout << "Can not open file." << endl;
+			else
+			{
+				f1 << (numofstu - 1);
+				for (int j = 0; j < numofstu; ++j)
+				{
+					if (j != i)
+					{
+						f1 << endl << endl;
+						f1 << hocsinh[j].id << endl;
+						f1 << hocsinh[j].password << endl;
+						f1 << hocsinh[j].fullname << endl;
+						f1 << hocsinh[j].dob << endl;
+						f1 << hocsinh[j].clas << endl;
+						f1 << hocsinh[j].status;
+					}
+				}
+				f1.close();
+			}
+			cout << "Enter the new class of this student: " << endl;
+			string tmpNew;
+			cin.get();
+			getline(cin, tmpNew);
+			ifstream f;
+			int numofstu1;
+			f.open("student-" + tmpNew + ".txt");
+			student* hocsinh1 = nullptr;
+			if (!f.is_open())
+				cout << "Can not open file." << endl;
+			else
+			{
+				f >> numofstu1;
+				hocsinh1 = new student[numofstu1];
+				LoadStudent(hocsinh1, numofstu1, f);
+			}
+			f2.open("student-" + tmpNew + ".txt");
+			if (!f2.is_open())
+				cout << "Can not open file." << endl;
+			else
+			{
+				f2 << numofstu1 + 1;
+				for (int l = 0; l < numofstu1; ++l)
+				{
+					f2 << endl << endl;
+					f2 << hocsinh1[l].id << endl;
+					f2 << hocsinh1[l].password << endl;
+					f2 << hocsinh1[l].fullname << endl;
+					f2 << hocsinh1[l].dob << endl;
+					f2 << hocsinh1[l].clas << endl;
+					f2 << hocsinh1[l].status;
+				}
+				f2 << endl << endl;
+				f2 << hocsinh[i].id << endl;
+				f2 << hocsinh[i].password << endl;
+				f2 << hocsinh[i].fullname << endl;
+				f2 << hocsinh[i].dob << endl;
+				f2 << hocsinh[i].clas << endl;
+				f2 << hocsinh[i].status;
+				f2.close();
+			}
+			cout << "The class of this student have been changed !" << endl;
+			delete[]hocsinh1;
+			break;
+		}
+	}
+}
+
 void viewListOfClasses()
 {
 	cout << left << setw(15) << setfill(' ') << "Class name";
