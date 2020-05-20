@@ -6,6 +6,12 @@
 #include <string>
 
 using namespace std;
+
+extern int  Nstaff, Nlecturer, Nstudent, Nclass;
+extern int  staffCapa, lecturerCapa, studentCapa;
+
+
+
 struct classes {
 	string classname;
 	int numofstu;
@@ -49,7 +55,6 @@ struct course {
 	string room;
 	int status;
 };
-
 struct stuincourse { //student in course containing student infor, scoreboard and attendance
 	string id;
 	string password;
@@ -61,26 +66,31 @@ struct stuincourse { //student in course containing student infor, scoreboard an
 	int final;
 	int bonus;
 	int total;
-					// Tao chua tao attendance
+	// Tao chua tao attendance
 };
 
-void login(staff giaovu[], lecturer giaovien[], student hocsinh[],
-	const int Nstaff, const int Nlecturer, const int Nstudent);
-void loadStaff(ifstream& fin, staff*& a, const int n);
-void loadLecturer(ifstream& fin, lecturer*& a, const int n);
-void loadStudent(ifstream& fin, student*& hocsinh, const int Nstudent, classes*& lophoc, int& Nclass);
+extern classes* lophoc;
+extern staff* giaovu;
+extern lecturer* giaovien;
+extern student* hocsinh;
 
-void updateAllClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc);
-void updateAClassTXT(student* hocsinh, const int Nstudent, int Nclass, classes* lophoc, string classname);
-void updateStudentTXT(student* student, const int Nstudent, string filename);
+void firstMenu();
+void login();
+void loadStaff();
+void loadLecturer();
+void loadStudent();
+
+void updateAllClassTXT();
+void updateAClassTXT(string classname);
+void updateStudentTXT(string filename);
 
 
-
+void staffMenuShow();
 void staffFeature(staff a);
 //CLASS
-void importCSV(int& Nstudent, int& studentCapa, student*& hocsinh, classes*& lophoc, int& Nclass);
-void addAStudenttoClass(int& Nstudent, int& studentCapa, student*& hocsinh, classes* lophoc, int Nclass);
-void viewListOfClasses(classes* lophoc, int Nclass);
+void importCSV();
+void addAStudenttoClass();
+void viewListOfClasses();
 void viewListOfStudentsInClass();
 
 //COURSE
