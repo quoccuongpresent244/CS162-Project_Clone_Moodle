@@ -578,6 +578,22 @@ void editStudent()
 	updateAClassTXT(tmpClass);
 }
 
+void LoadStudent(student* hocsinh, int numofstu, ifstream& f)
+{
+	for (int i = 0; i < numofstu; ++i)
+	{
+		f.ignore(1000, '\n');
+		f.get();
+		getline(f, hocsinh[i].id);
+		getline(f, hocsinh[i].password);
+		getline(f, hocsinh[i].fullname);
+		getline(f, hocsinh[i].dob);
+		getline(f, hocsinh[i].clas);
+		f >> hocsinh[i].status;
+	}
+	f.close();
+}
+
 void viewListOfClasses()
 {
 	cout << left << setw(15) << setfill(' ') << "Class name";
