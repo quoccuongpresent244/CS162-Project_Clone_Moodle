@@ -91,6 +91,7 @@ void addAStudenttoClass();
 void editStudent();
 void LoadStudent(student* hocsinh, int numofstu, ifstream& f);
 void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass);
+void RemoveAStudent();
 void viewListOfClasses();
 void viewListOfStudentsInClass();
 
