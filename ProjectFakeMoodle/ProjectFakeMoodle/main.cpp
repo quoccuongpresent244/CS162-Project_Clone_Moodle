@@ -5,13 +5,13 @@ using namespace std;
 
 int main()
 {
-	//loadStaff();
-	//loadLecturer();
-	//loadStudent();
+	loadStaff();
+	loadLecturer();
+	loadStudent();
 
 
 	//firstMenu();
-	listofCourse();
+	viewListOfClasses(); 
 
 
 
