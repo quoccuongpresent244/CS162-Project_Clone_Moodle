@@ -747,6 +747,29 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 	}
 }
 
+void ChangeClass()
+{
+	ifstream f;
+	string tmpID;
+	string tmpClass;
+	int numofstu;
+	cout << "Enter the class of this student: " << endl;
+	getline(cin, tmpClass);
+	cout << "ID: " << endl;
+	getline(cin, tmpID);
+	f.open("student-" + tmpClass + ".txt");
+	if (!f.is_open())
+		cout << "Can not open file." << endl;
+	else
+	{
+		f >> numofstu;
+		student* hocsinh1 = new student[numofstu];
+		LoadStudent(hocsinh1, numofstu, f);
+		DeleteAndAddStudent(hocsinh1, numofstu, tmpID, tmpClass);
+		delete[]hocsinh1;
+	}
+}
+
 void viewListOfClasses()
 {
 	cout << left << setw(15) << setfill(' ') << "Class name";
