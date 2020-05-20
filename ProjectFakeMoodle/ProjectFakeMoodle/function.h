@@ -89,6 +89,8 @@ void updateStudentTXT(string filename);
 void importCSV();
 void addAStudenttoClass();
 void editStudent();
+void LoadStudent(student* hocsinh, int numofstu, ifstream& f);
+void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass);
 void viewListOfClasses();
 void viewListOfStudentsInClass();
 

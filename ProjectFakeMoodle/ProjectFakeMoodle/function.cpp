@@ -594,6 +594,54 @@ void LoadStudent(student* hocsinh, int numofstu, ifstream& f)
 	f.close();
 }
 
+void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass)
+{
+	for (int i = 0; i < numofstu; ++i)
+	{
+		if (hocsinh[i].id == tmpID)
+		{
+			cout << "Student: " << hocsinh[i].fullname << endl;
+			cout << "Class: " << hocsinh[i].clas << endl;
+			cout << "Do you want to remove this student ? (if yes input 1, else input 0)." << endl;
+			int k;
+			cin >> k;
+			if (k == 0) return;
+			hocsinh[i].status = 0;
+			ofstream fout;
+			fout.open("student-" + tmpClass + ".txt");
+			if (!fout.is_open())
+				cout << "cannot open, cannot write fout";
+			else
+			{
+				fout << numofstu - 1;
+				for (int j = 0; j < numofstu; j++)
+				{
+					if (j != i)
+					{
+						fout << endl << endl;
+						fout << hocsinh[j].id << endl;
+						fout << hocsinh[j].password << endl;
+						fout << hocsinh[j].fullname << endl;
+						fout << hocsinh[j].dob << endl;
+						fout << hocsinh[j].clas << endl;
+						fout << hocsinh[j].status;
+					}
+				}
+				fout << endl << endl;
+				fout << hocsinh[i].id << endl;
+				fout << hocsinh[i].password << endl;
+				fout << hocsinh[i].fullname << endl;
+				fout << hocsinh[i].dob << endl;
+				fout << hocsinh[i].clas << endl;
+				fout << hocsinh[i].status;
+				fout.close();
+				cout << "This student has been removed !";
+			}
+			return;
+		}
+	}
+}
+
 void viewListOfClasses()
 {
 	cout << left << setw(15) << setfill(' ') << "Class name";
