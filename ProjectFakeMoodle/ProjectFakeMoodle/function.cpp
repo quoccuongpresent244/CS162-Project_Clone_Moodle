@@ -266,7 +266,7 @@ void staffFeature(staff a) {
 		switch (t) {
 		case 1: importCSV(); break;
 		case 2: addAStudenttoClass(); break;
-		case 3: break;
+		case 3: editStudent(); break;
 		case 4: break;
 		case 5: break;
 		case 6: viewListOfClasses(); break;
@@ -419,6 +419,47 @@ void addAStudenttoClass() {
 	updateAClassTXT(tmpclassname);
 	return;
 }
+
+void editStudent()
+{
+	string tmpID;
+	string tmpClass;
+	cout << "Enter Student-ID you want to edit: " << endl;
+	getline(cin, tmpID, '\n');
+
+	ifstream fi;
+	fi.open("student.txt");
+	loadStudent();
+
+	for (int i = 0; i < Nstudent; i++)
+	{
+		if (tmpID == hocsinh[i].id)
+		{
+			cout << "Student ID: ";
+			getline(cin, hocsinh[i].id, '\n');
+
+			cout << "Password: ";
+			getline(cin, hocsinh[i].password, '\n');
+
+			cout << "Full name: ";
+			getline(cin, hocsinh[i].fullname, '\n');
+
+			cout << "Date of birth: ";
+			getline(cin, hocsinh[i].dob, '\n');
+
+			cout << "Class: ";
+			getline(cin, hocsinh[i].clas, '\n'); 
+
+			tmpClass = hocsinh[i].clas;
+
+			break;
+		}
+	}
+	fi.close();
+	updateStudentTXT("student.txt");
+	updateAClassTXT(tmpClass);
+}
+
 void viewListOfClasses() {
 	cout << "List of classes: \n";
 	for (int i = 0; i < Nclass; i++)

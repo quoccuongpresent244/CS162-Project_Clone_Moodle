@@ -90,6 +90,7 @@ void staffFeature(staff a);
 //CLASS
 void importCSV();
 void addAStudenttoClass();
+void editStudent();
 void viewListOfClasses();
 void viewListOfStudentsInClass();
 
