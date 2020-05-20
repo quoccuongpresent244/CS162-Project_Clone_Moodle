@@ -2,6 +2,7 @@
 #define _FUNCTION_H_
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 
@@ -84,9 +85,6 @@ void updateAllClassTXT();
 void updateAClassTXT(string classname);
 void updateStudentTXT(string filename);
 
-
-void staffMenuShow();
-void staffFeature(staff a);
 //CLASS
 void importCSV();
 void addAStudenttoClass();
@@ -98,11 +96,13 @@ void viewListOfStudentsInClass();
 void importCourseCSV();
 void addANewCourse();
 void editACourse();
+void listofCourse(); //task 20: view List of Course
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);
 void updateCourseStudentTXT(string coursetudent, string classname);
 
-
+void staffMenuShow();
+void staffFeature(staff a);
 void lecturerFeature(lecturer a);
 void studentFeature(student a);
 

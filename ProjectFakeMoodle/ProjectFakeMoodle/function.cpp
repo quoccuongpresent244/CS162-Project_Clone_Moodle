@@ -231,6 +231,7 @@ void updateStudentTXT(string filename) {
 void staffMenuShow() {
 	cout << "Menu: \n";
 
+	cout <<"------------------------CLASS------------------------";
 	cout << "1. Import students of a class\n";
 	cout << "2. Add a new student to a class\n";
 	cout << "3. Edit an existing student\n";
@@ -239,6 +240,16 @@ void staffMenuShow() {
 	cout << "6. View list of classes\n";
 	cout << "7. View list of student in a class\n";
 	cout << "8. Change your password\n\n";
+
+	cout <<"------------------------COURSE------------------------";
+	cout << "9. Create / update / delete / view academic years, and semesters" << endl;
+	cout << "10. Import a course" << endl;
+	cout << "11. Manually add a new course" << endl;
+	cout << "12. Edit an existing course\n";
+	cout << "13. Remove a course\n";
+	cout << "14. Remove a specific student from a course\n";
+	cout << "15. Add a specific student to a course\n";
+	cout << "16. View list of courses in the current semester\n"; 
 
 	cout << "Please choose menu (1-8): ";
 }
@@ -272,6 +283,18 @@ void staffFeature(staff a) {
 		case 6: viewListOfClasses(); break;
 		case 7: viewListOfStudentsInClass(); break;
 		case 8: break;
+		case 9: break;
+		case 10: break;
+		case 11: break;
+		case 12: break;
+		case 13: break;
+		case 14: break;
+		case 15: break;
+		case 16: break;
+		case 17: break;
+		case 18: break;
+		case 19: break;
+		case 20: break;
 		default: cout << "Wrong choice\n"; break;
 		}
 
@@ -287,7 +310,7 @@ void staffFeature(staff a) {
 
 }
 //Function for Staff
-//CLASS
+///*--------------------------------CLASS--------------------------------*/
 void importCSV() {
 	// import data from CSV file to program and rewrite file student.txt and student-class.txt
 
@@ -502,7 +525,7 @@ void viewListOfStudentsInClass() {
 	}
 }
 
-//COURSE
+/*--------------------------------COURSE--------------------------------*/
 void importCourseCSV() {
 	string acayear, semester, classname, addressCSV;
 	string no, courseID, courseName, clas, instructor, instructorUsername, degree, gender, startDate,
@@ -680,6 +703,50 @@ void editACourse() {
 
 	delete[] khoahoc;
 }
+
+void listofCourse(){
+	course* khoahoc = nullptr;
+	int Ncourse = 0;  
+	string className; 
+	cout << "Please enter Class you want to view: ";
+	getline(cin, className, '\n');
+
+	string scheduleFileName = "2019-2020-HK2-schedule-" + className + ".txt";
+	loadClassScheduleTXT(khoahoc, Ncourse, scheduleFileName);
+
+	cout << left << setw(14) << setfill(' ') << "Course ID";
+	cout << left << setw(28) << setfill(' ') << "Course Name";
+	cout << left << setw(10) << setfill(' ') << "Class";
+	cout << left << setw(20) << setfill(' ') << "Instructor";
+	cout << left << setw(25) << setfill(' ') << "Instructor Username";
+	cout << left << setw(12) << setfill(' ') << "Degree";
+	cout << left << setw(12) << setfill(' ') << "Gender";
+	cout << left << setw(16) << setfill(' ') << "Start Date";
+	cout << left << setw(14) << setfill(' ') << "End date";
+	cout << left << setw(17) << setfill(' ') << "Day Of Week";
+	cout << left << setw(16) << setfill(' ') << "Start time";
+	cout << left << setw(14) << setfill(' ') << "End time";
+	cout << left << setw(10) << setfill(' ') << "Room";
+	cout << endl;
+
+	for (int i = 0; i < Ncourse; ++i){
+		cout << left << setw(14) << setfill(' ') << khoahoc[i].courseID;
+		cout << left << setw(28) << setfill(' ') << khoahoc[i].courseName;
+		cout << left << setw(10) << setfill(' ') << khoahoc[i].clas;
+		cout << left << setw(20) << setfill(' ') << khoahoc[i].instructor;
+		cout << left << setw(25) << setfill(' ') << khoahoc[i].instructorUsername;
+		cout << left << setw(12) << setfill(' ') << khoahoc[i].degree;
+		cout << left << setw(12) << setfill(' ') << khoahoc[i].gender;
+		cout << left << setw(16) << setfill(' ') << khoahoc[i].startDate;
+		cout << left << setw(14) << setfill(' ') << khoahoc[i].endDate;
+		cout << left << setw(17) << setfill(' ') << khoahoc[i].dayOfWeek;
+		cout << left << setw(16) << setfill(' ') << khoahoc[i].startTime;
+		cout << left << setw(14) << setfill(' ') << khoahoc[i].endTime;
+		cout << left << setw(10) << setfill(' ') << khoahoc[i].room;
+		cout << endl;
+	}
+}
+
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string classschedule) {
 	ofstream f2;
 
