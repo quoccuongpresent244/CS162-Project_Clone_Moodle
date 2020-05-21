@@ -139,6 +139,8 @@ void loadStudent()
 			getline(fin, hocsinh[i].fullname);
 			getline(fin, hocsinh[i].dob);
 			getline(fin, hocsinh[i].clas);
+			fin >> hocsinh[i].status;
+			fin.get();
 
 			if (Nclass == 0)
 			{
@@ -205,7 +207,8 @@ void updateAllClassTXT()
 					fout << hocsinh[j].password << endl;
 					fout << hocsinh[j].fullname << endl;
 					fout << hocsinh[j].dob << endl;
-					fout << hocsinh[j].clas;
+					fout << hocsinh[j].clas << endl;
+					fout << hocsinh[j].status;
 				}
 			}
 		}
@@ -246,7 +249,8 @@ void updateAClassTXT(string classname)
 				f2 << hocsinh[i].password << endl;
 				f2 << hocsinh[i].fullname << endl;
 				f2 << hocsinh[i].dob << endl;
-				f2 << hocsinh[i].clas;
+				f2 << hocsinh[i].clas << endl;
+				f2 << hocsinh[i].status;
 			}
 		}
 	}
@@ -270,7 +274,8 @@ void updateStudentTXT(string filename)
 			fout << hocsinh[i].password << endl;
 			fout << hocsinh[i].fullname << endl;
 			fout << hocsinh[i].dob << endl;
-			fout << hocsinh[i].clas;
+			fout << hocsinh[i].clas << endl;
+			fout << hocsinh[i].status;
 		}
 	}
 	fout.close();
@@ -339,8 +344,10 @@ void staffFeature(staff a)
 			editStudent();
 			break;
 		case 4:
+			RemoveAStudent();
 			break;
 		case 5:
+			ChangeClass();
 			break;
 		case 6:
 			viewListOfClasses();
@@ -602,7 +609,7 @@ void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass
 		{
 			cout << "Student: " << hocsinh[i].fullname << endl;
 			cout << "Class: " << hocsinh[i].clas << endl;
-			cout << "Do you want to remove this student ? (if yes input 1, else input 0)." << endl;
+			cout << "Do you want to remove this student ? (0.No 1.Yes).";
 			int k;
 			cin >> k;
 			if (k == 0) return;
@@ -635,7 +642,7 @@ void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass
 				fout << hocsinh[i].clas << endl;
 				fout << hocsinh[i].status;
 				fout.close();
-				cout << "This student has been removed !";
+				cout << "This student has been removed !" << endl;
 			}
 			return;
 		}
@@ -648,9 +655,10 @@ void RemoveAStudent()
 	string tmpID;
 	string tmpClass;
 	int numofstu;
-	cout << "Enter the class of this student: " << endl;
+	cout << "Enter the class of this student: ";
+	cin.ignore();
 	getline(cin, tmpClass);
-	cout << "ID: " << endl;
+	cout << "ID: ";
 	getline(cin, tmpID);
 	f.open("student-" + tmpClass + ".txt");
 	if (!f.is_open())
@@ -673,7 +681,7 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 		{
 			cout << "Student: " << hocsinh[i].fullname << endl;
 			cout << "Class: " << hocsinh[i].clas << endl;
-			cout << "Do you want to change this student's class ? (if yes input 1, else input 0)." << endl;
+			cout << "Do you want to change this student's class ? (0.No 1.Yes).";
 			int k;
 			cin >> k;
 			if (k == 0) return;
@@ -699,7 +707,7 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 				}
 				f1.close();
 			}
-			cout << "Enter the new class of this student: " << endl;
+			cout << "Enter the new class of this student: ";
 			string tmpNew;
 			cin.get();
 			getline(cin, tmpNew);
@@ -753,9 +761,10 @@ void ChangeClass()
 	string tmpID;
 	string tmpClass;
 	int numofstu;
-	cout << "Enter the class of this student: " << endl;
+	cout << "Enter the class of this student: ";
+	cin.ignore();
 	getline(cin, tmpClass);
-	cout << "ID: " << endl;
+	cout << "ID: ";
 	getline(cin, tmpID);
 	f.open("student-" + tmpClass + ".txt");
 	if (!f.is_open())

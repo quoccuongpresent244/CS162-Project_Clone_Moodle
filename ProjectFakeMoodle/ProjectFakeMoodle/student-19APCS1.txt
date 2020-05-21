@@ -1,25 +1,8 @@
-4
-
-19125117
-quoccuong123
-Nguyen Duy Anh Quoc
-2001 04 24
-19APCS1
-
-19126002
-abcdef
-Do Vuong Phuc
-2001 01 01
-19APCS1
-
-19126084
-20010109
-Tran Hai Anh Dien
-2001 01 09
-19APCS1
+1
 
 19126099
 20010901
 Duong Chan
 2001 09 01
 19APCS1
+1
