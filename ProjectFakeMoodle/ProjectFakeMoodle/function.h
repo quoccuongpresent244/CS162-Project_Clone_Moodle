@@ -54,7 +54,7 @@ struct course {
 	string startTime;
 	string endTime;
 	string room;
-	int status;
+	//int status;
 };
 struct stuincourse { //student in course containing student infor, scoreboard and attendance
 	string id;
@@ -101,6 +101,7 @@ void viewListOfStudentsInClass();
 void importCourseCSV();
 void addANewCourse();
 void editACourse();
+void removeACourse();
 void listofCourse(); //task 20: view List of Course
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);

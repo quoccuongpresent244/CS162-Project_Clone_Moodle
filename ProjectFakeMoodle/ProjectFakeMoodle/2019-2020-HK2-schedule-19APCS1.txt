@@ -14,20 +14,6 @@ MON
 11:30
 I42
 
-CM101
-Communications
-19APCS1
-Duong Nguyen Vu
-dnvu
-GS
-Male
-2020 04 07
-2020 06 02
-SAT
-13:30
-17:30
-I23
-
 MTH212
 Calculus 2
 19APCS1
@@ -41,3 +27,17 @@ MON
 07:30
 09:30
 I25
+
+CM101
+Communication Management
+19APCS1
+Duong Nguyen Vu
+dnvu
+GS
+Male
+2020 04 07
+2020 06 07
+TUE
+7:30
+11:30
+I42

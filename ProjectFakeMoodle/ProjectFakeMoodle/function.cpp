@@ -356,6 +356,7 @@ void staffFeature(staff a)
 			viewListOfStudentsInClass();
 			break;
 		case 8:
+			removeACourse();
 			break;
 		case 9:
 			break;
@@ -607,6 +608,7 @@ void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass
 	{
 		if (hocsinh[i].id == tmpID)
 		{
+			cout << "----------INFORMATION---------" << endl;
 			cout << "Student: " << hocsinh[i].fullname << endl;
 			cout << "Class: " << hocsinh[i].clas << endl;
 			cout << "Do you want to remove this student ? (0.No 1.Yes).";
@@ -679,6 +681,7 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 	{
 		if (hocsinh[i].id == tmpID)
 		{
+			cout << "----------INFORMATION---------" << endl;
 			cout << "Student: " << hocsinh[i].fullname << endl;
 			cout << "Class: " << hocsinh[i].clas << endl;
 			cout << "Do you want to change this student's class ? (0.No 1.Yes).";
@@ -911,7 +914,7 @@ void importCourseCSV()
 			khoahoc[Ncourse].startTime = startTime;
 			khoahoc[Ncourse].endTime = endTime;
 			khoahoc[Ncourse].room = room;
-			khoahoc[Ncourse].status = 1;
+			//khoahoc[Ncourse].status = 1;
 			++Ncourse;
 		}
 	}
@@ -1152,6 +1155,96 @@ void loadClassScheduleTXT(course *&khoahoc, int &Ncourse, string classcourses)
 	}
 	fin.close();
 }
+
+void removeACourse()
+{
+	ofstream f;
+	string acayear, semester, classname, classcourses, tmpCourseID;
+
+	cout << "Enter academic year (yyyy-yyyy): ";
+	cin.ignore();
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
+	cout << "Enter class name: ";
+	getline(cin, classname, '\n');
+	classcourses = acayear + "-" + semester + "-schedule-" + classname + ".txt";
+
+	course* khoahoc = nullptr;
+	int Ncourse = 0;
+
+	loadClassScheduleTXT(khoahoc, Ncourse, classcourses);
+	cout << "Enter ID of the course: ";
+	getline(cin, tmpCourseID, '\n');
+	for (int i = 0; i < Ncourse; ++i)
+	{
+		if (khoahoc[i].courseID == tmpCourseID)
+		{
+			cout << "----------INFORMATION---------" << endl;
+			cout << "Course ID: " << khoahoc[i].courseID << endl;
+			cout << "Course name: " << khoahoc[i].courseName << endl;
+			cout << "Class: " << khoahoc[i].clas << endl;
+			cout << "Instructor: " << khoahoc[i].instructor << endl;
+			cout << "Instructor username: " << khoahoc[i].instructorUsername << endl;
+			cout << "Degree: " << khoahoc[i].degree << endl;
+			cout << "Gender: " << khoahoc[i].gender << endl;
+			cout << "Start Date: " << khoahoc[i].startDate << endl;
+			cout << "End Date: " << khoahoc[i].endDate << endl;
+			cout << "Day of week: " << khoahoc[i].dayOfWeek << endl;
+			cout << "Start time: " << khoahoc[i].startTime << endl;
+			cout << "End time: " << khoahoc[i].endTime << endl;
+			cout << "Room: " << khoahoc[i].room << endl;
+			break;
+		}
+	}
+	cout << "Do you want to remove this course ? (0.No 1.Yes) ";
+	int k; cin >> k;
+	if (k == 0) return;
+	f.open(classcourses);
+	if (!f.is_open())
+	{
+		cout << "cannot open file f";
+	}
+	else
+	{
+		f << Ncourse - 1;
+		for (int i = 0; i < Ncourse; ++i)
+		{
+			if (khoahoc[i].courseID != tmpCourseID)
+			{
+				f << endl
+					<< endl;
+				f << khoahoc[i].courseID << endl;
+				f << khoahoc[i].courseName << endl;
+				f << khoahoc[i].clas << endl;
+				f << khoahoc[i].instructor << endl;
+				f << khoahoc[i].instructorUsername << endl;
+				f << khoahoc[i].degree << endl;
+				f << khoahoc[i].gender << endl;
+				f << khoahoc[i].startDate << endl;
+				f << khoahoc[i].endDate << endl;
+				f << khoahoc[i].dayOfWeek << endl;
+				f << khoahoc[i].startTime << endl;
+				f << khoahoc[i].endTime << endl;
+				f << khoahoc[i].room;
+			}
+		}
+		cout << "This course has been remove !" << endl;
+		f.close();
+	}
+	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + tmpCourseID + "-student.txt";
+	f.open(coursestudent);
+	if (!f.is_open())
+	{
+		cout << "cannot open file f";
+	}
+	else
+	{
+		f << " ";
+		f.close();
+	}
+}
+
 void updateCourseStudentTXT(string coursestudent, string classname)
 {
 	stuincourse *hs = nullptr;
