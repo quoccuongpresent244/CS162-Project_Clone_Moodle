@@ -305,8 +305,11 @@ void staffMenuShow()
 	cout << "14. Remove a specific student from a course\n";
 	cout << "15. Add a specific student to a course\n";
 	cout << "16. View list of courses in the current semester\n";
+	cout << "17. View list students of a course\n";
+	cout << "18. View attendance list of a course\n";
+	cout << "19. View list of lecturer\n";
 
-	cout << "Please choose menu (1-16): ";
+	cout << "Please choose menu (1-19): ";
 }
 void staffFeature(staff a)
 {
@@ -376,10 +379,12 @@ void staffFeature(staff a)
 			listofCourse();
 			break;
 		case 17:
+			listofStuinCourse();
 			break;
 		case 18:
 			break;
 		case 19:
+			viewLecturer();
 			break;
 		case 20:
 			break;

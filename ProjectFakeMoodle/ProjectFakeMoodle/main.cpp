@@ -10,11 +10,11 @@ int main()
 	loadStudent();
 
 
-	//firstMenu();
+	firstMenu();
 	//viewListOfClasses(); 
 	//listofCourse();
 	//listofStuinCourse();
-	viewLecturer();
+	//viewLecturer();
 
 	delete[]lophoc;
 	delete[]giaovu;
