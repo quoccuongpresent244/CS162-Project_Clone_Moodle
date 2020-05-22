@@ -13,8 +13,8 @@ int main()
 	//firstMenu();
 	//viewListOfClasses(); 
 	//listofCourse();
-	listofStuinCourse();
-
+	//listofStuinCourse();
+	viewLecturer();
 
 	delete[]lophoc;
 	delete[]giaovu;

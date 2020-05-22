@@ -1374,6 +1374,25 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 	delete[] hs;
 }
 
+void viewLecturer(){
+	cout << left << setw(15) << setfill(' ') << "Username";
+	cout << left << setw(24) << setfill(' ') << "Full Name";
+	cout << left << setw(13) << setfill(' ') << "Degree";
+	cout << left << setw(13) << setfill(' ') << "Gender";
+	cout << endl;
+
+	for (int i = 0; i < Nlecturer; i++){
+		cout << left << setw(15) << setfill(' ') << giaovien[i].username;
+		cout << left << setw(24) << setfill(' ') << giaovien[i].fullname;
+		cout << left << setw(13) << setfill(' ') << giaovien[i].degree;
+		if (giaovien[i].gender == 1)
+			cout << left << setw(13) << setfill(' ') << "Nam";
+		else
+			cout << left << setw(13) << setfill(' ') << "Nu";
+		cout << endl;
+	}
+}
+
 
 void lecturerMenuShow() {
 	cout << "Menu: \n";

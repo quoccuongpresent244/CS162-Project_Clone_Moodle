@@ -104,7 +104,8 @@ void addANewCourse();
 void editACourse();
 void removeACourse();
 void listofCourse(); //task 20: view List of Course
-void listofStuinCourse();
+void listofStuinCourse(); //task21: view student in a course
+void viewLecturer();
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);
 void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string coursename);
