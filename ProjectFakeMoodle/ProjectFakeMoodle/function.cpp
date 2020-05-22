@@ -1089,6 +1089,74 @@ void listofCourse()
 	}
 }
 
+void listofStuinCourse(){
+	stuincourse *khoahoc = nullptr;
+	int NstuinCourse = 0;
+	string courseID, classname;
+	cout << "Choose class do you want to view: ";
+	getline(cin, classname, '\n');
+	cout << "Choose course do you want to view: ";
+	getline(cin, courseID, '\n');
+	string filename = "2019-2020-HK2-" + classname + "-" + courseID +"-student.txt";
+
+
+	loadStudentOfCourseTXT(khoahoc, NstuinCourse, filename);
+	
+	cout << left << setw(14) << setfill(' ') << "Student ID";
+	cout << left << setw(28) << setfill(' ') << "Student Full Name";
+	cout << left << setw(12) << setfill(' ') << "DOB";
+	cout << left << setw(10) << setfill(' ') << "Class";
+	cout << left << setw(10) << setfill(' ') << "Mid Term";
+	cout << left << setw(9) << setfill(' ') << "Final";
+	cout << left << setw(9) << setfill(' ') << "Bonus";
+	cout << left << setw(9) << setfill(' ') << "Total";
+	cout << endl;
+
+	for (int i = 0; i < NstuinCourse; i++){
+		cout << left << setw(14) << setfill(' ') << khoahoc[i].id;
+		cout << left << setw(28) << setfill(' ') << khoahoc[i].fullname;
+		cout << left << setw(12) << setfill(' ') << khoahoc[i].dob;
+		cout << left << setw(10) << setfill(' ') << khoahoc[i].clas;
+		cout << left << setw(10) << setfill(' ') << khoahoc[i].midterm;
+		cout << left << setw(9) << setfill(' ') << khoahoc[i].final;
+		cout << left << setw(9) << setfill(' ') << khoahoc[i].bonus;
+		cout << left << setw(9) << setfill(' ') << khoahoc[i].total;
+		cout << endl;
+	}
+	delete [] khoahoc;
+}
+
+void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string coursename){
+	ifstream fin;
+	fin.open(coursename);
+	if (!fin.is_open())
+	{
+		cout << "Can't open this file\n";
+		stuinCourse = new stuincourse[1];
+	}
+	else
+	{
+		fin >> NstuinCourse;
+		stuinCourse = new stuincourse[NstuinCourse + 1];
+		for (int i = 0; i < NstuinCourse; i++){
+			fin.ignore(1000, '\n');
+			fin.get();
+			getline(fin, stuinCourse[i].id, '\n');
+			getline(fin, stuinCourse[i].password, '\n');
+			getline(fin, stuinCourse[i].fullname, '\n');
+			getline(fin, stuinCourse[i].dob, '\n');
+			getline(fin, stuinCourse[i].clas, '\n');
+			fin >> stuinCourse[i].midterm;
+			fin >> stuinCourse[i].final;
+			fin >> stuinCourse[i].bonus;
+			fin >> stuinCourse[i].total;
+		}
+	}
+	fin.close();
+	
+
+}
+
 void updateClassScheduleTXT(course *khoahoc, int Ncourse, string classschedule)
 {
 	ofstream f2;

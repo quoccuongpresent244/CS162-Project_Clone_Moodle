@@ -62,7 +62,7 @@ struct stuincourse { //student in course containing student infor, scoreboard an
 	string fullname;
 	string dob;
 	string clas;
-	int status;
+
 	int midterm;
 	int final;
 	int bonus;
@@ -104,8 +104,10 @@ void addANewCourse();
 void editACourse();
 void removeACourse();
 void listofCourse(); //task 20: view List of Course
+void listofStuinCourse();
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);
+void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string coursename);
 void updateCourseStudentTXT(string coursetudent, string classname);
 
 void staffMenuShow();

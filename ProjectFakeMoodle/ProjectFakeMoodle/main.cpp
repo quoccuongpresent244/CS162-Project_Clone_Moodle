@@ -10,9 +10,10 @@ int main()
 	loadStudent();
 
 
-	firstMenu();
+	//firstMenu();
 	//viewListOfClasses(); 
 	//listofCourse();
+	listofStuinCourse();
 
 
 	delete[]lophoc;
