@@ -364,10 +364,13 @@ void staffFeature(staff a)
 		case 9:
 			break;
 		case 10:
+			importCourseCSV();
 			break;
 		case 11:
+			addANewCourse();
 			break;
 		case 12:
+			editACourse();
 			break;
 		case 13:
 			removeACourse();
@@ -383,6 +386,7 @@ void staffFeature(staff a)
 			listofStuinCourse();
 			break;
 		case 18:
+			listofAttendance();
 			break;
 		case 19:
 			viewLecturer();
