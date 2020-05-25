@@ -2,6 +2,7 @@
 
 int Nstaff = 0, Nlecturer = 0, Nstudent = 0, Nclass = 0;
 int staffCapa = 0, lecturerCapa = 0, studentCapa = 0;
+string a[10];
 
 classes *lophoc = new classes[100];
 staff *giaovu = nullptr;
@@ -406,7 +407,7 @@ void staffFeature(staff a)
 	}
 }
 //Function for Staff
-///*--------------------------------CLASS--------------------------------*/
+/*--------------------------------CLASS--------------------------------*/
 void importCSV()
 {
 	// import data from CSV file to program and rewrite file student.txt and student-class.txt
@@ -592,7 +593,7 @@ void editStudent()
 	updateAClassTXT(tmpClass);
 }
 
-void LoadStudent(student* hocsinh, int numofstu, ifstream& f)
+void LoadStudent(student *hocsinh, int numofstu, ifstream &f)
 {
 	for (int i = 0; i < numofstu; ++i)
 	{
@@ -608,7 +609,7 @@ void LoadStudent(student* hocsinh, int numofstu, ifstream& f)
 	f.close();
 }
 
-void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass)
+void RemoveStudent(student *hocsinh, int numofstu, string tmpID, string tmpClass)
 {
 	for (int i = 0; i < numofstu; ++i)
 	{
@@ -620,7 +621,8 @@ void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass
 			cout << "Do you want to remove this student ? (0.No 1.Yes).";
 			int k;
 			cin >> k;
-			if (k == 0) return;
+			if (k == 0)
+				return;
 			hocsinh[i].status = 0;
 			ofstream fout;
 			fout.open("student-" + tmpClass + ".txt");
@@ -633,7 +635,8 @@ void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass
 				{
 					if (j != i)
 					{
-						fout << endl << endl;
+						fout << endl
+							 << endl;
 						fout << hocsinh[j].id << endl;
 						fout << hocsinh[j].password << endl;
 						fout << hocsinh[j].fullname << endl;
@@ -642,7 +645,8 @@ void RemoveStudent(student* hocsinh, int numofstu, string tmpID, string tmpClass
 						fout << hocsinh[j].status;
 					}
 				}
-				fout << endl << endl;
+				fout << endl
+					 << endl;
 				fout << hocsinh[i].id << endl;
 				fout << hocsinh[i].password << endl;
 				fout << hocsinh[i].fullname << endl;
@@ -674,14 +678,14 @@ void RemoveAStudent()
 	else
 	{
 		f >> numofstu;
-		student* hocsinh1 = new student[numofstu];
+		student *hocsinh1 = new student[numofstu];
 		LoadStudent(hocsinh1, numofstu, f);
 		RemoveStudent(hocsinh1, numofstu, tmpID, tmpClass);
-		delete[]hocsinh1;
+		delete[] hocsinh1;
 	}
 }
 
-void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string tmpClass)
+void DeleteAndAddStudent(student *hocsinh, int &numofstu, string tmpID, string tmpClass)
 {
 	for (int i = 0; i < numofstu; ++i)
 	{
@@ -693,7 +697,8 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 			cout << "Do you want to change this student's class ? (0.No 1.Yes).";
 			int k;
 			cin >> k;
-			if (k == 0) return;
+			if (k == 0)
+				return;
 			ofstream f1, f2;
 			f1.open("student-" + tmpClass + ".txt");
 			if (!f1.is_open())
@@ -705,7 +710,8 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 				{
 					if (j != i)
 					{
-						f1 << endl << endl;
+						f1 << endl
+						   << endl;
 						f1 << hocsinh[j].id << endl;
 						f1 << hocsinh[j].password << endl;
 						f1 << hocsinh[j].fullname << endl;
@@ -723,7 +729,7 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 			ifstream f;
 			int numofstu1;
 			f.open("student-" + tmpNew + ".txt");
-			student* hocsinh1 = nullptr;
+			student *hocsinh1 = nullptr;
 			if (!f.is_open())
 				cout << "Can not open file." << endl;
 			else
@@ -740,7 +746,8 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 				f2 << numofstu1 + 1;
 				for (int l = 0; l < numofstu1; ++l)
 				{
-					f2 << endl << endl;
+					f2 << endl
+					   << endl;
 					f2 << hocsinh1[l].id << endl;
 					f2 << hocsinh1[l].password << endl;
 					f2 << hocsinh1[l].fullname << endl;
@@ -748,7 +755,8 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 					f2 << hocsinh1[l].clas << endl;
 					f2 << hocsinh1[l].status;
 				}
-				f2 << endl << endl;
+				f2 << endl
+				   << endl;
 				f2 << hocsinh[i].id << endl;
 				f2 << hocsinh[i].password << endl;
 				f2 << hocsinh[i].fullname << endl;
@@ -758,7 +766,7 @@ void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string t
 				f2.close();
 			}
 			cout << "The class of this student have been changed !" << endl;
-			delete[]hocsinh1;
+			delete[] hocsinh1;
 			break;
 		}
 	}
@@ -781,10 +789,10 @@ void ChangeClass()
 	else
 	{
 		f >> numofstu;
-		student* hocsinh1 = new student[numofstu];
+		student *hocsinh1 = new student[numofstu];
 		LoadStudent(hocsinh1, numofstu, f);
 		DeleteAndAddStudent(hocsinh1, numofstu, tmpID, tmpClass);
-		delete[]hocsinh1;
+		delete[] hocsinh1;
 	}
 }
 
@@ -934,10 +942,108 @@ void importCourseCSV()
 		string tmpcourseID = khoahoc[i].courseID;
 		string coursestudent = acayear + "-" + semester + "-" + classname + "-" + tmpcourseID + "-student.txt";
 
+		createAttendance(khoahoc[i]);
 		updateCourseStudentTXT(coursestudent, classname);
 	}
 	delete[] khoahoc;
 }
+
+bool nhuan(int y)
+{
+	bool c;
+	if ((y % 4 == 0) && (y % 100 != 0) || (y % 400 == 0))
+		c = true;
+	return c;
+}
+
+void plus7days(int &y, int &m, int &d)
+{
+	if ((m == 1) || (m == 3) || (m == 5) || (m == 7) || (m == 8) || (m == 10) || (m == 12))
+	{
+		if (d > 24)
+		{
+			if (m == 12)
+			{
+				d = 7 - (31 - d);
+				m = 1;
+				y += 1;
+			}
+			else
+			{
+				d = 7 - (31 - d);
+				m += 1;
+			}
+		}
+		else
+		{
+			d += 7;
+		}
+	}
+	else
+	{
+		if (m == 2)
+		{
+			if (nhuan(y))
+			{
+				if (d > 22)
+				{
+					d = 7 - (29 - d);
+					m = 3;
+				}
+				else
+					d += 7;
+			}
+			else if (d > 21)
+			{
+				d = 7 - (28 - d);
+				m = 3;
+			}
+			else
+				d += 7;
+		}
+		else
+		{
+			if (d > 23)
+			{
+				d = 7 - (30 - d);
+				m += 1;
+			}
+			else
+				d += 7;
+		}
+	}
+}
+
+void createAttendance(course khoahoc)
+{
+
+	string tmpY, tmpM, tmpD;
+	int y, m, d;
+	for (int i = 0; i < 4; ++i)
+		tmpY += khoahoc.startDate[i];
+	for (int i = 5; i < 7; ++i)
+		tmpM += khoahoc.startDate[i];
+	for (int i = 8; i < 10; ++i)
+		tmpD += khoahoc.startDate[i];
+	y = stoi(tmpY);
+	m = stoi(tmpM);
+	d = stoi(tmpD);
+
+	for (int i = 0; i < 10; i++)
+	{
+		a[i] = tmpY + " " + tmpM + " " + tmpD + " " + khoahoc.startTime + " " + khoahoc.endTime + " " + "-1";
+		plus7days(y, m, d);
+		tmpY = to_string(y);
+		if (m < 10)
+			tmpM ="0" + to_string(m);
+		else tmpM = to_string(m);
+		if (d < 10)
+			tmpD = "0" + to_string(d);
+		else tmpD = to_string(d);
+	}
+}
+
+
 void addANewCourse()
 {
 	string acayear, semester, classname, classcourses;
@@ -985,6 +1091,7 @@ void addANewCourse()
 	++Ncourse;
 
 	updateClassScheduleTXT(khoahoc, Ncourse, classcourses);
+	createAttendance(khoahoc[Ncourse-1]);
 
 	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 
@@ -1040,6 +1147,12 @@ void editACourse()
 			getline(cin, khoahoc[i].endTime, '\n');
 			cout << "Enter room: ";
 			getline(cin, khoahoc[i].room, '\n');
+
+			createAttendance(khoahoc[i]);
+			
+			string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + ".txt";
+			updateCourseStudentTXT(filename, classname);
+
 			break;
 		}
 	}
@@ -1094,7 +1207,8 @@ void listofCourse()
 	}
 }
 
-void listofStuinCourse(){
+void listofStuinCourse()
+{
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
 	string courseID, classname;
@@ -1102,11 +1216,10 @@ void listofStuinCourse(){
 	getline(cin, classname, '\n');
 	cout << "Choose course do you want to view: ";
 	getline(cin, courseID, '\n');
-	string filename = "2019-2020-HK2-" + classname + "-" + courseID +"-student.txt";
-
+	string filename = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
 
 	loadStudentOfCourseTXT(khoahoc, NstuinCourse, filename);
-	
+
 	cout << left << setw(14) << setfill(' ') << "Student ID";
 	cout << left << setw(28) << setfill(' ') << "Student Full Name";
 	cout << left << setw(12) << setfill(' ') << "DOB";
@@ -1117,7 +1230,8 @@ void listofStuinCourse(){
 	cout << left << setw(9) << setfill(' ') << "Total";
 	cout << endl;
 
-	for (int i = 0; i < NstuinCourse; i++){
+	for (int i = 0; i < NstuinCourse; i++)
+	{
 		cout << left << setw(14) << setfill(' ') << khoahoc[i].id;
 		cout << left << setw(28) << setfill(' ') << khoahoc[i].fullname;
 		cout << left << setw(12) << setfill(' ') << khoahoc[i].dob;
@@ -1128,10 +1242,30 @@ void listofStuinCourse(){
 		cout << left << setw(9) << setfill(' ') << khoahoc[i].total;
 		cout << endl;
 	}
+	delete[] khoahoc;
+}
+
+void listofAttendance(){
+	stuincourse *khoahoc = nullptr;
+	int NstuinCourse = 0;
+	string courseID, classname;
+	cout << "Choose class do you want to view: ";
+	getline(cin, classname, '\n');
+	cout << "Choose course do you want to view: ";
+	getline(cin, courseID, '\n');
+	string filename = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
+
+	loadStudentOfCourseTXT(khoahoc, NstuinCourse, filename);
+	for (int i = 0; i < NstuinCourse; ++i){
+		for (int j = 0; j < 10; ++j)
+			cout << khoahoc[i].attendance[j] << endl;
+		cout << endl;
+	}
 	delete [] khoahoc;
 }
 
-void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string coursename){
+void loadStudentOfCourseTXT(stuincourse *&stuinCourse, int &NstuinCourse, string coursename)
+{
 	ifstream fin;
 	fin.open(coursename);
 	if (!fin.is_open())
@@ -1143,7 +1277,9 @@ void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string
 	{
 		fin >> NstuinCourse;
 		stuinCourse = new stuincourse[NstuinCourse + 1];
-		for (int i = 0; i < NstuinCourse; i++){
+		
+		for (int i = 0; i < NstuinCourse; i++)
+		{
 			fin.ignore(1000, '\n');
 			fin.get();
 			getline(fin, stuinCourse[i].id, '\n');
@@ -1155,11 +1291,13 @@ void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string
 			fin >> stuinCourse[i].final;
 			fin >> stuinCourse[i].bonus;
 			fin >> stuinCourse[i].total;
+			fin.ignore(1000, '\n');
+			for (int j = 0; j < 10; ++j)
+				getline(fin, stuinCourse[i].attendance[j], '\n');
+
 		}
 	}
 	fin.close();
-	
-
 }
 
 void updateClassScheduleTXT(course *khoahoc, int Ncourse, string classschedule)
@@ -1244,7 +1382,7 @@ void removeACourse()
 	getline(cin, classname, '\n');
 	classcourses = acayear + "-" + semester + "-schedule-" + classname + ".txt";
 
-	course* khoahoc = nullptr;
+	course *khoahoc = nullptr;
 	int Ncourse = 0;
 
 	loadClassScheduleTXT(khoahoc, Ncourse, classcourses);
@@ -1272,8 +1410,10 @@ void removeACourse()
 		}
 	}
 	cout << "Do you want to remove this course ? (0.No 1.Yes) ";
-	int k; cin >> k;
-	if (k == 0) return;
+	int k;
+	cin >> k;
+	if (k == 0)
+		return;
 	f.open(classcourses);
 	if (!f.is_open())
 	{
@@ -1287,7 +1427,7 @@ void removeACourse()
 			if (khoahoc[i].courseID != tmpCourseID)
 			{
 				f << endl
-					<< endl;
+				  << endl;
 				f << khoahoc[i].courseID << endl;
 				f << khoahoc[i].courseName << endl;
 				f << khoahoc[i].clas << endl;
@@ -1322,7 +1462,7 @@ void removeACourse()
 void updateCourseStudentTXT(string coursestudent, string classname)
 {
 	stuincourse *hs = nullptr;
-	int Nstudent;
+	int NStudent;
 
 	ofstream fo3;
 
@@ -1341,19 +1481,24 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 		}
 		else
 		{
-			fi4 >> Nstudent;
-			fo3 << Nstudent;
-			hs = new stuincourse[Nstudent + 1];
+			fi4 >> NStudent;
+			fo3 << NStudent;
 
-			fi4.ignore(1000, '\n');
-			for (int i = 0; i < Nstudent; i++)
+			hs = new stuincourse[NStudent + 1];
+
+			for (int i = 0; i < NStudent; i++)
 			{
+				fi4.ignore(1000, '\n');
 				fi4.get();
+
 				getline(fi4, hs[i].id, '\n');
 				getline(fi4, hs[i].password, '\n');
 				getline(fi4, hs[i].fullname, '\n');
 				getline(fi4, hs[i].dob, '\n');
 				getline(fi4, hs[i].clas, '\n');
+				fi4 >> hs[i].status;
+				for (int j = 0; j < 10; j++)
+					hs[i].attendance[j] = a[j];
 				hs[i].midterm = -1;
 				hs[i].final = -1;
 				hs[i].bonus = -1;
@@ -1369,7 +1514,9 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 				fo3 << hs[i].midterm << endl;
 				fo3 << hs[i].final << endl;
 				fo3 << hs[i].bonus << endl;
-				fo3 << hs[i].final;
+				fo3 << hs[i].final << endl;
+				for (int j = 0; j < 10; ++j)
+					fo3 << hs[i].attendance[j] << endl;
 			}
 		}
 		fi4.close();
@@ -1379,14 +1526,16 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 	delete[] hs;
 }
 
-void viewLecturer(){
+void viewLecturer()
+{
 	cout << left << setw(15) << setfill(' ') << "Username";
 	cout << left << setw(24) << setfill(' ') << "Full Name";
 	cout << left << setw(13) << setfill(' ') << "Degree";
 	cout << left << setw(13) << setfill(' ') << "Gender";
 	cout << endl;
 
-	for (int i = 0; i < Nlecturer; i++){
+	for (int i = 0; i < Nlecturer; i++)
+	{
 		cout << left << setw(15) << setfill(' ') << giaovien[i].username;
 		cout << left << setw(24) << setfill(' ') << giaovien[i].fullname;
 		cout << left << setw(13) << setfill(' ') << giaovien[i].degree;
@@ -1398,8 +1547,8 @@ void viewLecturer(){
 	}
 }
 
-
-void lecturerMenuShow() {
+void lecturerMenuShow()
+{
 	cout << "Menu: \n";
 
 	cout << "------------------------COURSE------------------------\n";
@@ -1412,7 +1561,7 @@ void lecturerMenuShow() {
 	cout << "5. Import scoreboard of a course (midterm, final, bonus) from CSV file\n";
 	cout << "6. Edit grade of a student\n";
 	cout << "7. View a scoreboard\n";
-	
+
 	cout << "Please choose menu (1-7): ";
 }
 void lecturerFeature(lecturer a)
@@ -1493,3 +1642,5 @@ void studentFeature(student a)
 
 	cout << "Please choose menu (1-5)\n";
 }
+
+//For Attendance

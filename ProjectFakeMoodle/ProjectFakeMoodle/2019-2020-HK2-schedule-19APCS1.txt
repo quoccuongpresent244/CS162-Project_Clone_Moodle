@@ -1,4 +1,4 @@
-3
+4
 
 CS162
 Introduction to Programming
@@ -41,3 +41,17 @@ TUE
 7:30
 11:30
 I42
+
+LAW101
+Phap Luat Dai Cuong
+19APCS1
+Dang Cong Trang
+dctrang
+TS
+0
+2020 04 06
+2020 06 08
+MON
+13:30 
+17:30
+C22

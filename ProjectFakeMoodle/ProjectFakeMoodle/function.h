@@ -10,9 +10,12 @@ using namespace std;
 
 extern int  Nstaff, Nlecturer, Nstudent, Nclass;
 extern int  staffCapa, lecturerCapa, studentCapa;
+extern string a[10];
 
 
-
+struct date{
+	int year, month, day;
+};
 struct classes {
 	string classname;
 	int numofstu;
@@ -49,7 +52,9 @@ struct course {
 	string degree;
 	string gender;
 	string startDate;
+	//date startDate;
 	string endDate;
+	//date endDate;
 	string dayOfWeek;
 	string startTime;
 	string endTime;
@@ -62,12 +67,14 @@ struct stuincourse { //student in course containing student infor, scoreboard an
 	string fullname;
 	string dob;
 	string clas;
+	string attendance[10];
+
 
 	int midterm;
 	int final;
 	int bonus;
 	int total;
-	// Tao chua tao attendance
+	int status;
 };
 
 extern classes* lophoc;
@@ -105,18 +112,21 @@ void editACourse();
 void removeACourse();
 void listofCourse(); //task 20: view List of Course
 void listofStuinCourse(); //task21: view student in a course
-void viewLecturer();
+void listofAttendance(); //task 23: view attendance list
+void viewLecturer(); //task 23: view all lecturer
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);
 void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string coursename);
 void updateCourseStudentTXT(string coursetudent, string classname);
+//for attendance 
+void plus7days(int &y, int &m, int &d);
+void createAttendance(course khoahoc);
 
 void staffMenuShow();
 void staffFeature(staff a);
 void lecturerMenuShow();
 void lecturerFeature(lecturer a);
 void studentFeature(student a);
-
 
 
 #endif
