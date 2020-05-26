@@ -9,6 +9,7 @@ int main()
 	loadLecturer();
 	loadStudent();
 
+	firstMenu();
 
 	delete[]lophoc;
 	delete[]giaovu;

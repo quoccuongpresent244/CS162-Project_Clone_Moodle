@@ -16,6 +16,7 @@ void firstMenu()
 	cout << "2. Exit\n";
 	cout << "What you want: (1-2): ";
 	cin >> x;
+	system("cls");
 	switch (x)
 	{
 	case 1:
@@ -34,6 +35,7 @@ void login()
 	getline(cin, usernameX);
 	cout << "password: ";
 	getline(cin, passwordX);
+	system("cls");
 	for (int i = 0; i < Nstaff; i++)
 	{
 		if (giaovu[i].username == usernameX && giaovu[i].password == passwordX)
@@ -334,6 +336,7 @@ void staffFeature(staff a)
 	int con = 1;
 	int t;
 	cin >> t;
+	system("cls");
 	while (con == 1)
 	{
 		switch (t)
@@ -1216,6 +1219,7 @@ void listofStuinCourse()
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
 	string courseID, classname;
+	cin.ignore(1000, '\n');
 	cout << "Choose class do you want to view: ";
 	getline(cin, classname, '\n');
 	cout << "Choose course do you want to view: ";
