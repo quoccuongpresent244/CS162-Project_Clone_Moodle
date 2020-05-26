@@ -825,6 +825,7 @@ void viewListOfStudentsInClass()
 	string filename = "student-" + classname + ".txt";
 	ifstream fin;
 	string id, password, fullname, dob, clas;
+	int status;
 	int nstudent;
 	fin.open(filename);
 	if (!fin.is_open())
@@ -834,24 +835,25 @@ void viewListOfStudentsInClass()
 	else
 	{
 		fin >> nstudent;
-		fin.ignore(1000, '\n');
 
 		cout << "Students in class of " << classname << " are:" << endl;
-		;
 		for (int i = 0; i < nstudent; i++)
 		{
+			fin.ignore(1000, '\n');
 			fin.get();
 			getline(fin, id);
 			getline(fin, password);
 			getline(fin, fullname);
 			getline(fin, dob);
 			getline(fin, clas);
+			fin >> status;
 
 			cout << endl;
 			cout << id << endl;
 			cout << fullname << endl;
 			cout << dob << endl;
 			cout << clas << endl;
+			cout << status << endl;
 		}
 	}
 }
