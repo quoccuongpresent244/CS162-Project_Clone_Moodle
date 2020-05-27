@@ -134,7 +134,7 @@ void loadStudent()
 		hocsinh = new student[Nstudent + 10];
 
 		fin.ignore(1000, '\n');
-		for (int i = 0; i < Nstudent; i++)
+		for (int i = 0; i < Nstudent + Nleave; i++)
 		{
 			fin.get();
 			getline(fin, hocsinh[i].id);
@@ -218,7 +218,7 @@ void updateAllClassTXT()
 					fout << hocsinh[j].status;
 				}
 			}
-			for (int t = Nstudent + 1; t < Nstudent + Nleave; ++t)  //viet nhung thang co status = 0 vao file student class
+			for (int t = Nstudent; t < Nstudent + Nleave; ++t)  //viet nhung thang co status = 0 vao file student class
 			{
 				if (hocsinh[t].clas == lophoc[i].classname)
 				{
@@ -259,12 +259,12 @@ void updateAClassTXT(string classname)
 			}
 		}
 		f2 << lophoc[tmp].numofstu; //similarly
-		for (int i = 0; i < Nstudent; i++)
+		for (int i = 0; i < Nstudent + Nleave; i++)
 		{
-			if (hocsinh[i].clas == classname)
+			if (hocsinh[i].clas == classname && hocsinh[i].status == 1)
 			{
 				f2 << endl
-				   << endl;
+					<< endl;
 				f2 << hocsinh[i].id << endl;
 				f2 << hocsinh[i].password << endl;
 				f2 << hocsinh[i].fullname << endl;
@@ -273,20 +273,22 @@ void updateAClassTXT(string classname)
 				f2 << hocsinh[i].status;
 			}
 		}
-		for (int t = Nstudent + 1; t < Nstudent + Nleave; ++t)  //viet nhung thang co status = 0 vao file student class
+		for (int i = 0; i < Nstudent + Nleave; i++)
 		{
-			if (hocsinh[t].clas == classname)
+			if (hocsinh[i].clas == classname && hocsinh[i].status == 0)
 			{
-				f2 << "\n\n";
-				f2 << hocsinh[t].id << endl;
-				f2 << hocsinh[t].password << endl;
-				f2 << hocsinh[t].fullname << endl;
-				f2 << hocsinh[t].dob << endl;
-				f2 << hocsinh[t].clas << endl;
-				f2 << hocsinh[t].status;
+				f2 << endl
+					<< endl;
+				f2 << hocsinh[i].id << endl;
+				f2 << hocsinh[i].password << endl;
+				f2 << hocsinh[i].fullname << endl;
+				f2 << hocsinh[i].dob << endl;
+				f2 << hocsinh[i].clas << endl;
+				f2 << hocsinh[i].status;
 			}
 		}
 	}
+	f2.close();
 }
 void updateStudentTXT(string filename)
 {
@@ -299,26 +301,33 @@ void updateStudentTXT(string filename)
 	else
 	{
 		fout << Nstudent << " " << Nleave;
-		for (int i = 0; i < Nstudent; i++)
+		for (int i = 0; i < Nstudent + Nleave; i++)
 		{
-			fout << endl
-				 << endl;
-			fout << hocsinh[i].id << endl;
-			fout << hocsinh[i].password << endl;
-			fout << hocsinh[i].fullname << endl;
-			fout << hocsinh[i].dob << endl;
-			fout << hocsinh[i].clas << endl;
-			fout << hocsinh[i].status;
+			if (hocsinh[i].status == 1)
+			{
+				fout << endl
+					<< endl;
+				fout << hocsinh[i].id << endl;
+				fout << hocsinh[i].password << endl;
+				fout << hocsinh[i].fullname << endl;
+				fout << hocsinh[i].dob << endl;
+				fout << hocsinh[i].clas << endl;
+				fout << hocsinh[i].status;
+			}
 		}
-		for (int t = Nstudent + 1; t < Nstudent + Nleave; ++t)  //viet nhung thang co status = 0 vao file student class
+		for (int i = 0; i < Nstudent + Nleave; i++)
 		{
-			fout << "\n\n";
-			fout << hocsinh[t].id << endl;
-			fout << hocsinh[t].password << endl;
-			fout << hocsinh[t].fullname << endl;
-			fout << hocsinh[t].dob << endl;
-			fout << hocsinh[t].clas << endl;
-			fout << hocsinh[t].status;
+			if (hocsinh[i].status == 0)
+			{
+				fout << endl
+					<< endl;
+				fout << hocsinh[i].id << endl;
+				fout << hocsinh[i].password << endl;
+				fout << hocsinh[i].fullname << endl;
+				fout << hocsinh[i].dob << endl;
+				fout << hocsinh[i].clas << endl;
+				fout << hocsinh[i].status;
+			}
 		}
 	}
 	fout.close();
@@ -548,10 +557,10 @@ void importCSV()
 }
 void addAStudenttoClass()
 {
-	if (Nstudent == studentCapa)
+	if (Nstudent + Nleave == studentCapa)
 	{
-		student *tmpHocsinh = new student[Nstudent + 10]; //increase slots for hocsinh pointer
-		for (int i = 0; i < Nstudent; i++)
+		student *tmpHocsinh = new student[Nstudent + Nleave + 10]; //increase slots for hocsinh pointer
+		for (int i = 0; i < Nstudent + Nleave; i++)
 			tmpHocsinh[i] = hocsinh[i];
 		delete[] hocsinh;
 		hocsinh = tmpHocsinh;
@@ -560,9 +569,9 @@ void addAStudenttoClass()
 
 	cout << "Enter student ID: ";
 	cin.ignore(1000, '\n');
-	getline(cin, hocsinh[Nstudent].id, '\n');
+	getline(cin, hocsinh[Nstudent + Nleave].id, '\n');
 	cout << "Enter fullname: ";
-	getline(cin, hocsinh[Nstudent].fullname, '\n');
+	getline(cin, hocsinh[Nstudent + Nleave].fullname, '\n');
 
 	string dob;
 	cout << "Enter student date of birth following the format: yyyy/mm/dd: ";
@@ -572,20 +581,20 @@ void addAStudenttoClass()
 	tmpPass.erase(tmpPass.begin() + 4);
 	tmpPass.erase(tmpPass.begin() + 6);
 
-	hocsinh[Nstudent].password = tmpPass;
+	hocsinh[Nstudent + Nleave].password = tmpPass;
 
 	string tmpdob = dob;
 	tmpdob.replace(4, 1, " ");
 	tmpdob.replace(7, 1, " ");
 
-	hocsinh[Nstudent].dob = tmpdob;
+	hocsinh[Nstudent + Nleave].dob = tmpdob;
 
 	cout << "Enter Class: ";
-	getline(cin, hocsinh[Nstudent].clas, '\n');
+	getline(cin, hocsinh[Nstudent + Nleave].clas, '\n');
 
-	hocsinh[Nstudent].status = 1;
+	hocsinh[Nstudent + Nleave].status = 1;
 
-	string tmpclassname = hocsinh[Nstudent].clas; //no need to worry about
+	string tmpclassname = hocsinh[Nstudent + Nleave].clas; //no need to worry about
 	++Nstudent;
 
 	for (int i = 0; i < Nclass; i++)
@@ -642,27 +651,18 @@ void editStudent()
 	updateAClassTXT(tmpClass);
 }
 
-void LoadStudent(student *hocsinh, int numofstu, ifstream &f)
+void RemoveAStudent()
 {
-	for (int i = 0; i < numofstu; ++i)
+	string tmpID;
+	string tmpClass;
+	cout << "Enter the class of this student: ";
+	cin.ignore();
+	getline(cin, tmpClass);
+	cout << "ID: ";
+	getline(cin, tmpID);
+	for (int i = 0; i < Nstudent; ++i)
 	{
-		f.ignore(1000, '\n');
-		f.get();
-		getline(f, hocsinh[i].id);
-		getline(f, hocsinh[i].password);
-		getline(f, hocsinh[i].fullname);
-		getline(f, hocsinh[i].dob);
-		getline(f, hocsinh[i].clas);
-		f >> hocsinh[i].status;
-	}
-	f.close();
-}
-
-void RemoveStudent(student *hocsinh, int numofstu, string tmpID, string tmpClass)
-{
-	for (int i = 0; i < numofstu; ++i)
-	{
-		if (hocsinh[i].id == tmpID)
+		if (hocsinh[i].id == tmpID && hocsinh[i].clas == tmpClass)
 		{
 			cout << "----------INFORMATION---------" << endl;
 			cout << "Student: " << hocsinh[i].fullname << endl;
@@ -670,68 +670,24 @@ void RemoveStudent(student *hocsinh, int numofstu, string tmpID, string tmpClass
 			cout << "Do you want to remove this student ? (0.No 1.Yes).";
 			int k;
 			cin >> k;
-			if (k == 0)
-				return;
+			if (k == 0) return;
 			hocsinh[i].status = 0;
-			ofstream fout;
-			fout.open("student-" + tmpClass + ".txt");
-			if (!fout.is_open())
-				cout << "cannot open, cannot write fout";
-			else
+			++Nleave;
+			--Nstudent;
+			for (int j = 0; j < Nclass; ++j)
 			{
-				fout << numofstu - 1;
-				for (int j = 0; j < numofstu; j++)
+				if (lophoc[j].classname == tmpClass)
 				{
-					if (j != i)
-					{
-						fout << endl
-							 << endl;
-						fout << hocsinh[j].id << endl;
-						fout << hocsinh[j].password << endl;
-						fout << hocsinh[j].fullname << endl;
-						fout << hocsinh[j].dob << endl;
-						fout << hocsinh[j].clas << endl;
-						fout << hocsinh[j].status;
-					}
+					--lophoc[j].numofstu;
+					break;
 				}
-				fout << endl
-					 << endl;
-				fout << hocsinh[i].id << endl;
-				fout << hocsinh[i].password << endl;
-				fout << hocsinh[i].fullname << endl;
-				fout << hocsinh[i].dob << endl;
-				fout << hocsinh[i].clas << endl;
-				fout << hocsinh[i].status;
-				fout.close();
-				cout << "This student has been removed !" << endl;
 			}
-			return;
+			break;
 		}
 	}
-}
-
-void RemoveAStudent()
-{
-	ifstream f;
-	string tmpID;
-	string tmpClass;
-	int numofstu;
-	cout << "Enter the class of this student: ";
-	cin.ignore();
-	getline(cin, tmpClass);
-	cout << "ID: ";
-	getline(cin, tmpID);
-	f.open("student-" + tmpClass + ".txt");
-	if (!f.is_open())
-		cout << "Can not open file." << endl;
-	else
-	{
-		f >> numofstu;
-		student *hocsinh1 = new student[numofstu];
-		LoadStudent(hocsinh1, numofstu, f);
-		RemoveStudent(hocsinh1, numofstu, tmpID, tmpClass);
-		delete[] hocsinh1;
-	}
+	cout << "This student has been removed !" << endl;
+	updateStudentTXT("student.txt");
+	updateAClassTXT(tmpClass);
 }
 
 void DeleteAndAddStudent(student *hocsinh, int &numofstu, string tmpID, string tmpClass)
@@ -785,7 +741,7 @@ void DeleteAndAddStudent(student *hocsinh, int &numofstu, string tmpID, string t
 			{
 				f >> numofstu1;
 				hocsinh1 = new student[numofstu1];
-				LoadStudent(hocsinh1, numofstu1, f);
+				//LoadStudent(hocsinh1, numofstu1, f);
 			}
 			f2.open("student-" + tmpNew + ".txt");
 			if (!f2.is_open())
@@ -839,7 +795,7 @@ void ChangeClass()
 	{
 		f >> numofstu;
 		student *hocsinh1 = new student[numofstu];
-		LoadStudent(hocsinh1, numofstu, f);
+		//LoadStudent(hocsinh1, numofstu, f);
 		DeleteAndAddStudent(hocsinh1, numofstu, tmpID, tmpClass);
 		delete[] hocsinh1;
 	}
