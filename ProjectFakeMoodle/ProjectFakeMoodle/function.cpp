@@ -240,7 +240,7 @@ void updateAClassTXT(string classname)
 
 	// update file txt student-[class] after modifying it
 
-	int tmp;
+	int tmp = -1;
 	ofstream f2;
 	string filename = "student-" + classname + ".txt";
 	f2.open(filename);
@@ -615,7 +615,8 @@ void editStudent()
 {
 	string tmpID;
 	string tmpClass;
-	cout << "Enter Student-ID you want to edit: " << endl;
+	cout << "Enter Student-ID you want to edit: ";
+	cin.ignore(1000, '\n');
 	getline(cin, tmpID, '\n');
 
 	ifstream fi;
