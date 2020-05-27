@@ -1,6 +1,6 @@
 #include "function.h"
 
-int Nstaff = 0, Nlecturer = 0, Nstudent = 0, Nclass = 0;
+int Nstaff = 0, Nlecturer = 0, Nstudent = 0, Nclass = 0, Nleave = 0;
 int staffCapa = 0, lecturerCapa = 0, studentCapa = 0;
 string a[10];
 
@@ -130,7 +130,7 @@ void loadStudent()
 	}
 	else
 	{
-		fin >> Nstudent;
+		fin >> Nstudent >> Nleave;
 		hocsinh = new student[Nstudent + 10];
 
 		fin.ignore(1000, '\n');
@@ -148,7 +148,10 @@ void loadStudent()
 			if (Nclass == 0)
 			{
 				lophoc[0].classname = hocsinh[i].clas;
-				lophoc[0].numofstu = 1;
+				if (hocsinh[i].status == 1)
+					lophoc[0].numofstu = 1;
+				else
+					lophoc[0].numofstu = 0;
 				++Nclass;
 			}
 			else
@@ -164,24 +167,25 @@ void loadStudent()
 						break;
 					}
 				}
-
 				if (newclass)
 				{
 					lophoc[Nclass].classname = hocsinh[i].clas;
-					lophoc[Nclass].numofstu = 1;
+					if (hocsinh[i].status == 1)
+						lophoc[Nclass].numofstu = 1;
+					else
+						lophoc[Nclass].numofstu = 0;
 					++Nclass;
 				}
 				else
 				{
-					++lophoc[tmp].numofstu;
+					if (hocsinh[i].status == 1)
+						++lophoc[tmp].numofstu;
 				}
 			}
 		}
-
 		fin.close();
 		studentCapa = Nstudent + 10;
 	}
-
 	updateAllClassTXT();
 }
 
@@ -212,6 +216,19 @@ void updateAllClassTXT()
 					fout << hocsinh[j].dob << endl;
 					fout << hocsinh[j].clas << endl;
 					fout << hocsinh[j].status;
+				}
+			}
+			for (int t = Nstudent + 1; t < Nstudent + Nleave; ++t)  //viet nhung thang co status = 0 vao file student class
+			{
+				if (hocsinh[t].clas == lophoc[i].classname)
+				{
+					fout << "\n\n";
+					fout << hocsinh[t].id << endl;
+					fout << hocsinh[t].password << endl;
+					fout << hocsinh[t].fullname << endl;
+					fout << hocsinh[t].dob << endl;
+					fout << hocsinh[t].clas << endl;
+					fout << hocsinh[t].status;
 				}
 			}
 		}
@@ -256,6 +273,19 @@ void updateAClassTXT(string classname)
 				f2 << hocsinh[i].status;
 			}
 		}
+		for (int t = Nstudent + 1; t < Nstudent + Nleave; ++t)  //viet nhung thang co status = 0 vao file student class
+		{
+			if (hocsinh[t].clas == classname)
+			{
+				f2 << "\n\n";
+				f2 << hocsinh[t].id << endl;
+				f2 << hocsinh[t].password << endl;
+				f2 << hocsinh[t].fullname << endl;
+				f2 << hocsinh[t].dob << endl;
+				f2 << hocsinh[t].clas << endl;
+				f2 << hocsinh[t].status;
+			}
+		}
 	}
 }
 void updateStudentTXT(string filename)
@@ -268,7 +298,7 @@ void updateStudentTXT(string filename)
 	}
 	else
 	{
-		fout << Nstudent;
+		fout << Nstudent << " " << Nleave;
 		for (int i = 0; i < Nstudent; i++)
 		{
 			fout << endl
@@ -279,6 +309,16 @@ void updateStudentTXT(string filename)
 			fout << hocsinh[i].dob << endl;
 			fout << hocsinh[i].clas << endl;
 			fout << hocsinh[i].status;
+		}
+		for (int t = Nstudent + 1; t < Nstudent + Nleave; ++t)  //viet nhung thang co status = 0 vao file student class
+		{
+			fout << "\n\n";
+			fout << hocsinh[t].id << endl;
+			fout << hocsinh[t].password << endl;
+			fout << hocsinh[t].fullname << endl;
+			fout << hocsinh[t].dob << endl;
+			fout << hocsinh[t].clas << endl;
+			fout << hocsinh[t].status;
 		}
 	}
 	fout.close();
@@ -542,6 +582,8 @@ void addAStudenttoClass()
 
 	cout << "Enter Class: ";
 	getline(cin, hocsinh[Nstudent].clas, '\n');
+
+	hocsinh[Nstudent].status = 1;
 
 	string tmpclassname = hocsinh[Nstudent].clas; //no need to worry about
 	++Nstudent;

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-extern int  Nstaff, Nlecturer, Nstudent, Nclass;
+extern int  Nstaff, Nlecturer, Nstudent, Nclass, Nleave;
 extern int  staffCapa, lecturerCapa, studentCapa;
 extern string a[10];
 
