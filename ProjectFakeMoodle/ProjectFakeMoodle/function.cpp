@@ -290,6 +290,7 @@ void updateAClassTXT(string classname)
 	}
 	f2.close();
 }
+
 void updateStudentTXT(string filename)
 {
 	ofstream fout;
@@ -331,6 +332,51 @@ void updateStudentTXT(string filename)
 		}
 	}
 	fout.close();
+}
+
+void updatePosition(string filename)
+{
+	ifstream fin;
+	ofstream fout;
+	fin.open(filename);
+	if (!fin.is_open())
+		cout << "Can not open file." << endl;
+	else
+	{
+		fin >> Nstudent >> Nleave;
+		fin.ignore(1000, '\n');
+		for (int i = 0; i < Nstudent + Nleave; ++i)
+		{
+			fin.get();
+			getline(fin, hocsinh[i].id);
+			getline(fin, hocsinh[i].password);
+			getline(fin, hocsinh[i].fullname);
+			getline(fin, hocsinh[i].dob);
+			getline(fin, hocsinh[i].clas);
+			fin >> hocsinh[i].status;
+			fin.get();
+		}
+		fin.close();
+		fout.open(filename);
+		if(!fout.is_open())
+			cout << "Can not open file." << endl;
+		else
+		{
+			fout << Nstudent << " " << Nleave;
+			for (int i = 0; i < Nstudent + Nleave; i++)
+			{
+				fout << endl
+					<< endl;
+				fout << hocsinh[i].id << endl;
+				fout << hocsinh[i].password << endl;
+				fout << hocsinh[i].fullname << endl;
+				fout << hocsinh[i].dob << endl;
+				fout << hocsinh[i].clas << endl;
+				fout << hocsinh[i].status;
+			}
+			fout.close();
+		}
+	}
 }
 
 void staffMenuShow()
@@ -607,7 +653,7 @@ void addAStudenttoClass()
 
 	updateStudentTXT("student.txt");
 	updateAClassTXT(tmpclassname);
-	return;
+	updatePosition("student.txt");
 }
 
 void editStudent()

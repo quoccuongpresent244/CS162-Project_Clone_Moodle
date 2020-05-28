@@ -91,6 +91,7 @@ void loadStudent();
 void updateAllClassTXT();
 void updateAClassTXT(string classname);
 void updateStudentTXT(string filename);
+void updatePosition(string filename);
 
 //CLASS
 void importCSV();
