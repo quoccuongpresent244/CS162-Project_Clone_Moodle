@@ -99,7 +99,6 @@ void addAStudenttoClass();
 void editStudent();
 //task 9
 void RemoveAStudent();
-void DeleteAndAddStudent(student* hocsinh, int& numofstu, string tmpID, string tmpClass);
 void ChangeClass();
 void viewListOfClasses();
 void viewListOfStudentsInClass();
