@@ -357,7 +357,7 @@ void updatePosition(string filename)
 			fin.get();
 		}
 		fin.close();
-		fout.open(filename);
+		/*fout.open(filename);
 		if(!fout.is_open())
 			cout << "Can not open file." << endl;
 		else
@@ -375,7 +375,7 @@ void updatePosition(string filename)
 				fout << hocsinh[i].status;
 			}
 			fout.close();
-		}
+		}*/
 	}
 }
 
@@ -514,12 +514,12 @@ void importCSV()
 	// import data from CSV file to program and rewrite file student.txt and student-class.txt
 
 	string no, studentID, fullname, dob, clas;
-	int tmp = Nstudent;
 
 	string addressCSV;
 
 	ifstream fin;
 	cout << "Enter address of csv file: ";
+	cin.ignore(1000, '\n');
 	getline(cin, addressCSV, '\n'); // You must have file CSV first, then find the address of that file, and modify it to look like the one below
 	fin.open(addressCSV);
 
@@ -563,41 +563,72 @@ void importCSV()
 			hocsinh[Nstudent].fullname = fullname;
 			hocsinh[Nstudent].dob = tmpdob;
 			hocsinh[Nstudent].clas = clas;
+			hocsinh[Nstudent].status = 1;
 			++Nstudent;
-		}
-	}
-	string Classname;
-	Classname = clas;
-	lophoc[Nclass].classname = Classname; //add new class to class pointer
-	++Nclass;
 
-	ofstream f2;
-	Classname = "student-" + Classname + ".txt";
-	f2.open(Classname); // just create new file txt student-[class] to store data.
-	if (!f2.is_open())
-	{
-		cout << "cannot open file f2";
-	}
-	else
-	{
-		f2 << Nstudent - tmp; //This shows the number of students in Class.... easy to understand, just read line 183
-		for (int i = tmp; i < Nstudent; i++)
-		{
-			f2 << endl
-			   << endl;
-			f2 << hocsinh[i].id << endl;
-			f2 << hocsinh[i].password << endl;
-			f2 << hocsinh[i].fullname << endl;
-			f2 << hocsinh[i].dob << endl;
-			f2 << hocsinh[i].clas;
+			bool newclass = true;
+			int tmp;
+			for (int j = 0; j < Nclass; j++)
+			{
+				if (hocsinh[j].clas == clas)
+				{
+					newclass = false;
+					tmp = j;
+					break;
+				}
+			}
+			if (newclass)
+			{
+				lophoc[Nclass].classname = clas;
+				lophoc[Nclass].numofstu = 1;
+				++Nclass;
+			}
+			else {
+				++lophoc[tmp].numofstu;
+			}
 		}
 	}
 
-	updateStudentTXT("student.txt"); //This function update student.txt file
-	cout << "\nImport Successfully\n";
+	updateStudentTXT("student.txt");
+	updatePosition("student.txt");
+	updateAllClassTXT();
+
+	//string Classname;
+	//Classname = clas;
+	//lophoc[Nclass].classname = Classname; //add new class to class pointer
+	//lophoc[Nclass].numofstu = Nstudent - tmp;
+	//++Nclass;
+
+	//ofstream f2;
+	//Classname = "student-" + Classname + ".txt";
+	//f2.open(Classname); // just create new file txt student-[class] to store data.
+	//if (!f2.is_open())
+	//{
+	//	cout << "cannot open file f2";
+	//}
+	//else
+	//{
+	//	f2 << Nstudent - tmp; //This shows the number of students in Class.... easy to understand, just read line 183
+	//	for (int i = tmp; i < Nstudent; i++)
+	//	{
+	//		f2 << endl
+	//		   << endl;
+	//		f2 << hocsinh[i].id << endl;
+	//		f2 << hocsinh[i].password << endl;
+	//		f2 << hocsinh[i].fullname << endl;
+	//		f2 << hocsinh[i].dob << endl;
+	//		f2 << hocsinh[i].clas<<endl;
+	//		f2 << hocsinh[Nstudent].status;
+	//	}
+	//}
+
+	//updateStudentTXT("student.txt"); //This function update student.txt file
+	//cout << "\nImport Successfully\n";
+
+	//fin.close();
+	//f2.close();
 
 	fin.close();
-	f2.close();
 	return;
 }
 void addAStudenttoClass()
