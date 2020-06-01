@@ -337,7 +337,7 @@ void updateStudentTXT(string filename)
 void updatePosition(string filename)
 {
 	ifstream fin;
-	ofstream fout;
+
 	fin.open(filename);
 	if (!fin.is_open())
 		cout << "Can not open file." << endl;
@@ -357,6 +357,8 @@ void updatePosition(string filename)
 			fin.get();
 		}
 		fin.close();
+
+
 		/*fout.open(filename);
 		if(!fout.is_open())
 			cout << "Can not open file." << endl;
