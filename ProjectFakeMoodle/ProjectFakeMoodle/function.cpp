@@ -561,6 +561,7 @@ void importCSV()
 	fin.open(addressCSV);
 
 	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\ProjectFakeMoodle\\19APCS1-student.csv
+	// F:\\QUOC\\UNIVERSITY\\COMPUTER_SCIENCE\\CS162\\Final_Proj\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\ProjectFakeMoodle\\19CLC-student.csv
 	if (!fin.is_open())
 	{
 		cout << "cannot open file fin";
@@ -568,13 +569,13 @@ void importCSV()
 	else
 	{
 		getline(fin, no, '\n');
-		while (fin.good())
+		while (getline(fin, no, ',')&&
+			getline(fin, studentID, ',')&&
+			getline(fin, fullname, ',')&&
+			getline(fin, dob, ',')&&
+			getline(fin, clas, '\n'))
 		{
-			getline(fin, no, ',');
-			getline(fin, studentID, ',');
-			getline(fin, fullname, ',');
-			getline(fin, dob, ',');
-			getline(fin, clas, '\n');
+			
 
 			//2001/04/01 20010401 2001 04 01
 			string tmpPass = dob;
