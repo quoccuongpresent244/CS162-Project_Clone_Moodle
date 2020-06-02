@@ -1289,6 +1289,8 @@ void listofAttendance(){
 
 	loadStudentOfCourseTXT(khoahoc, NstuinCourse, filename);
 	for (int i = 0; i < NstuinCourse; ++i){
+		cout << khoahoc[i].fullname << endl;
+		cout << khoahoc[i].id << endl;
 		for (int j = 0; j < 10; ++j)
 			cout << khoahoc[i].attendance[j] << endl;
 		cout << endl;
