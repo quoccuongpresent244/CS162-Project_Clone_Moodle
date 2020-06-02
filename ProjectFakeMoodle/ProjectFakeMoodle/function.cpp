@@ -760,11 +760,26 @@ void ChangeClass()
 			cin.get();
 			getline(cin, tmpNew);
 			hocsinh[i].clas = tmpNew;
+			
+			bool newclass = true;
+			for (int j = 0; j < Nclass; ++j) {
+				if (lophoc[j].classname == tmpNew)
+					newclass = false;
+				break;
+			}
+
+			if (newclass) {
+				lophoc[Nclass].classname = tmpNew;
+				lophoc[Nclass].numofstu = 1;
+				++Nclass;
+			}
+
 			for (int j = 0; j < Nclass; ++j)
 			{
 				if (lophoc[j].classname == tmpClass)
 					--lophoc[j].numofstu;
-				else if (lophoc[j].classname == tmpNew)
+
+				if (!newclass && lophoc[j].classname == tmpNew)
 					++lophoc[j].numofstu;
 			}
 			cout << "The class of this student have been changed !" << endl;
@@ -772,8 +787,10 @@ void ChangeClass()
 		}
 	}
 	updateStudentTXT("student.txt");
-	updateAClassTXT(tmpClass);
-	updateAClassTXT(tmpNew);
+	/*updateAClassTXT(tmpClass);
+	updateAClassTXT(tmpNew);*/
+
+	updateAllClassTXT();
 }
 
 void viewListOfClasses()
@@ -1369,7 +1386,7 @@ void removeACourse()
 	int Ncourse = 0;
 
 	loadClassScheduleTXT(khoahoc, Ncourse, classcourses);
-	cout << "Enter ID of the course: ";
+	cout << "Enter ID of the course needed to removed: ";
 	getline(cin, tmpCourseID, '\n');
 	for (int i = 0; i < Ncourse; ++i)
 	{
