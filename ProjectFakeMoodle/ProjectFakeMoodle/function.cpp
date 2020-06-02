@@ -716,7 +716,7 @@ void editStudent()
 
 			tmpClass = hocsinh[i].clas;
 
-			cout << "This student has been edited!!!";
+			cout << "This student has been edited!!!" << endl;
 
 			break;
 		}
