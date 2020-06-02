@@ -914,22 +914,21 @@ void importCourseCSV()
 	else
 	{
 		getline(fin, no, '\n');
-		while (fin.good())
+		while (getline(fin, no, ',')&&
+			getline(fin, courseID, ',')&&
+			getline(fin, courseName, ',')&&
+			getline(fin, clas, ',')&&
+			getline(fin, instructorUsername, ',')&&
+			getline(fin, instructor, ',')&&
+			getline(fin, degree, ',')&&
+			getline(fin, gender, ',')&&
+			getline(fin, startDate, ',')&&
+			getline(fin, endDate, ',')&&
+			getline(fin, dayOfWeek, ',')&&
+			getline(fin, startTime, ',')&&
+			getline(fin, endTime, ',')&&
+			getline(fin, room, '\n'))
 		{
-			getline(fin, no, ',');
-			getline(fin, courseID, ',');
-			getline(fin, courseName, ',');
-			getline(fin, clas, ',');
-			getline(fin, instructorUsername, ',');
-			getline(fin, instructor, ',');
-			getline(fin, degree, ',');
-			getline(fin, gender, ',');
-			getline(fin, startDate, ',');
-			getline(fin, endDate, ',');
-			getline(fin, dayOfWeek, ',');
-			getline(fin, startTime, ',');
-			getline(fin, endTime, ',');
-			getline(fin, room, '\n');
 
 			string tmpstartDate = startDate;
 			tmpstartDate.replace(4, 1, " ");
