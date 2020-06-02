@@ -817,9 +817,6 @@ void ChangeClass()
 		}
 	}
 	updateStudentTXT("student.txt");
-	/*updateAClassTXT(tmpClass);
-	updateAClassTXT(tmpNew);*/
-
 	updateAllClassTXT();
 }
 
