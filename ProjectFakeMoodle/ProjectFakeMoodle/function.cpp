@@ -700,7 +700,6 @@ void editStudent()
 
 	ifstream fi;
 	fi.open("student.txt");
-	loadStudent();
 
 	for (int i = 0; i < Nstudent; i++)
 	{
@@ -709,19 +708,15 @@ void editStudent()
 			cout << "Student ID: ";
 			getline(cin, hocsinh[i].id, '\n');
 
-			cout << "Password: ";
-			getline(cin, hocsinh[i].password, '\n');
-
 			cout << "Full name: ";
 			getline(cin, hocsinh[i].fullname, '\n');
 
-			cout << "Date of birth: ";
+			cout << "Date of birth (yyyy mm dd): ";
 			getline(cin, hocsinh[i].dob, '\n');
 
-			cout << "Class: ";
-			getline(cin, hocsinh[i].clas, '\n');
-
 			tmpClass = hocsinh[i].clas;
+
+			cout << "This student has been edited!!!";
 
 			break;
 		}
