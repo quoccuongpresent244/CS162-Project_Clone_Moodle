@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2
 
 19125789
@@ -12,4 +13,13 @@ Nguyen Phuong Nam
 Pham Trong Vinh Khue
 2001 04 26
 19CLC2
+=======
+1
+
+19125234
+20010426
+Pham Trong Vinh Khue
+2001 04 26
+19CLC2
+>>>>>>> parent of 354057e... Revert "update class task"
 1
