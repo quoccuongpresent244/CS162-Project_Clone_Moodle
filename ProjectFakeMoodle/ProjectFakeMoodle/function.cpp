@@ -883,6 +883,7 @@ void importCourseCSV()
 	string no, courseID, courseName, clas, instructor, instructorUsername, degree, gender, startDate,
 		endDate, dayOfWeek, startTime, endTime, room;
 
+	cin.ignore(100, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1074,6 +1075,7 @@ void addANewCourse()
 {
 	string acayear, semester, classname, classcourses;
 
+	cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1129,6 +1131,7 @@ void editACourse()
 {
 	string acayear, semester, classname, coursename;
 
+	cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1176,7 +1179,7 @@ void editACourse()
 
 			createAttendance(khoahoc[i]);
 			
-			string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + ".txt";
+			string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 			updateCourseStudentTXT(filename, classname);
 
 			break;
@@ -1193,6 +1196,7 @@ void listofCourse()
 	course *khoahoc = nullptr;
 	int Ncourse = 0;
 	string className;
+	cin.ignore(1000, '\n');
 	cout << "Please enter Class you want to view: ";
 	getline(cin, className, '\n');
 
@@ -1276,6 +1280,7 @@ void listofAttendance(){
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
 	string courseID, classname;
+	cin.ignore(1000, '\n');
 	cout << "Choose class do you want to view: ";
 	getline(cin, classname, '\n');
 	cout << "Choose course do you want to view: ";
@@ -1304,10 +1309,11 @@ void loadStudentOfCourseTXT(stuincourse *&stuinCourse, int &NstuinCourse, string
 	{
 		fin >> NstuinCourse;
 		stuinCourse = new stuincourse[NstuinCourse + 1];
+		fin.ignore(1000, '\n');
 		
 		for (int i = 0; i < NstuinCourse; i++)
 		{
-			fin.ignore(1000, '\n');
+			
 			fin.get();
 			getline(fin, stuinCourse[i].id, '\n');
 			getline(fin, stuinCourse[i].password, '\n');
@@ -1400,8 +1406,8 @@ void removeACourse()
 	ofstream f;
 	string acayear, semester, classname, classcourses, tmpCourseID;
 
+	cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
-	cin.ignore();
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
 	getline(cin, semester, '\n');
@@ -1510,6 +1516,7 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 		{
 			fi4 >> NStudent;
 			fo3 << NStudent;
+			fo3 << endl;
 
 			hs = new stuincourse[NStudent + 1];
 
@@ -1531,8 +1538,8 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 				hs[i].bonus = -1;
 				hs[i].final = -1;
 
-				fo3 << endl
-					<< endl;
+				fo3 << endl;
+				
 				fo3 << hs[i].id << endl;
 				fo3 << hs[i].password << endl;
 				fo3 << hs[i].fullname << endl;

@@ -1,4 +1,4 @@
-4
+2
 
 CS162
 Introduction to Programming
@@ -8,50 +8,22 @@ dbtien
 TS
 Male
 2020 04 06
-2020 06 01
+2020 06 08
 MON
 7:30
 11:30
 I42
 
-MTH212
-Calculus 2
-19APCS1
-Nguyen Van Anh
-nvanh
-GS
-Male
-2020 04 06
-2020 06 08
-MON
-07:30
-09:30
-I25
-
 CM101
-Communication Management
+Communications
 19APCS1
 Duong Nguyen Vu
 dnvu
 GS
 Male
 2020 04 07
-2020 06 07
-TUE
-7:30
-11:30
-I42
-
-LAW101
-Phap Luat Dai Cuong
-19APCS1
-Dang Cong Trang
-dctrang
-TS
-Male
-2020 04 06
 2020 06 08
-MON
-13:30 
+SAT
+13:30
 17:30
-C22
+I23
