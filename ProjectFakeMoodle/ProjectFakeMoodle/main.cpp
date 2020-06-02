@@ -6,10 +6,11 @@ using namespace std;
 int main()
 {
 	loadStaff();
-	loadLecturer();
-	loadStudent();
+	//loadLecturer();
+	//loadStudent();
 
-	firstMenu();
+	//firstMenu();
+	login();
 
 	delete[]lophoc;
 	delete[]giaovu;

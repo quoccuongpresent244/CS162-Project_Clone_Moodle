@@ -11,18 +11,48 @@ student *hocsinh = nullptr;
 
 void firstMenu()
 {
-	int x;
-	cout << "1. Login\n";
-	cout << "2. Exit\n";
-	cout << "What you want: (1-2): ";
-	cin >> x;
-	system("cls");
-	switch (x)
-	{
-	case 1:
+	int color[] = { 10, 12 };
+	int index[] = { 1, 0};
+	int ptr = 0;
+	int keystroke = 0;
+	while (keystroke != 13) { // 13: enter
+		system("cls");
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[0]]);
+		cout << "1. LOGIN" << endl;
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[1]]);
+		cout << "2. LOG OUT." << endl;
+
+		keystroke = _getch();
+		fflush(stdin);
+        
+        //UP_ARROW: 72
+		if (keystroke == 72) {
+			index[ptr] = 0;
+			if (ptr == 0)
+				ptr = 1;
+			else
+				ptr--;
+			index[ptr] = 1;
+		}
+
+        //DOWN_ARROW: 80
+		else if (keystroke==80) {
+			index[ptr] = 0;
+			if (ptr == 1)
+				ptr = 0;
+			else
+				ptr++;
+			index[ptr] = 1;
+		}
+	}
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
+	switch (ptr) {
+	case 0:
 		login();
 		break;
-	case 2:
+	case 1:
+		cout << "See you later!" << endl;
 		break;
 	}
 }
@@ -35,11 +65,12 @@ void login()
 	getline(cin, usernameX);
 	cout << "password: ";
 	getline(cin, passwordX);
-	system("cls");
+	//system("cls");
 	for (int i = 0; i < Nstaff; i++)
 	{
 		if (giaovu[i].username == usernameX && giaovu[i].password == passwordX)
 		{
+			cout << "CUA STAFF" << endl;
 			staffFeature(giaovu[i]);
 			return;
 		}
@@ -48,6 +79,7 @@ void login()
 	{
 		if (giaovien[i].username == usernameX && giaovien[i].password == passwordX)
 		{
+			cout << "CUA LECTURER" << endl;
 			lecturerFeature(giaovien[i]);
 			return;
 		}
@@ -56,10 +88,12 @@ void login()
 	{
 		if (hocsinh[i].id == usernameX && hocsinh[i].password == passwordX)
 		{
+			cout << "CUA HOC SINH" << endl;
 			studentFeature(hocsinh[i]);
 			return;
 		}
 	}
+	cout << "ERROR!!!!!!!!!!!!" << endl;
 }
 
 void loadStaff()
@@ -74,6 +108,7 @@ void loadStaff()
 	{
 		fin >> Nstaff;
 		giaovu = new staff[Nstaff + 10];
+		fin.ignore(1000, '\n');
 
 		for (int i = 0; i < Nstaff; i++)
 		{
