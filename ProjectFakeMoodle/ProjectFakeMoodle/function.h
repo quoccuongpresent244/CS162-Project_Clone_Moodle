@@ -72,6 +72,7 @@ struct stuincourse { //student in course containing student infor, scoreboard an
 	string fullname;
 	string dob;
 	string clas;
+	int status;
 	string attendance[10];
 
 
@@ -79,7 +80,7 @@ struct stuincourse { //student in course containing student infor, scoreboard an
 	int final;
 	int bonus;
 	int total;
-	int status;
+	int statusCourse;
 };
 
 extern classes* lophoc;
@@ -113,14 +114,16 @@ void importCourseCSV();
 void addANewCourse();
 void editACourse();
 void removeACourse();
+void RemoveASpecificStu();
 void listofCourse(); //task 20: view List of Course
 void listofStuinCourse(); //task21: view student in a course
 void listofAttendance(); //task 23: view attendance list
 void viewLecturer(); //task 23: view all lecturer
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);
-void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, string coursename);
-void updateCourseStudentTXT(string coursetudent, string classname);
+void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NStudent, int& NCourseLeave, string coursename);
+void createCourseStudentTXT(string coursestudent, string classname);
+void updateCourseStudentTXT(string coursestudent);
 //for attendance 
 void plus7days(int &y, int &m, int &d);
 void createAttendance(course khoahoc);

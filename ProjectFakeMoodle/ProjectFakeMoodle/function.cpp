@@ -510,6 +510,7 @@ void staffFeature(staff a)
 			removeACourse();
 			break;
 		case 14:
+			RemoveASpecificStu();
 			break;
 		case 15:
 			break;
@@ -894,6 +895,7 @@ void importCourseCSV()
 	getline(cin, addressCSV, '\n');
 
 	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\All files\\19APCS1-schedule.csv
+	// C:\\Users\\dbcha\\Documents\\GitHub\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS1-schedule.csv
 
 	course *khoahoc = new course[10];
 	int Ncourse = 0;
@@ -955,7 +957,6 @@ void importCourseCSV()
 			khoahoc[Ncourse].startTime = startTime;
 			khoahoc[Ncourse].endTime = endTime;
 			khoahoc[Ncourse].room = room;
-			//khoahoc[Ncourse].status = 1;
 			++Ncourse;
 		}
 	}
@@ -970,7 +971,7 @@ void importCourseCSV()
 		string coursestudent = acayear + "-" + semester + "-" + classname + "-" + tmpcourseID + "-student.txt";
 
 		createAttendance(khoahoc[i]);
-		updateCourseStudentTXT(coursestudent, classname);
+		createCourseStudentTXT(coursestudent, classname);
 	}
 	delete[] khoahoc;
 }
@@ -1043,7 +1044,6 @@ void plus7days(int &y, int &m, int &d)
 
 void createAttendance(course khoahoc)
 {
-
 	string tmpY, tmpM, tmpD;
 	int y, m, d;
 	for (int i = 0; i < 4; ++i)
@@ -1123,10 +1123,11 @@ void addANewCourse()
 
 	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 
-	updateCourseStudentTXT(coursestudent, classname);
+	createCourseStudentTXT(coursestudent, classname);
 
 	delete[] khoahoc;
 }
+
 void editACourse()
 {
 	string acayear, semester, classname, coursename;
@@ -1180,7 +1181,7 @@ void editACourse()
 			createAttendance(khoahoc[i]);
 			
 			string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
-			updateCourseStudentTXT(filename, classname);
+			updateCourseStudentTXT(filename);
 
 			break;
 		}
@@ -1241,6 +1242,7 @@ void listofStuinCourse()
 {
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
+	int NleaveCourse = 0;
 	string courseID, classname;
 	cin.ignore(1000, '\n');
 	cout << "Choose class do you want to view: ";
@@ -1249,7 +1251,7 @@ void listofStuinCourse()
 	getline(cin, courseID, '\n');
 	string filename = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
 
-	loadStudentOfCourseTXT(khoahoc, NstuinCourse, filename);
+	loadStudentOfCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
 
 	cout << left << setw(14) << setfill(' ') << "Student ID";
 	cout << left << setw(28) << setfill(' ') << "Student Full Name";
@@ -1279,6 +1281,7 @@ void listofStuinCourse()
 void listofAttendance(){
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
+	int NleaveCourse = 0;
 	string courseID, classname;
 	cin.ignore(1000, '\n');
 	cout << "Choose class do you want to view: ";
@@ -1287,7 +1290,7 @@ void listofAttendance(){
 	getline(cin, courseID, '\n');
 	string filename = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
 
-	loadStudentOfCourseTXT(khoahoc, NstuinCourse, filename);
+	loadStudentOfCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
 	for (int i = 0; i < NstuinCourse; ++i){
 		cout << khoahoc[i].fullname << endl;
 		cout << khoahoc[i].id << endl;
@@ -1298,7 +1301,7 @@ void listofAttendance(){
 	delete [] khoahoc;
 }
 
-void loadStudentOfCourseTXT(stuincourse *&stuinCourse, int &NstuinCourse, string coursename)
+void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NStudent, int& NCourseLeave, string coursename)
 {
 	ifstream fin;
 	fin.open(coursename);
@@ -1309,19 +1312,19 @@ void loadStudentOfCourseTXT(stuincourse *&stuinCourse, int &NstuinCourse, string
 	}
 	else
 	{
-		fin >> NstuinCourse;
-		stuinCourse = new stuincourse[NstuinCourse + 1];
+		fin >> NStudent >> NCourseLeave;
+		stuinCourse = new stuincourse[NStudent + NCourseLeave];
 		fin.ignore(1000, '\n');
 		
-		for (int i = 0; i < NstuinCourse; i++)
+		for (int i = 0; i < NStudent + NCourseLeave; i++)
 		{
-			
 			fin.get();
 			getline(fin, stuinCourse[i].id, '\n');
 			getline(fin, stuinCourse[i].password, '\n');
 			getline(fin, stuinCourse[i].fullname, '\n');
 			getline(fin, stuinCourse[i].dob, '\n');
 			getline(fin, stuinCourse[i].clas, '\n');
+			fin >> stuinCourse[i].status;
 			fin >> stuinCourse[i].midterm;
 			fin >> stuinCourse[i].final;
 			fin >> stuinCourse[i].bonus;
@@ -1329,7 +1332,8 @@ void loadStudentOfCourseTXT(stuincourse *&stuinCourse, int &NstuinCourse, string
 			fin.ignore(1000, '\n');
 			for (int j = 0; j < 10; ++j)
 				getline(fin, stuinCourse[i].attendance[j], '\n');
-
+			fin >> stuinCourse[i].statusCourse;
+			fin.get();
 		}
 	}
 	fin.close();
@@ -1368,6 +1372,7 @@ void updateClassScheduleTXT(course *khoahoc, int Ncourse, string classschedule)
 	}
 	f2.close();
 }
+
 void loadClassScheduleTXT(course *&khoahoc, int &Ncourse, string classcourses)
 {
 	ifstream fin;
@@ -1494,7 +1499,99 @@ void removeACourse()
 	}
 }
 
-void updateCourseStudentTXT(string coursestudent, string classname)
+void RemoveASpecificStu()
+{
+	string acayear, semester, classname, classcourses, courseID, tmpID;
+	int NStudent;
+	int NCourseLeave;
+	stuincourse* hs = nullptr;
+	cin.ignore(1000, '\n');
+	cout << "Enter academic year (yyyy-yyyy): ";
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
+	cout << "Enter class name: ";
+	getline(cin, classname, '\n');
+	cout << "Enter courseID: ";
+	getline(cin, courseID, '\n');
+	cout << "Enter student ID: ";
+	getline(cin, tmpID, '\n');
+
+	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
+	loadStudentOfCourseTXT(hs, NStudent, NCourseLeave, coursestudent);
+	for (int i = 0; i < NStudent; ++i)
+	{
+		if (hs[i].id == tmpID)
+		{
+			cout << "---------INFORMATION---------" << endl;
+			cout << "ID: " << hs[i].id << endl;
+			cout << "Password: " << hs[i].password << endl;
+			cout << "Fullname: " << hs[i].fullname << endl;
+			cout << "Date of birth: " << hs[i].dob << endl;
+			cout << "Class: " << hs[i].clas << endl;
+			cout << "Do you want to remove this student ? (0.No 1.Yes) ";
+			int k; cin >> k;
+			if (k == 0) return;
+			hs[i].statusCourse = 0;
+			ofstream f1;
+			f1.open(coursestudent);
+			if (!f1.is_open())
+				cout << "Can not open file." << endl;
+			else
+			{
+				f1 << NStudent - 1 << " " << NCourseLeave + 1;
+				for (int j = 0; j < NStudent + NCourseLeave; ++j)
+				{
+					if (hs[j].statusCourse == 1)
+					{
+						f1 << endl
+							<< endl;
+						f1 << hs[j].id << endl;
+						f1 << hs[j].password << endl;
+						f1 << hs[j].fullname << endl;
+						f1 << hs[j].dob << endl;
+						f1 << hs[j].clas << endl;
+						f1 << hs[j].status << endl;
+						f1 << hs[j].midterm << endl;
+						f1 << hs[j].final << endl;
+						f1 << hs[j].bonus << endl;
+						f1 << hs[j].total << endl;
+						for (int k = 0; k < 10; ++k)
+							f1 << hs[j].attendance[k] << endl;
+						f1 << hs[j].statusCourse;
+					}
+				}
+				for (int j = 0; j < NStudent + NCourseLeave; ++j)
+				{
+					if (hs[j].statusCourse == 0)
+					{
+						f1 << endl
+							<< endl;
+						f1 << hs[j].id << endl;
+						f1 << hs[j].password << endl;
+						f1 << hs[j].fullname << endl;
+						f1 << hs[j].dob << endl;
+						f1 << hs[j].clas << endl;
+						f1 << hs[j].status << endl;
+						f1 << hs[j].midterm << endl;
+						f1 << hs[j].final << endl;
+						f1 << hs[j].bonus << endl;
+						f1 << hs[j].total << endl;
+						for (int k = 0; k < 10; ++k)
+							f1 << hs[j].attendance[k] << endl;
+						f1 << hs[j].statusCourse;
+					}
+				}
+			}
+			f1.close();
+			cout << "This student has been removed from class!" << endl;
+			delete[] hs;
+			break;
+		}
+	}
+}
+
+void createCourseStudentTXT(string coursestudent, string classname)
 {
 	stuincourse *hs = nullptr;
 	int NStudent;
@@ -1517,7 +1614,7 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 		else
 		{
 			fi4 >> NStudent;
-			fo3 << NStudent;
+			fo3 << NStudent << " 0";
 			fo3 << endl;
 
 			hs = new stuincourse[NStudent + 1];
@@ -1539,6 +1636,7 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 				hs[i].final = -1;
 				hs[i].bonus = -1;
 				hs[i].final = -1;
+				hs[i].statusCourse = 1;
 
 				fo3 << endl;
 				
@@ -1547,19 +1645,147 @@ void updateCourseStudentTXT(string coursestudent, string classname)
 				fo3 << hs[i].fullname << endl;
 				fo3 << hs[i].dob << endl;
 				fo3 << hs[i].clas << endl;
+				fo3 << hs[i].status << endl;
 				fo3 << hs[i].midterm << endl;
 				fo3 << hs[i].final << endl;
 				fo3 << hs[i].bonus << endl;
 				fo3 << hs[i].final << endl;
 				for (int j = 0; j < 10; ++j)
 					fo3 << hs[i].attendance[j] << endl;
+				fo3 << hs[i].statusCourse << endl;
 			}
 		}
 		fi4.close();
 		fo3.close();
 	}
-
 	delete[] hs;
+}
+
+void updateCourseStudentTXT(string coursestudent)
+{
+	stuincourse* hs = nullptr;
+	int NStudent;
+	int NCourseLeave;
+
+	ifstream fi4;
+	fi4.open(coursestudent);
+	if (!fi4.is_open())
+		cout << "Can not open file.";
+	else
+	{
+		fi4 >> NStudent >> NCourseLeave;
+		hs = new stuincourse[NStudent + NCourseLeave + 1];
+		//for (int i = 0; i < NStudent + NCourseLeave; i++)
+		//{
+		//	fi4.ignore(1000, '\n');
+		//	fi4.get();
+		//	getline(fi4, hs[i].id, '\n');
+		//	getline(fi4, hs[i].password, '\n');
+		//	getline(fi4, hs[i].fullname, '\n');
+		//	getline(fi4, hs[i].dob, '\n');
+		//	getline(fi4, hs[i].clas, '\n');
+		//	fi4 >> hs[i].status;
+		//	fi4 >> hs[i].midterm;
+		//	fi4 >> hs[i].final;
+		//	fi4 >> hs[i].bonus;
+		//	fi4 >> hs[i].total;
+		//	for (int j = 0; j < 10; ++j)
+		//		getline(fi4, hs[i].attendance[j], '\n');
+		//	fi4 >> hs[i].statusCourse;
+		//}
+		fi4.close();
+		ofstream fo3;
+		fo3.open(coursestudent);
+		if (!fo3.is_open())
+			cout << "Can not open file." << endl;
+		else
+		{
+			fo3 << NStudent << " " << NCourseLeave;
+			fo3 << endl;
+			for (int i = 0; i < NStudent + NCourseLeave; i++)
+			{
+				fo3 << endl;
+				fo3 << hs[i].id << endl;
+				fo3 << hs[i].password << endl;
+				fo3 << hs[i].fullname << endl;
+				fo3 << hs[i].dob << endl;
+				fo3 << hs[i].clas << endl;
+				fo3 << hs[i].status << endl;
+				fo3 << hs[i].midterm << endl;
+				fo3 << hs[i].final << endl;
+				fo3 << hs[i].bonus << endl;
+				fo3 << hs[i].final << endl;
+				for (int j = 0; j < 10; ++j)
+					fo3 << hs[i].attendance[j] << endl;
+				fo3 << hs[i].statusCourse << endl;
+			}
+			fo3.close();
+		}
+		delete[]hs;
+	}
+	/*ofstream fo3;
+
+	fo3.open(coursestudent);
+	if (!fo3.is_open())
+	{
+		cout << "cannot open file";
+	}
+	else
+	{
+		ifstream fi4;
+		fi4.open("student-" + classname + ".txt");
+		if (!fi4.is_open())
+		{
+			cout << "cannot open file";
+		}
+		else
+		{
+			fi4 >> NStudent;
+			fo3 << NStudent << " " << NCourseLeave;
+			fo3 << endl;
+
+			hs = new stuincourse[NStudent + 1];
+
+			for (int i = 0; i < NStudent; i++)
+			{
+				fi4.ignore(1000, '\n');
+				fi4.get();
+
+				getline(fi4, hs[i].id, '\n');
+				getline(fi4, hs[i].password, '\n');
+				getline(fi4, hs[i].fullname, '\n');
+				getline(fi4, hs[i].dob, '\n');
+				getline(fi4, hs[i].clas, '\n');
+				fi4 >> hs[i].status;
+				for (int j = 0; j < 10; j++)
+					hs[i].attendance[j] = a[j];
+				hs[i].midterm = -1;
+				hs[i].final = -1;
+				hs[i].bonus = -1;
+				hs[i].final = -1;
+				hs[i].statusCourse = 1;
+
+				fo3 << endl;
+
+				fo3 << hs[i].id << endl;
+				fo3 << hs[i].password << endl;
+				fo3 << hs[i].fullname << endl;
+				fo3 << hs[i].dob << endl;
+				fo3 << hs[i].clas << endl;
+				fo3 << hs[i].status << endl;
+				fo3 << hs[i].midterm << endl;
+				fo3 << hs[i].final << endl;
+				fo3 << hs[i].bonus << endl;
+				fo3 << hs[i].final << endl;
+				for (int j = 0; j < 10; ++j)
+					fo3 << hs[i].attendance[j] << endl;
+				fo3 << hs[i].statusCourse << endl;
+			}
+		}
+		fi4.close();
+		fo3.close();
+	}
+	delete[] hs;*/
 }
 
 void viewLecturer()

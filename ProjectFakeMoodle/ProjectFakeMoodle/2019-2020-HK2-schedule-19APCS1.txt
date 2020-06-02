@@ -1,4 +1,4 @@
-2
+3
 
 CS162
 Introduction to Programming
@@ -8,7 +8,7 @@ dbtien
 TS
 Male
 2020 04 06
-2020 06 08
+2020 06 01
 MON
 7:30
 11:30
@@ -22,8 +22,22 @@ dnvu
 GS
 Male
 2020 04 07
-2020 06 08
+2020 06 02
 SAT
 13:30
 17:30
 I23
+
+LAW101
+Phap Luat
+19APCS1
+Vu Cong Trang
+vctrang
+ThS
+Male
+2020 04 02
+2020 06 18
+MON
+7:30
+11:30
+C69
