@@ -607,7 +607,7 @@ void importCSV()
 			int tmp;
 			for (int j = 0; j < Nclass; j++)
 			{
-				if (hocsinh[j].clas == clas)
+				if (lophoc[j].classname == clas)
 				{
 					newclass = false;
 					tmp = j;
