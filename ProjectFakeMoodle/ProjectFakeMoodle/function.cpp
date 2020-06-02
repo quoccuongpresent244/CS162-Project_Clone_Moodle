@@ -561,7 +561,8 @@ void importCSV()
 	fin.open(addressCSV);
 
 	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\ProjectFakeMoodle\\19APCS1-student.csv
-	// F:\\QUOC\\UNIVERSITY\\COMPUTER_SCIENCE\\CS162\\Final_Proj\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\ProjectFakeMoodle\\19CLC-student.csv
+	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\ProjectFakeMoodle\\19CLC-student.csv
+
 	if (!fin.is_open())
 	{
 		cout << "cannot open file fin";
@@ -569,14 +570,12 @@ void importCSV()
 	else
 	{
 		getline(fin, no, '\n');
-		while (getline(fin, no, ',')&&
-			getline(fin, studentID, ',')&&
-			getline(fin, fullname, ',')&&
-			getline(fin, dob, ',')&&
+		while (getline(fin, no, ',') &&
+			getline(fin, studentID, ',') &&
+			getline(fin, fullname, ',') &&
+			getline(fin, dob, ',') &&
 			getline(fin, clas, '\n'))
 		{
-			
-
 			//2001/04/01 20010401 2001 04 01
 			string tmpPass = dob;
 			tmpPass.erase(tmpPass.begin() + 4);
@@ -796,11 +795,26 @@ void ChangeClass()
 			cin.get();
 			getline(cin, tmpNew);
 			hocsinh[i].clas = tmpNew;
+			
+			bool newclass = true;
+			for (int j = 0; j < Nclass; ++j) {
+				if (lophoc[j].classname == tmpNew)
+					newclass = false;
+				break;
+			}
+
+			if (newclass) {
+				lophoc[Nclass].classname = tmpNew;
+				lophoc[Nclass].numofstu = 1;
+				++Nclass;
+			}
+
 			for (int j = 0; j < Nclass; ++j)
 			{
 				if (lophoc[j].classname == tmpClass)
 					--lophoc[j].numofstu;
-				else if (lophoc[j].classname == tmpNew)
+
+				if (!newclass && lophoc[j].classname == tmpNew)
 					++lophoc[j].numofstu;
 			}
 			cout << "The class of this student have been changed !" << endl;
@@ -808,8 +822,10 @@ void ChangeClass()
 		}
 	}
 	updateStudentTXT("student.txt");
-	updateAClassTXT(tmpClass);
-	updateAClassTXT(tmpNew);
+	/*updateAClassTXT(tmpClass);
+	updateAClassTXT(tmpNew);*/
+
+	updateAllClassTXT();
 }
 
 void viewListOfClasses()
@@ -1405,7 +1421,7 @@ void removeACourse()
 	int Ncourse = 0;
 
 	loadClassScheduleTXT(khoahoc, Ncourse, classcourses);
-	cout << "Enter ID of the course: ";
+	cout << "Enter ID of the course needed to removed: ";
 	getline(cin, tmpCourseID, '\n');
 	for (int i = 0; i < Ncourse; ++i)
 	{

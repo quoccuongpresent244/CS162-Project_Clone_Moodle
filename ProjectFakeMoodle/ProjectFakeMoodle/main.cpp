@@ -8,8 +8,9 @@ int main()
 	loadStaff();
 	loadLecturer();
 	loadStudent();
+
 	firstMenu();
-	//login(); 
+	//login();
 
 	delete[]lophoc;
 	delete[]giaovu;
