@@ -838,6 +838,7 @@ void viewListOfClasses()
 	{
 		cout << left << setw(15) << setfill(' ') << lophoc[i].classname;
 		cout << left << setw(19) << setfill(' ') << lophoc[i].numofstu;
+		cout << endl;
 	}
 }
 void viewListOfStudentsInClass()
