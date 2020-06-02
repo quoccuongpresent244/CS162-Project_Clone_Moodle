@@ -5,6 +5,11 @@
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <stdio.h>
+#include <chrono>
+#include <ctime>
+#include <Windows.h>
+#include <conio.h>
 
 using namespace std;
 
