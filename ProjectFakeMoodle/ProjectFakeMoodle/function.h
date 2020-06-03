@@ -73,13 +73,14 @@ struct stuincourse { //student in course containing student infor, scoreboard an
 	string dob;
 	string clas;
 	int status;
-	string attendance[10];
-
 
 	int midterm;
 	int final;
 	int bonus;
 	int total;
+
+	string attendance[10];
+
 	int statusCourse;
 };
 
@@ -115,6 +116,7 @@ void addANewCourse();
 void editACourse();
 void removeACourse();
 void RemoveASpecificStu();
+void AddASpecificStu();
 void listofCourse(); //task 20: view List of Course
 void listofStuinCourse(); //task21: view student in a course
 void listofAttendance(); //task 23: view attendance list

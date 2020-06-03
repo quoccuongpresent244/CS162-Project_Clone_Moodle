@@ -513,6 +513,7 @@ void staffFeature(staff a)
 			RemoveASpecificStu();
 			break;
 		case 15:
+			AddASpecificStu();
 			break;
 		case 16:
 			listofCourse();
@@ -1313,7 +1314,7 @@ void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NStudent, int& NCour
 	else
 	{
 		fin >> NStudent >> NCourseLeave;
-		stuinCourse = new stuincourse[NStudent + NCourseLeave];
+		stuinCourse = new stuincourse[NStudent + NCourseLeave + 1];
 		fin.ignore(1000, '\n');
 		
 		for (int i = 0; i < NStudent + NCourseLeave; i++)
@@ -1501,7 +1502,7 @@ void removeACourse()
 
 void RemoveASpecificStu()
 {
-	string acayear, semester, classname, classcourses, courseID, tmpID;
+	string acayear, semester, classname, courseID, tmpID;
 	int NStudent;
 	int NCourseLeave;
 	stuincourse* hs = nullptr;
@@ -1582,16 +1583,109 @@ void RemoveASpecificStu()
 						f1 << hs[j].statusCourse;
 					}
 				}
+				f1.close();
+				cout << "This student has been removed from class!" << endl;
 			}
-			f1.close();
-			cout << "This student has been removed from class!" << endl;
 			delete[] hs;
 			break;
 		}
 	}
 }
 
-void createCourseStudentTXT(string coursestudent, string classname)
+void AddASpecificStu()
+{
+	string acayear, semester, classname, courseID;
+	int NStudent;
+	int NCourseLeave;
+	stuincourse* hs = nullptr;
+	cin.ignore(1000, '\n');
+	cout << "Enter academic year (yyyy-yyyy): ";
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
+	cout << "Enter class name: ";
+	getline(cin, classname, '\n');
+	cout << "Enter courseID: ";
+	getline(cin, courseID, '\n');
+
+	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
+	loadStudentOfCourseTXT(hs, NStudent, NCourseLeave, coursestudent);
+
+	cout << "Enter student's ID: ";
+	getline(cin, hs[NStudent + NCourseLeave].id, '\n');
+	cout << "Enter student's password: ";
+	getline(cin, hs[NStudent + NCourseLeave].password, '\n');
+	cout << "Enter student's fullname: ";
+	getline(cin, hs[NStudent + NCourseLeave].fullname, '\n');
+	cout << "Enter student's Date of birth (yyyy mm dd): ";
+	getline(cin, hs[NStudent + NCourseLeave].dob, '\n');
+	hs[NStudent + NCourseLeave].clas = classname;
+	hs[NStudent + NCourseLeave].status = 1;
+	hs[NStudent + NCourseLeave].midterm = -1;
+	hs[NStudent + NCourseLeave].final = -1;
+	hs[NStudent + NCourseLeave].bonus = -1;
+	hs[NStudent + NCourseLeave].total = -1;
+	for (int j = 0; j < 10; j++)
+		hs[NStudent + NCourseLeave].attendance[j] = a[j];
+	hs[NStudent + NCourseLeave].statusCourse = 1;
+	++NStudent;
+
+	ofstream f1;
+	f1.open(coursestudent);
+	if (!f1.is_open())
+		cout << "Can not open file." << endl;
+	else
+	{
+		f1 << NStudent << " " << NCourseLeave;
+		for (int j = 0; j < NStudent + NCourseLeave; ++j)
+		{
+			if (hs[j].statusCourse == 1)
+			{
+				f1 << endl
+					<< endl;
+				f1 << hs[j].id << endl;
+				f1 << hs[j].password << endl;
+				f1 << hs[j].fullname << endl;
+				f1 << hs[j].dob << endl;
+				f1 << hs[j].clas << endl;
+				f1 << hs[j].status << endl;
+				f1 << hs[j].midterm << endl;
+				f1 << hs[j].final << endl;
+				f1 << hs[j].bonus << endl;
+				f1 << hs[j].total << endl;
+				for (int k = 0; k < 10; ++k)
+					f1 << hs[j].attendance[k] << endl;
+				f1 << hs[j].statusCourse;
+			}
+		}
+		for (int j = 0; j < NStudent + NCourseLeave; ++j)
+		{
+			if (hs[j].statusCourse == 0)
+			{
+				f1 << endl
+					<< endl;
+				f1 << hs[j].id << endl;
+				f1 << hs[j].password << endl;
+				f1 << hs[j].fullname << endl;
+				f1 << hs[j].dob << endl;
+				f1 << hs[j].clas << endl;
+				f1 << hs[j].status << endl;
+				f1 << hs[j].midterm << endl;
+				f1 << hs[j].final << endl;
+				f1 << hs[j].bonus << endl;
+				f1 << hs[j].total << endl;
+				for (int k = 0; k < 10; ++k)
+					f1 << hs[j].attendance[k] << endl;
+				f1 << hs[j].statusCourse;
+			}
+		}
+		f1.close();
+		cout << "This student has been added  !!!!" << endl;
+	}
+	delete[]hs;
+}
+
+void createCourseStudentTXT(string coursestudent, string classname) 
 {
 	stuincourse *hs = nullptr;
 	int NStudent;
@@ -1649,7 +1743,7 @@ void createCourseStudentTXT(string coursestudent, string classname)
 				fo3 << hs[i].midterm << endl;
 				fo3 << hs[i].final << endl;
 				fo3 << hs[i].bonus << endl;
-				fo3 << hs[i].final << endl;
+				fo3 << hs[i].total << endl;
 				for (int j = 0; j < 10; ++j)
 					fo3 << hs[i].attendance[j] << endl;
 				fo3 << hs[i].statusCourse << endl;
@@ -1714,7 +1808,7 @@ void updateCourseStudentTXT(string coursestudent)
 				fo3 << hs[i].midterm << endl;
 				fo3 << hs[i].final << endl;
 				fo3 << hs[i].bonus << endl;
-				fo3 << hs[i].final << endl;
+				fo3 << hs[i].total << endl;
 				for (int j = 0; j < 10; ++j)
 					fo3 << hs[i].attendance[j] << endl;
 				fo3 << hs[i].statusCourse << endl;
