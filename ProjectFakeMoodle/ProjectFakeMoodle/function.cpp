@@ -561,8 +561,10 @@ void staffFeature(staff a)
 			viewLecturer();
 			break;
 		case 20:
+			viewScoreBoard();
 			break;
 		case 21:
+			exportSBtoCSV();
 			break;
 		case 22:
 			break;
@@ -2071,6 +2073,7 @@ void studentFeature(student a)
 		case 2:
 			break;
 		case 3:
+			viewSchedule(a);
 			break;
 		case 4:
 			break;
@@ -2278,7 +2281,7 @@ void viewSchedule(student hocsinh){
 	int NstuinCourseLeave;
 
 	string acayear, semester;
-	//cin.ignore(1000, '\n');
+	cin.ignore(1000, '\n');
 	cout << "Choose academic year: "; 
 	getline(cin, acayear, '\n');
 	cout << "Choose semester: ";
