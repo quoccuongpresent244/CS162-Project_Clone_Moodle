@@ -1310,6 +1310,45 @@ void listofAttendance(){
 	delete [] khoahoc;
 }
 
+void viewScoreBoard(){
+	stuincourse *khoahoc = nullptr;
+	int NstuinCourse = 0;
+	int NleaveCourse = 0;
+	string courseID, classname, acayear, semester;
+	cin.ignore(1000, '\n');
+	cout << "Choose class do you want to view: ";
+	getline(cin, classname, '\n');
+	cout << "Choose course do you want to view: ";
+	getline(cin, courseID, '\n');
+	cout << "Choose academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Choose semester: ";
+	getline(cin, semester, '\n');
+	string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
+
+	loadStuinCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
+
+	cout << left << setw(14) << setfill(' ') << "Student ID";
+	cout << left << setw(28) << setfill(' ') << "Student Full Name";
+	cout << left << setw(10) << setfill(' ') << "Mid Term";
+	cout << left << setw(9) << setfill(' ') << "Final";
+	cout << left << setw(9) << setfill(' ') << "Bonus";
+	cout << left << setw(9) << setfill(' ') << "Total";
+	cout << endl;
+
+	for (int i = 0; i < NstuinCourse; i++)
+	{
+		cout << left << setw(14) << setfill(' ') << khoahoc[i].id;
+		cout << left << setw(28) << setfill(' ') << khoahoc[i].fullname;
+		cout << left << setw(10) << setfill(' ') << khoahoc[i].midterm;
+		cout << left << setw(9) << setfill(' ') << khoahoc[i].final;
+		cout << left << setw(9) << setfill(' ') << khoahoc[i].bonus;
+		cout << left << setw(9) << setfill(' ') << khoahoc[i].total;
+		cout << endl;
+	}
+	delete[] khoahoc;
+}
+
 void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT)
 {
 	ifstream fin;

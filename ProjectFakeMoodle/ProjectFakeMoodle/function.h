@@ -121,7 +121,7 @@ void listofCourse(); //task 20: view List of Course
 void listofStuinCourse(); //task21: view student in a course
 void listofAttendance(); //task 23: view attendance list
 void viewLecturer(); //task 23: view all lecturer
-
+void viewScoreBoard();
 
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string classScheduleTXT);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string classScheduleTXT);
@@ -129,6 +129,7 @@ void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& Nstui
 void setupCourseStudentTXT(string stuinCourseTXT, string classname);
 void updateStuinCourseTXT(stuincourse* stuinCourse, int NstuinCourse, int NstuinCourseLeave, string stuinCourseTXT);
 //for attendance 
+bool nhuan(int y);
 void plus7days(int &y, int &m, int &d);
 void createAttendance(course khoahoc);
 
