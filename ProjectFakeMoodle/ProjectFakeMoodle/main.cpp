@@ -15,7 +15,6 @@ int main()
 	cout << hocsinh[1].password << endl;
 	cout << Nstudent<<" "<<Nleave;*/
 	firstMenu();
-	//login();
 
 	delete[]lophoc;
 	delete[]giaovu;
