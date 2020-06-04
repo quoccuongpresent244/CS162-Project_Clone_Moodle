@@ -151,13 +151,8 @@ void studentFeature(student a);
 void importScoreboardCSV();
 void editGradeOfStu();
 
-<<<<<<< HEAD
-//FOR STUDENT
-void viewSchedule(student hocsinh);
-=======
 
 // Change password
 string changePassword(string pass);
->>>>>>> 95af67fc5bcb3fc6cb215c7a1285e251292fd9d7
 
 #endif
