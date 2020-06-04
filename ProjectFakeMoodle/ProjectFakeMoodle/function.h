@@ -122,6 +122,7 @@ void listofStuinCourse(); //task21: view student in a course
 void listofAttendance(); //task 23: view attendance list
 void viewLecturer(); //task 23: view all lecturer
 void viewScoreBoard();
+void exportSBtoCSV();
 
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string classScheduleTXT);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string classScheduleTXT);

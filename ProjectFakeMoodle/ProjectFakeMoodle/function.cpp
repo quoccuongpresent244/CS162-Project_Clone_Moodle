@@ -1341,6 +1341,45 @@ void viewScoreBoard(){
 	delete[] khoahoc;
 }
 
+void exportSBtoCSV(){
+	stuincourse *khoahoc = nullptr;
+	int NstuinCourse = 0;
+	int NleaveCourse = 0;
+	string courseID, classname, acayear, semester;
+	cin.ignore(1000, '\n');
+	cout << "Choose class do you want to view: ";
+	getline(cin, classname, '\n');
+	cout << "Choose course do you want to view: ";
+	getline(cin, courseID, '\n');
+	cout << "Choose academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Choose semester: ";
+	getline(cin, semester, '\n');
+	string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
+	string SBfile = acayear + "-" + semester + "-" + classname + "-" + courseID + "-scoreboard.csv";
+
+	loadStuinCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
+
+
+	ofstream fo; 
+	fo.open(SBfile);
+	if (!fo.is_open())
+		cout << "Can't not open Score Board file" << endl;
+	else 
+	{
+		fo << "No,Student ID,Fullname,Midterm,Final,Bonus,Total" << endl;
+		for (int i = 0; i < NstuinCourse; i++){
+			fo << i + 1 << ","
+			   << khoahoc[i].id << "," 
+			   << khoahoc[i].fullname << "," 
+			   << khoahoc[i].midterm << "," 
+			   << khoahoc[i].final << "," 
+			   << khoahoc[i].bonus << ","
+			   << khoahoc[i].total << endl;
+		}
+	}
+}
+
 void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT)
 {
 	ifstream fin;
