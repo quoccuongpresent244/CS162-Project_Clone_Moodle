@@ -61,7 +61,6 @@ void login()
 {
 	string usernameX, passwordX;
 	cout << "username: ";
-	cin.ignore();
 	getline(cin, usernameX,'\n');
 	cout << "password: ";
 	getline(cin, passwordX, '\n');
@@ -112,12 +111,12 @@ void loadStaff()
 
 		for (int i = 0; i < Nstaff; i++)
 		{
-			fin.ignore(1000, '\n');
 			fin.get();
 			getline(fin, giaovu[i].username);
 			getline(fin, giaovu[i].password);
 			getline(fin, giaovu[i].fullname);
 			fin >> giaovu[i].gender;
+			fin.ignore(1000, '\n');
 		}
 
 		fin.close();
@@ -126,7 +125,6 @@ void loadStaff()
 }
 void loadLecturer()
 {
-
 	ifstream fin;
 	fin.open("lecturer.txt");
 	if (!fin.is_open())
@@ -141,13 +139,13 @@ void loadLecturer()
 
 		for (int i = 0; i < Nlecturer; i++)
 		{
-			fin.ignore(1000, '\n');
 			fin.get();
 			getline(fin, giaovien[i].username);
 			getline(fin, giaovien[i].password);
 			getline(fin, giaovien[i].fullname);
 			getline(fin, giaovien[i].degree);
 			fin >> giaovien[i].gender;
+			fin.ignore(1000, '\n');
 		}
 
 		fin.close();
@@ -167,7 +165,7 @@ void loadStudent()
 	else
 	{
 		fin >> Nstudent >> Nleave;
-		hocsinh = new student[Nstudent + 10];
+		hocsinh = new student[Nstudent + Nleave + 10];
 
 		fin.ignore(1000, '\n');
 		for (int i = 0; i < Nstudent + Nleave; i++)
@@ -221,7 +219,7 @@ void loadStudent()
 			}
 		}
 		fin.close();
-		studentCapa = Nstudent + 10;
+		studentCapa = Nstudent + Nleave + 10;
 	}
 	updateAllClassTXT();
 }

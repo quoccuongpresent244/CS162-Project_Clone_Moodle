@@ -14,8 +14,7 @@ int main()
 	cout << hocsinh[1].id << endl;
 	cout << hocsinh[1].password << endl;
 	cout << Nstudent<<" "<<Nleave;*/
-	viewSchedule(hocsinh[1]);
-	//login();
+	firstMenu();
 
 	delete[]lophoc;
 	delete[]giaovu;
