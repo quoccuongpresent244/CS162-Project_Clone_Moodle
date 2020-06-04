@@ -39,7 +39,6 @@ struct student {
 	string dob;
 	string clas;
 	int status;
-
 };
 struct lecturer {
 	string username;
@@ -101,9 +100,6 @@ void updateAClassTXT(string classname);
 void updateStudentTXT(string filename);
 void updatePosition(string filename);
 
-void updateStaffTXT();
-void updateLecturerTXT();
-
 //CLASS
 void importCSV();
 void addAStudenttoClass();
@@ -143,7 +139,6 @@ void staffMenuShow();
 void staffFeature(staff a);
 void lecturerMenuShow();
 void lecturerFeature(lecturer a);
-void studentMenuShow();
 void studentFeature(student a);
 
 
@@ -151,13 +146,7 @@ void studentFeature(student a);
 void importScoreboardCSV();
 void editGradeOfStu();
 
-<<<<<<< HEAD
 //FOR STUDENT
 void viewSchedule(student hocsinh);
-=======
-
-// Change password
-string changePassword(string pass);
->>>>>>> 95af67fc5bcb3fc6cb215c7a1285e251292fd9d7
 
 #endif

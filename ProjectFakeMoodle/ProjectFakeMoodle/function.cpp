@@ -62,9 +62,9 @@ void login()
 	string usernameX, passwordX;
 	cout << "username: ";
 	cin.ignore();
-	getline(cin, usernameX,'\n');
+	getline(cin, usernameX);
 	cout << "password: ";
-	getline(cin, passwordX, '\n');
+	getline(cin, passwordX);
 	//system("cls");
 	for (int i = 0; i < Nstaff; i++)
 	{
@@ -138,7 +138,6 @@ void loadLecturer()
 	{
 		fin >> Nlecturer;
 		giaovien = new lecturer[Nlecturer + 10];
-		fin.ignore(1000, '\n');
 
 		for (int i = 0; i < Nlecturer; i++)
 		{
@@ -181,8 +180,7 @@ void loadStudent()
 			getline(fin, hocsinh[i].dob);
 			getline(fin, hocsinh[i].clas);
 			fin >> hocsinh[i].status;
-			fin.ignore(1000, '\n');
-			//fin.get();
+			fin.get();
 
 			if (Nclass == 0)
 			{
@@ -396,47 +394,29 @@ void updatePosition(string filename)
 			fin.get();
 		}
 		fin.close();
-	}
-}
 
-void updateStaffTXT() {
-	ofstream fout;
-	fout.open("staff.txt");
-	if (!fout.is_open()) {
-		cout << "cannot open file";
-	}
-	else {
-		fout << Nstaff;
-		for (int i = 0; i < Nstaff; i++) {
-			fout << endl << endl;
-			fout << giaovu[i].username << endl;
-			fout << giaovu[i].password << endl;
-			fout << giaovu[i].fullname << endl;
-			fout << giaovu[i].gender;
-		}
-	}
-	fout.close();
-}
-void updateLecturerTXT() {
-	ofstream fout;
-	fout.open("lecturer.txt");
-	if (!fout.is_open()) {
-		cout << "cannot open file";
-	}
-	else {
-		fout << Nlecturer;
-		for (int i = 0; i < Nlecturer; i++) {
-			fout << endl << endl;
-			fout << giaovien[i].username << endl;
-			fout << giaovien[i].password << endl;
-			fout << giaovien[i].fullname << endl;
-			fout << giaovien[i].degree << endl;
-			fout << giaovien[i].gender;
-		}
-	}
-	fout.close();
-}
 
+		/*fout.open(filename);
+		if(!fout.is_open())
+			cout << "Can not open file." << endl;
+		else
+		{
+			fout << Nstudent << " " << Nleave;
+			for (int i = 0; i < Nstudent + Nleave; i++)
+			{
+				fout << endl
+					<< endl;
+				fout << hocsinh[i].id << endl;
+				fout << hocsinh[i].password << endl;
+				fout << hocsinh[i].fullname << endl;
+				fout << hocsinh[i].dob << endl;
+				fout << hocsinh[i].clas << endl;
+				fout << hocsinh[i].status;
+			}
+			fout.close();
+		}*/
+	}
+}
 
 void staffMenuShow()
 {
@@ -464,14 +444,6 @@ void staffMenuShow()
 	cout << "17. View list students of a course\n";
 	cout << "18. View attendance list of a course\n";
 	cout << "19. View list of lecturer\n";
-
-	cout << "------------------------SCOREBOARD------------------------\n";
-	cout << "20. Search and view the scoreboard of a course\n";
-	cout << "21. Export a scoreboard to a csv file\n";
-
-	cout << "------------------------ATTENDANCE LIST------------------------\n";
-	cout << "22. Search and view attendance list of a course\n";
-	cout << "23. Export an attendance list to a csv file\n";
 
 	cout << "Please choose menu (1-19): ";
 }
@@ -524,13 +496,6 @@ void staffFeature(staff a)
 			viewListOfStudentsInClass();
 			break;
 		case 8:
-			for (int i = 0; i < Nstaff; i++) {
-				if (a.username == giaovu[i].username) {
-					giaovu[i].password = changePassword(a.password);
-					break;
-				}
-			}
-			updateStaffTXT();
 			break;
 		case 9:
 			break;
@@ -565,12 +530,6 @@ void staffFeature(staff a)
 			viewLecturer();
 			break;
 		case 20:
-			break;
-		case 21:
-			break;
-		case 22:
-			break;
-		case 23:
 			break;
 		default:
 			cout << "Wrong choice\n";
@@ -762,8 +721,6 @@ void editStudent()
 			tmpClass = hocsinh[i].clas;
 
 			cout << "This student has been edited!!!" << endl;
-
-
 
 			break;
 		}
@@ -1745,29 +1702,20 @@ void AddASpecificStu()
 
 	cout << "Enter student's ID: ";
 	getline(cin, hs[NStudent + NCourseLeave].id, '\n');
-	for (int i = 0; i < Nstudent; ++i)
-	{
-		if (hocsinh[i].id == hs[NStudent + NCourseLeave].id)
-		{
-			cout << "-------INFORMATION-------" << endl;
-			hs[NStudent + NCourseLeave].password = hocsinh[i].password;
-			hs[NStudent + NCourseLeave].fullname = hocsinh[i].fullname;
-			hs[NStudent + NCourseLeave].dob = hocsinh[i].dob;
-			hs[NStudent + NCourseLeave].clas = classname;
-			cout << "Student's ID: " << hs[NStudent + NCourseLeave].id << endl;
-			cout << "Student's fullname: " << hs[NStudent + NCourseLeave].fullname << endl;
-			cout << "Student's Date of birth: " << hs[NStudent + NCourseLeave].dob << endl;
-			cout << "Class: " << hocsinh[i].clas << endl;
-			break;
-		}
-	}
+	cout << "Enter student's password: ";
+	getline(cin, hs[NStudent + NCourseLeave].password, '\n');
+	cout << "Enter student's fullname: ";
+	getline(cin, hs[NStudent + NCourseLeave].fullname, '\n');
+	cout << "Enter student's Date of birth (yyyy mm dd): ";
+	getline(cin, hs[NStudent + NCourseLeave].dob, '\n');
+	hs[NStudent + NCourseLeave].clas = classname;
 	hs[NStudent + NCourseLeave].status = 1;
 	hs[NStudent + NCourseLeave].midterm = -1;
 	hs[NStudent + NCourseLeave].final = -1;
 	hs[NStudent + NCourseLeave].bonus = -1;
 	hs[NStudent + NCourseLeave].total = -1;
 	for (int j = 0; j < 10; j++)
-		hs[NStudent + NCourseLeave].attendance[j] = hs[0].attendance[j];
+		hs[NStudent + NCourseLeave].attendance[j] = a[j];
 	hs[NStudent + NCourseLeave].statusCourse = 1;
 	++NStudent;
 
@@ -1962,10 +1910,8 @@ void lecturerMenuShow()
 	cout << "5. Import scoreboard of a course (midterm, final, bonus) from CSV file\n";
 	cout << "6. Edit grade of a student\n";
 	cout << "7. View a scoreboard\n";
-	cout << "8. Change your password\n";
 
-
-	cout << "Please choose menu (1-8): ";
+	cout << "Please choose menu (1-7): ";
 }
 void lecturerFeature(lecturer a)
 {
@@ -1994,33 +1940,18 @@ void lecturerFeature(lecturer a)
 		switch (t)
 		{
 		case 1:
-			viewlistofCourse();
 			break;
 		case 2:
-			viewlistofStuinCourse();
 			break;
 		case 3:
-			viewlistofAttendance();
 			break;
 		case 4:
 			break;
 		case 5:
-			importScoreboardCSV();
 			break;
 		case 6:
-			editGradeOfStu();
 			break;
 		case 7:
-			viewScoreBoard();
-			break;
-		case 8:
-			for (int i = 0; i < Nlecturer; i++) {
-				if (a.username == giaovien[i].username) {
-					giaovien[i].password = changePassword(a.password);
-					break;
-				}
-			}
-			updateLecturerTXT();
 			break;
 		default:
 			cout << "Wrong choice\n";
@@ -2039,18 +1970,7 @@ void lecturerFeature(lecturer a)
 			return;
 	}
 }
-void studentMenuShow() {
-	cout << "Menu: \n";
 
-	cout << "1. Check-in\n";
-	cout << "2. View check-in result\n";
-	cout << "3. View schedules\n";
-	cout << "4. View his/her score of a course\n";
-	cout << "5. Change your password\n";
-
-
-	cout << "Please choose menu (1-5): ";
-}
 void studentFeature(student a)
 {
 	cout << "\t \tXin chao ban " << a.fullname << endl;
@@ -2062,41 +1982,13 @@ void studentFeature(student a)
 	cout << "Lop: " << a.clas << endl;
 	cout << "\n\n";
 
-	studentMenuShow();
+	cout << "Menu: \n";
+	cout << "1. Check in \n";
+	cout << "2. View check-in result\n";
+	cout << "3. View Schedules\n";
+	cout << "4. View score of a course\n";
+	cout << "5. Change your password\n";
 
-	int con = 1;
-	int t;
-	cin >> t;
-	while (con == 1)
-	{
-		switch (t)
-		{
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			for (int i = 0; i < Nstudent; i++) {
-				if (a.id == hocsinh[i].id) {
-					hocsinh[i].password = changePassword(a.password);
-					break;
-				}
-			}
-			updateStudentTXT("student.txt");
-			break;
-		default:
-			cout << "Wrong choice\n";
-			break;
-		}
-
-		cout << "Do you want to continue (0.No 1.Yes): ";
-		cin >> con;
-
-<<<<<<< HEAD
 	cout << "Please choose menu (1-5)\n";
 
 	int con = 1;
@@ -2131,11 +2023,6 @@ void studentFeature(student a)
 		if (con == 1)
 		{
 			lecturerMenuShow();
-=======
-		if (con == 1)
-		{
-			studentMenuShow();
->>>>>>> 95af67fc5bcb3fc6cb215c7a1285e251292fd9d7
 			cin >> t;
 		}
 		else
@@ -2153,7 +2040,7 @@ void importScoreboardCSV() {
 	stuincourse* stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
@@ -2238,7 +2125,7 @@ void editGradeOfStu() {
 	stuincourse* stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
@@ -2270,7 +2157,6 @@ void editGradeOfStu() {
 	delete[] stuinCourse;
 }
 
-<<<<<<< HEAD
 //-----------------------------------------STUDENT----------------------------------------------
 void viewSchedule(student hocsinh){
 
@@ -2332,44 +2218,3 @@ void viewSchedule(student hocsinh){
 	
 
 } 
-=======
-// Change password
-string changePassword(string pass) {
-	string curPass, newPass, newPass2;
-	cin.ignore(1000, '\n');
-	cout << "Current password: ";
-	getline(cin, curPass, '\n');
-
-	int t = 0;
-	while (t == 0) {
-		if (curPass == pass) {
-			t = 1;
-			cout << "Enter new password: ";
-			getline(cin, newPass, '\n');
-			cout << "Confirm new password: ";
-			getline(cin, newPass2, '\n');
-			int k = 0;
-			while(k==0) {
-				if (newPass == newPass2) {
-					k = 1;
-					return newPass;
-				}
-				else {
-					k = 0;
-					cout << "Not match!\n";
-					cout << "Enter new password: ";
-					getline(cin, newPass, '\n');
-					cout << "confirm new password: ";
-					getline(cin, newPass2, '\n');
-				}
-			}
-		}
-		else {
-			t = 0;
-			cout << "Wrong old password!\n";
-			cout << "Current password: ";
-			getline(cin, curPass, '\n');
-		}
-	}
-}
->>>>>>> 95af67fc5bcb3fc6cb215c7a1285e251292fd9d7
