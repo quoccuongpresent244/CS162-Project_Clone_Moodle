@@ -123,11 +123,11 @@ void listofAttendance(); //task 23: view attendance list
 void viewLecturer(); //task 23: view all lecturer
 
 
-void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
-void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);
+void updateClassScheduleTXT(course* khoahoc, int Ncourse, string classScheduleTXT);
+void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string classScheduleTXT);
 void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT);
-void createCourseStudentTXT(string coursestudent, string classname);
-void updateCourseStudentTXT(string coursestudent);
+void setupCourseStudentTXT(string stuinCourseTXT, string classname);
+void updateStuinCourseTXT(string stuinCourseTXT);
 //for attendance 
 void plus7days(int &y, int &m, int &d);
 void createAttendance(course khoahoc);

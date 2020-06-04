@@ -972,7 +972,7 @@ void importCourseCSV()
 		string coursestudent = acayear + "-" + semester + "-" + classname + "-" + tmpcourseID + "-student.txt";
 
 		createAttendance(khoahoc[i]);
-		createCourseStudentTXT(coursestudent, classname);
+		setupCourseStudentTXT(coursestudent, classname);
 	}
 	delete[] khoahoc;
 }
@@ -1124,7 +1124,7 @@ void addANewCourse()
 
 	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 
-	createCourseStudentTXT(coursestudent, classname);
+	setupCourseStudentTXT(coursestudent, classname);
 
 	delete[] khoahoc;
 }
@@ -1182,7 +1182,7 @@ void editACourse()
 			createAttendance(khoahoc[i]);
 			
 			string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
-			updateCourseStudentTXT(filename);
+			updateStuinCourseTXT(filename);
 
 			break;
 		}
@@ -1340,11 +1340,11 @@ void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& Nstui
 	fin.close();
 }
 
-void updateClassScheduleTXT(course *khoahoc, int Ncourse, string classschedule)
+void updateClassScheduleTXT(course *khoahoc, int Ncourse, string classScheduleTXT)
 {
 	ofstream f2;
 
-	f2.open(classschedule);
+	f2.open(classScheduleTXT);
 	if (!f2.is_open())
 	{
 		cout << "cannot open file f2";
@@ -1374,10 +1374,10 @@ void updateClassScheduleTXT(course *khoahoc, int Ncourse, string classschedule)
 	f2.close();
 }
 
-void loadClassScheduleTXT(course *&khoahoc, int &Ncourse, string classcourses)
+void loadClassScheduleTXT(course *&khoahoc, int &Ncourse, string classScheduleTXT)
 {
 	ifstream fin;
-	fin.open(classcourses);
+	fin.open(classScheduleTXT);
 	if (!fin.is_open())
 	{
 		cout << "cannot open file\n";
@@ -1685,14 +1685,14 @@ void AddASpecificStu()
 	delete[]hs;
 }
 
-void createCourseStudentTXT(string coursestudent, string classname) 
+void setupCourseStudentTXT(string stuinCourseTXT, string classname) 
 {
 	stuincourse *hs = nullptr;
 	int NStudent;
 
 	ofstream fo3;
 
-	fo3.open(coursestudent);
+	fo3.open(stuinCourseTXT);
 	if (!fo3.is_open())
 	{
 		cout << "cannot open file";
@@ -1755,48 +1755,31 @@ void createCourseStudentTXT(string coursestudent, string classname)
 	delete[] hs;
 }
 
-void updateCourseStudentTXT(string coursestudent)
+void updateStuinCourseTXT(string stuinCourseTXT)
 {
 	stuincourse* hs = nullptr;
-	int NStudent;
-	int NCourseLeave;
+	int NstuinCourse;
+	int NstuinCourseLeave;
 
 	ifstream fi4;
-	fi4.open(coursestudent);
+	fi4.open(stuinCourseTXT);
 	if (!fi4.is_open())
 		cout << "Can not open file.";
 	else
 	{
-		fi4 >> NStudent >> NCourseLeave;
-		hs = new stuincourse[NStudent + NCourseLeave + 1];
-		//for (int i = 0; i < NStudent + NCourseLeave; i++)
-		//{
-		//	fi4.ignore(1000, '\n');
-		//	fi4.get();
-		//	getline(fi4, hs[i].id, '\n');
-		//	getline(fi4, hs[i].password, '\n');
-		//	getline(fi4, hs[i].fullname, '\n');
-		//	getline(fi4, hs[i].dob, '\n');
-		//	getline(fi4, hs[i].clas, '\n');
-		//	fi4 >> hs[i].status;
-		//	fi4 >> hs[i].midterm;
-		//	fi4 >> hs[i].final;
-		//	fi4 >> hs[i].bonus;
-		//	fi4 >> hs[i].total;
-		//	for (int j = 0; j < 10; ++j)
-		//		getline(fi4, hs[i].attendance[j], '\n');
-		//	fi4 >> hs[i].statusCourse;
-		//}
+		fi4 >> NstuinCourse >> NstuinCourseLeave;
+		hs = new stuincourse[NstuinCourse + NstuinCourseLeave + 1];
+		
 		fi4.close();
 		ofstream fo3;
-		fo3.open(coursestudent);
+		fo3.open(stuinCourseTXT);
 		if (!fo3.is_open())
 			cout << "Can not open file." << endl;
 		else
 		{
-			fo3 << NStudent << " " << NCourseLeave;
+			fo3 << NstuinCourse << " " << NstuinCourseLeave;
 			fo3 << endl;
-			for (int i = 0; i < NStudent + NCourseLeave; i++)
+			for (int i = 0; i < NstuinCourse + NstuinCourseLeave; i++)
 			{
 				fo3 << endl;
 				fo3 << hs[i].id << endl;
@@ -1817,69 +1800,6 @@ void updateCourseStudentTXT(string coursestudent)
 		}
 		delete[]hs;
 	}
-	/*ofstream fo3;
-
-	fo3.open(coursestudent);
-	if (!fo3.is_open())
-	{
-		cout << "cannot open file";
-	}
-	else
-	{
-		ifstream fi4;
-		fi4.open("student-" + classname + ".txt");
-		if (!fi4.is_open())
-		{
-			cout << "cannot open file";
-		}
-		else
-		{
-			fi4 >> NStudent;
-			fo3 << NStudent << " " << NCourseLeave;
-			fo3 << endl;
-
-			hs = new stuincourse[NStudent + 1];
-
-			for (int i = 0; i < NStudent; i++)
-			{
-				fi4.ignore(1000, '\n');
-				fi4.get();
-
-				getline(fi4, hs[i].id, '\n');
-				getline(fi4, hs[i].password, '\n');
-				getline(fi4, hs[i].fullname, '\n');
-				getline(fi4, hs[i].dob, '\n');
-				getline(fi4, hs[i].clas, '\n');
-				fi4 >> hs[i].status;
-				for (int j = 0; j < 10; j++)
-					hs[i].attendance[j] = a[j];
-				hs[i].midterm = -1;
-				hs[i].final = -1;
-				hs[i].bonus = -1;
-				hs[i].final = -1;
-				hs[i].statusCourse = 1;
-
-				fo3 << endl;
-
-				fo3 << hs[i].id << endl;
-				fo3 << hs[i].password << endl;
-				fo3 << hs[i].fullname << endl;
-				fo3 << hs[i].dob << endl;
-				fo3 << hs[i].clas << endl;
-				fo3 << hs[i].status << endl;
-				fo3 << hs[i].midterm << endl;
-				fo3 << hs[i].final << endl;
-				fo3 << hs[i].bonus << endl;
-				fo3 << hs[i].final << endl;
-				for (int j = 0; j < 10; ++j)
-					fo3 << hs[i].attendance[j] << endl;
-				fo3 << hs[i].statusCourse << endl;
-			}
-		}
-		fi4.close();
-		fo3.close();
-	}
-	delete[] hs;*/
 }
 
 void viewLecturer()
