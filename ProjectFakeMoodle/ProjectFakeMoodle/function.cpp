@@ -1252,7 +1252,7 @@ void listofStuinCourse()
 	getline(cin, courseID, '\n');
 	string filename = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
 
-	loadStudentOfCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
+	loadStuinCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
 
 	cout << left << setw(14) << setfill(' ') << "Student ID";
 	cout << left << setw(28) << setfill(' ') << "Student Full Name";
@@ -1291,7 +1291,7 @@ void listofAttendance(){
 	getline(cin, courseID, '\n');
 	string filename = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
 
-	loadStudentOfCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
+	loadStuinCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
 	for (int i = 0; i < NstuinCourse; ++i){
 		cout << khoahoc[i].fullname << endl;
 		cout << khoahoc[i].id << endl;
@@ -1302,10 +1302,10 @@ void listofAttendance(){
 	delete [] khoahoc;
 }
 
-void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NStudent, int& NCourseLeave, string coursename)
+void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT)
 {
 	ifstream fin;
-	fin.open(coursename);
+	fin.open(stuinCourseTXT);
 	if (!fin.is_open())
 	{
 		cout << "Can't open this file\n";
@@ -1313,11 +1313,11 @@ void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NStudent, int& NCour
 	}
 	else
 	{
-		fin >> NStudent >> NCourseLeave;
-		stuinCourse = new stuincourse[NStudent + NCourseLeave + 1];
+		fin >> NstuinCourse >> NstuinCourseLeave;
+		stuinCourse = new stuincourse[NstuinCourse + NstuinCourseLeave + 1];
 		fin.ignore(1000, '\n');
 		
-		for (int i = 0; i < NStudent + NCourseLeave; i++)
+		for (int i = 0; i < NstuinCourse + NstuinCourseLeave; i++)
 		{
 			fin.get();
 			getline(fin, stuinCourse[i].id, '\n');
@@ -1519,7 +1519,7 @@ void RemoveASpecificStu()
 	getline(cin, tmpID, '\n');
 
 	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
-	loadStudentOfCourseTXT(hs, NStudent, NCourseLeave, coursestudent);
+	loadStuinCourseTXT(hs, NStudent, NCourseLeave, coursestudent);
 	for (int i = 0; i < NStudent; ++i)
 	{
 		if (hs[i].id == tmpID)
@@ -1609,7 +1609,7 @@ void AddASpecificStu()
 	getline(cin, courseID, '\n');
 
 	string coursestudent = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
-	loadStudentOfCourseTXT(hs, NStudent, NCourseLeave, coursestudent);
+	loadStuinCourseTXT(hs, NStudent, NCourseLeave, coursestudent);
 
 	cout << "Enter student's ID: ";
 	getline(cin, hs[NStudent + NCourseLeave].id, '\n');
@@ -2000,3 +2000,91 @@ void studentFeature(student a)
 }
 
 //For Attendance
+
+
+//Function for lecturer
+void importScoreboardCSV() {
+	//   C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\ProjectFakeMoodle\\19APCS1-CS162-scoreboard.csv
+
+	stuincourse* stuinCourse = nullptr;
+	int NstuinCourse = 0, NstuinCourseLeave = 0;
+	string courseID, classname;
+	//cin.ignore(1000, '\n');
+	cout << "Class: ";
+	getline(cin, classname, '\n');
+	cout << "Course: ";
+	getline(cin, courseID, '\n');
+	string stuinCourseTXT = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
+
+	loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, stuinCourseTXT);
+
+	string no, studentID, fullname, midterm, final, bonus, total;
+
+
+	string addressCSV;
+	ifstream fin;
+	cout << "Enter address of csv file: ";
+	getline(cin, addressCSV, '\n'); // You must have file CSV first, then find the address of that file, and modify it to look like the one below
+	fin.open(addressCSV);
+
+	if (!fin.is_open()) {
+		cout << "cannot open file fin";
+	}
+	else {
+		getline(fin, no, '\n');
+
+		while (getline(fin, no, ',') &&
+			getline(fin, studentID, ',') &&
+			getline(fin, fullname, ',') &&
+			getline(fin, midterm, ',') &&
+			getline(fin, final, ',') &&
+			getline(fin, bonus, ',') &&
+			getline(fin, total, '\n'))
+		{
+			float tmpMidterm = stof(midterm);
+			float tmpFinal = stof(final);
+			float tmpBonus = stof(bonus);
+			float tmpTotal = stof(total);
+
+			for (int i = 0; i < NstuinCourse; i++) {
+				if (stuinCourse[i].id == studentID) {
+					stuinCourse[i].midterm = 1.0 * tmpMidterm;
+					stuinCourse[i].final = 1.0 * tmpFinal;
+					stuinCourse[i].bonus = 1.0 * tmpBonus;
+					stuinCourse[i].total = 1.0 * tmpTotal;
+					break;
+				}
+			}
+
+		}
+	}
+
+	ofstream fout;
+	fout.open(stuinCourseTXT);
+	if (!fout.is_open()) {
+		cout << "cannot create fout";
+	}
+	else {
+		fout << NstuinCourse << endl;
+		for (int i = 0; i < NstuinCourse + NstuinCourseLeave; i++) {
+			fout << endl;
+			fout << stuinCourse[i].id << endl;
+			fout << stuinCourse[i].password << endl;
+			fout << stuinCourse[i].fullname << endl;
+			fout << stuinCourse[i].dob << endl;
+			fout << stuinCourse[i].clas << endl;
+			fout << stuinCourse[i].midterm << endl;
+			fout << stuinCourse[i].final << endl;
+			fout << stuinCourse[i].bonus << endl;
+			fout << stuinCourse[i].total << endl;
+			for (int j = 0; j < 10; ++j)
+				fout << stuinCourse[i].attendance[j] << endl;
+		}
+	}
+
+	cout << "Import successfully!!";
+
+	delete[] stuinCourse;
+	fout.close();
+	fin.close();
+}

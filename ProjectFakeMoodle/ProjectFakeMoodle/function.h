@@ -74,10 +74,10 @@ struct stuincourse { //student in course containing student infor, scoreboard an
 	string clas;
 	int status;
 
-	int midterm;
-	int final;
-	int bonus;
-	int total;
+	float midterm;
+	float final;
+	float bonus;
+	float total;
 
 	string attendance[10];
 
@@ -121,9 +121,11 @@ void listofCourse(); //task 20: view List of Course
 void listofStuinCourse(); //task21: view student in a course
 void listofAttendance(); //task 23: view attendance list
 void viewLecturer(); //task 23: view all lecturer
+
+
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string coursename);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string coursename);
-void loadStudentOfCourseTXT(stuincourse*& stuinCourse, int& NStudent, int& NCourseLeave, string coursename);
+void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT);
 void createCourseStudentTXT(string coursestudent, string classname);
 void updateCourseStudentTXT(string coursestudent);
 //for attendance 
@@ -137,4 +139,6 @@ void lecturerFeature(lecturer a);
 void studentFeature(student a);
 
 
+//Function for lecturer
+void importScoreboardCSV();
 #endif
