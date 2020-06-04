@@ -979,7 +979,7 @@ void importCourseCSV()
 
 bool nhuan(int y)
 {
-	bool c;
+	bool c = false;
 	if ((y % 4 == 0) && (y % 100 != 0) || (y % 400 == 0))
 		c = true;
 	return c;
@@ -1182,7 +1182,15 @@ void editACourse()
 			createAttendance(khoahoc[i]);
 			
 			string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
-			//updateStuinCourseTXT(filename);
+
+			int NstuinCourse, NstuinCourseLeave;
+			stuincourse* hs = nullptr;
+			loadStuinCourseTXT(hs, NstuinCourse, NstuinCourseLeave, filename);
+			for (int j = 0; j < NstuinCourse; ++j)
+				for (int k = 0; k < 10; ++k)
+					hs[j].attendance[k] = a[k];
+			updateStuinCourseTXT(hs, NstuinCourse, NstuinCourseLeave, filename);
+			delete[]hs;
 
 			break;
 		}
@@ -1784,68 +1792,6 @@ void updateStuinCourseTXT(stuincourse* stuinCourse, int NstuinCourse, int Nstuin
 		}
 		fout.close();
 	}
-	/*stuincourse* hs = nullptr;
-	int NstuinCourse;
-	int NstuinCourseLeave;
-
-	ifstream fi4;
-	fi4.open(stuinCourseTXT);
-	if (!fi4.is_open())
-		cout << "Can not open file.";
-	else
-	{
-		fi4 >> NstuinCourse >> NstuinCourseLeave;
-		hs = new stuincourse[NstuinCourse + NstuinCourseLeave + 1];
-		for (int i = 0; i < NstuinCourse + NstuinCourseLeave; ++i)
-		{
-			fi4.ignore(1000, '\n');
-			fi4.get();
-
-			getline(fi4, hs[i].id, '\n');
-			getline(fi4, hs[i].password, '\n');
-			getline(fi4, hs[i].fullname, '\n');
-			getline(fi4, hs[i].dob, '\n');
-			getline(fi4, hs[i].clas, '\n');
-			fi4 >> hs[i].status;
-			for (int j = 0; j < 10; j++)
-				hs[i].attendance[j] = a[j];
-			fi4 >> hs[i].midterm;
-			fi4 >> hs[i].final;
-			fi4 >> hs[i].bonus;
-			fi4 >> hs[i].total;
-			fi4 >> hs[i].statusCourse;
-		}
-		fi4.close();
-
-		ofstream fo3;
-		fo3.open(stuinCourseTXT);
-		if (!fo3.is_open())
-			cout << "Can not open file." << endl;
-		else
-		{
-			fo3 << NstuinCourse << " " << NstuinCourseLeave;
-			fo3 << endl;
-			for (int i = 0; i < NstuinCourse + NstuinCourseLeave; i++)
-			{
-				fo3 << endl;
-				fo3 << hs[i].id << endl;
-				fo3 << hs[i].password << endl;
-				fo3 << hs[i].fullname << endl;
-				fo3 << hs[i].dob << endl;
-				fo3 << hs[i].clas << endl;
-				fo3 << hs[i].status << endl;
-				fo3 << hs[i].midterm << endl;
-				fo3 << hs[i].final << endl;
-				fo3 << hs[i].bonus << endl;
-				fo3 << hs[i].total << endl;
-				for (int j = 0; j < 10; ++j)
-					fo3 << hs[i].attendance[j] << endl;
-				fo3 << hs[i].statusCourse << endl;
-			}
-			fo3.close();
-		}
-		delete[]hs;
-	}*/
 }
 
 void viewLecturer()
