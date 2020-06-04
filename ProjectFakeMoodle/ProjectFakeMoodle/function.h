@@ -146,4 +146,7 @@ void studentFeature(student a);
 void importScoreboardCSV();
 void editGradeOfStu();
 
+//FOR STUDENT
+void viewSchedule(student hocsinh);
+
 #endif
