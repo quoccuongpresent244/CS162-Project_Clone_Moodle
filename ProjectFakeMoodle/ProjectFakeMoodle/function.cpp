@@ -417,6 +417,27 @@ void updatePosition(string filename)
 	}
 }
 
+void updateStaffTXT() {
+	ofstream fout;
+	fout.open("staff.txt");
+	if (!fout.is_open()) {
+		cout << "cannot open file";
+	}
+	else {
+		fout << Nstaff;
+		for (int i = 0; i < Nstaff; i++) {
+			fout << endl << endl;
+			fout << giaovu[i].username << endl;
+			fout << giaovu[i].password << endl;
+			fout << giaovu[i].fullname << endl;
+			fout << giaovu[i].gender;
+		}
+	}
+	fout.close();
+}
+
+
+
 void staffMenuShow()
 {
 	cout << "Menu: \n";
@@ -503,6 +524,13 @@ void staffFeature(staff a)
 			viewListOfStudentsInClass();
 			break;
 		case 8:
+			for (int i = 0; i < Nstaff; i++) {
+				if (a.username == giaovu[i].username) {
+					giaovu[i].password = changePassword(a.password);
+					break;
+				}
+			}
+			updateStaffTXT();
 			break;
 		case 9:
 			break;
@@ -1999,7 +2027,17 @@ void lecturerFeature(lecturer a)
 			return;
 	}
 }
+void studentMenuShow() {
+	cout << "Menu: \n";
 
+	cout << "1. Check-in\n";
+	cout << "2. View check-in result\n";
+	cout << "3. View schedules\n";
+	cout << "4. View his/her score of a course\n";
+
+
+	cout << "Please choose menu (1-4): ";
+}
 void studentFeature(student a)
 {
 	cout << "\t \tXin chao ban " << a.fullname << endl;
@@ -2011,14 +2049,39 @@ void studentFeature(student a)
 	cout << "Lop: " << a.clas << endl;
 	cout << "\n\n";
 
-	cout << "Menu: \n";
-	cout << "1. Check in \n";
-	cout << "2. View check-in result\n";
-	cout << "3. View Schedules\n";
-	cout << "4. View score of a course\n";
-	cout << "5. Change your password\n";
+	studentMenuShow();
 
-	cout << "Please choose menu (1-5)\n";
+	int con = 1;
+	int t;
+	cin >> t;
+	while (con == 1)
+	{
+		switch (t)
+		{
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		default:
+			cout << "Wrong choice\n";
+			break;
+		}
+
+		cout << "Do you want to continue (0.No 1.Yes): ";
+		cin >> con;
+
+		if (con == 1)
+		{
+			studentMenuShow();
+			cin >> t;
+		}
+		else
+			return;
+	}
 }
 
 //For Attendance
@@ -2148,3 +2211,42 @@ void editGradeOfStu() {
 	delete[] stuinCourse;
 }
 
+// Change password
+string changePassword(string pass) {
+	string curPass, newPass, newPass2;
+	cin.ignore(1000, '\n');
+	cout << "Current password: ";
+	getline(cin, curPass, '\n');
+
+	int t = 0;
+	while (t == 0) {
+		if (curPass == pass) {
+			t = 1;
+			cout << "Enter new password: ";
+			getline(cin, newPass, '\n');
+			cout << "Confirm new password: ";
+			getline(cin, newPass2, '\n');
+			int k = 0;
+			while(k==0) {
+				if (newPass == newPass2) {
+					k = 1;
+					return newPass;
+				}
+				else {
+					k = 0;
+					cout << "Not match!\n";
+					cout << "Enter new password: ";
+					getline(cin, newPass, '\n');
+					cout << "confirm new password: ";
+					getline(cin, newPass2, '\n');
+				}
+			}
+		}
+		else {
+			t = 0;
+			cout << "Wrong old password!\n";
+			cout << "Current password: ";
+			getline(cin, curPass, '\n');
+		}
+	}
+}
