@@ -2287,17 +2287,17 @@ void viewSchedule(student hocsinh){
 	getline(cin, semester, '\n'); 
 
 	for (int i = 0; i < Nclass; ++i){
-	string schefilename = acayear + "-" + semester + "-schedule-" + lophoc[i].classname + "-.txt";
+	string schefilename = acayear + "-" + semester + "-schedule-" + lophoc[i].classname + ".txt";
 	ifstream fi; 
 	fi.open(schefilename);
 
 	if (!fi.is_open())
-		cout << "Cannot open Schedule file of " << lophoc[i].classname << endl;
+		cout << "-------" << lophoc[i].classname << endl;
 	else
 	{
 		loadClassScheduleTXT(khoahoc, Ncourse, schefilename);
 		for (int j = 0; j < Ncourse; j++){
-			string file = acayear + "-" + semester + lophoc[i].classname + "-" + khoahoc[i].courseID + "-.txt";
+			string file = acayear + "-" + semester + "-" + lophoc[i].classname + "-" + khoahoc[j].courseID +  "-student.txt";
 			ifstream fi2;
 			fi2.open(file);
 
@@ -2323,7 +2323,9 @@ void viewSchedule(student hocsinh){
 						cout << endl;
 					}
 			}
+			fi2.close();
 	 	}
 	}
+	fi.close();
 }
 } 
