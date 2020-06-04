@@ -137,6 +137,7 @@ void loadLecturer()
 	{
 		fin >> Nlecturer;
 		giaovien = new lecturer[Nlecturer + 10];
+		fin.ignore(1000, '\n');
 
 		for (int i = 0; i < Nlecturer; i++)
 		{
@@ -443,6 +444,14 @@ void staffMenuShow()
 	cout << "18. View attendance list of a course\n";
 	cout << "19. View list of lecturer\n";
 
+	cout << "------------------------SCOREBOARD------------------------\n";
+	cout << "20. Search and view the scoreboard of a course\n";
+	cout << "21. Export a scoreboard to a csv file\n";
+
+	cout << "------------------------ATTENDANCE LIST------------------------\n";
+	cout << "22. Search and view attendance list of a course\n";
+	cout << "23. Export an attendance list to a csv file\n";
+
 	cout << "Please choose menu (1-19): ";
 }
 void staffFeature(staff a)
@@ -528,6 +537,12 @@ void staffFeature(staff a)
 			viewLecturer();
 			break;
 		case 20:
+			break;
+		case 21:
+			break;
+		case 22:
+			break;
+		case 23:
 			break;
 		default:
 			cout << "Wrong choice\n";
@@ -1937,18 +1952,24 @@ void lecturerFeature(lecturer a)
 		switch (t)
 		{
 		case 1:
+			viewlistofCourse();
 			break;
 		case 2:
+			viewlistofStuinCourse();
 			break;
 		case 3:
+			viewlistofAttendance();
 			break;
 		case 4:
 			break;
 		case 5:
+			importScoreboardCSV();
 			break;
 		case 6:
+			editGradeOfStu();
 			break;
 		case 7:
+			viewScoreBoard();
 			break;
 		default:
 			cout << "Wrong choice\n";
@@ -1999,7 +2020,7 @@ void importScoreboardCSV() {
 	stuincourse* stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	//cin.ignore(1000, '\n');
+	cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
@@ -2084,7 +2105,7 @@ void editGradeOfStu() {
 	stuincourse* stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	//cin.ignore(1000, '\n');
+	cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
