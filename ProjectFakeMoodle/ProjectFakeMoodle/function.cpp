@@ -2292,9 +2292,7 @@ void viewSchedule(student hocsinh){
 	ifstream fi; 
 	fi.open(schefilename);
 
-	if (!fi.is_open())
-		cout << "-------" << lophoc[i].classname << endl;
-	else
+	if (fi.is_open())
 	{
 		loadClassScheduleTXT(khoahoc, Ncourse, schefilename);
 		for (int j = 0; j < Ncourse; j++){
@@ -2302,9 +2300,7 @@ void viewSchedule(student hocsinh){
 			ifstream fi2;
 			fi2.open(file);
 
-			if (!fi2.is_open())
-				cout << "cannot open " << file << endl;
-			else{
+			if (fi2.is_open()){
 				loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, file);
 				for (int k = 0; k < NstuinCourse; ++k)
 					if (hocsinh.id == stuinCourse[k].id){
