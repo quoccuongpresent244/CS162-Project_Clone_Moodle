@@ -112,13 +112,12 @@ void loadStaff()
 
 		for (int i = 0; i < Nstaff; i++)
 		{
-			
+			fin.ignore(1000, '\n');
 			fin.get();
 			getline(fin, giaovu[i].username);
 			getline(fin, giaovu[i].password);
 			getline(fin, giaovu[i].fullname);
 			fin >> giaovu[i].gender;
-			fin.ignore(1000, '\n');
 		}
 
 		fin.close();
@@ -149,7 +148,6 @@ void loadLecturer()
 			getline(fin, giaovien[i].fullname);
 			getline(fin, giaovien[i].degree);
 			fin >> giaovien[i].gender;
-			
 		}
 
 		fin.close();
@@ -1319,7 +1317,6 @@ void viewlistofStuinCourse()
 
 	for (int i = 0; i < NstuinCourse; i++)
 	{
-		
 		cout << left << setw(14) << setfill(' ') << khoahoc[i].id;
 		cout << left << setw(28) << setfill(' ') << khoahoc[i].fullname;
 		cout << left << setw(12) << setfill(' ') << khoahoc[i].dob;
@@ -1730,7 +1727,7 @@ void AddASpecificStu()
 	int NStudent;
 	int NCourseLeave;
 	stuincourse* hs = nullptr;
-	//cin.ignore(1000, '\n');
+	cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -2096,46 +2093,9 @@ void studentFeature(student a)
 		cout << "Do you want to continue (0.No 1.Yes): ";
 		cin >> con;
 
-<<<<<<< HEAD
-	cout << "Please choose menu (1-5)\n";
-
-	int con = 1;
-	int t;
-	cin >> t;
-	while (con == 1)
-	{
-		switch (t)
-		{
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 7:
-			break;
-		default:
-			cout << "Wrong choice\n";
-			break;
-		}
-
-		cout << "Do you want to continue (0.No 1.Yes): ";
-		cin >> con;
-
-		if (con == 1)
-		{
-			lecturerMenuShow();
-=======
 		if (con == 1)
 		{
 			studentMenuShow();
->>>>>>> 95af67fc5bcb3fc6cb215c7a1285e251292fd9d7
 			cin >> t;
 		}
 		else
@@ -2270,69 +2230,6 @@ void editGradeOfStu() {
 	delete[] stuinCourse;
 }
 
-<<<<<<< HEAD
-//-----------------------------------------STUDENT----------------------------------------------
-void viewSchedule(student hocsinh){
-
-	course *khoahoc = nullptr;
-	int Ncourse = 0;
-
-	stuincourse *stuinCourse = nullptr;
-	int NstuinCourse;
-	int NstuinCourseLeave;
-
-	string acayear, semester;
-	//cin.ignore(1000, '\n');
-	cout << "Choose academic year: "; 
-	getline(cin, acayear, '\n');
-	cout << "Choose semester: ";
-	getline(cin, semester, '\n'); 
-
-	for (int i = 0; i < Nclass; ++i){
-	string schefilename = acayear + "-" + semester + "-schedule-" + lophoc[i].classname + "-.txt";
-	ifstream fi; 
-	fi.open(schefilename);
-
-	if (!fi.is_open())
-		cout << "Cannot open Schedule file of " << lophoc[i].classname << endl;
-	else
-	{
-		loadClassScheduleTXT(khoahoc, Ncourse, schefilename);
-		for (int j = 0; j < Ncourse; j++){
-			string file = acayear + "-" + semester + lophoc[i].classname + "-" + khoahoc[i].courseID + "-.txt";
-			ifstream fi2;
-			fi2.open(file);
-
-			if (!fi2.is_open())
-				cout << "cannot open " << file << endl;
-			else{
-				loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, file);
-				for (int k = 0; k < NstuinCourse; ++k)
-					if (hocsinh.id == stuinCourse[k].id){
-						cout << left << setw(14) << setfill(' ') << khoahoc[j].courseID;
-						cout << left << setw(28) << setfill(' ') << khoahoc[j].courseName;
-						cout << left << setw(10) << setfill(' ') << khoahoc[j].clas;
-						cout << left << setw(20) << setfill(' ') << khoahoc[j].instructor;
-						cout << left << setw(25) << setfill(' ') << khoahoc[j].instructorUsername;
-						cout << left << setw(12) << setfill(' ') << khoahoc[j].degree;
-						cout << left << setw(12) << setfill(' ') << khoahoc[j].gender;
-						cout << left << setw(16) << setfill(' ') << khoahoc[j].startDate;
-						cout << left << setw(14) << setfill(' ') << khoahoc[j].endDate;
-						cout << left << setw(17) << setfill(' ') << khoahoc[j].dayOfWeek;
-						cout << left << setw(16) << setfill(' ') << khoahoc[j].startTime;
-						cout << left << setw(14) << setfill(' ') << khoahoc[j].endTime;
-						cout << left << setw(10) << setfill(' ') << khoahoc[j].room;
-						cout << endl;
-					}
-			}
-	 	}
-	}
-	}
-	
-	
-
-} 
-=======
 // Change password
 string changePassword(string pass) {
 	string curPass, newPass, newPass2;
@@ -2372,4 +2269,3 @@ string changePassword(string pass) {
 		}
 	}
 }
->>>>>>> 95af67fc5bcb3fc6cb215c7a1285e251292fd9d7
