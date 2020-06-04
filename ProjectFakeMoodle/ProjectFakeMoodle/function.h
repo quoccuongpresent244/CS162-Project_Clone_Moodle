@@ -124,6 +124,7 @@ void viewLecturer(); //task 23: view all lecturer
 void viewScoreBoard();
 void exportSBtoCSV();
 
+
 void updateClassScheduleTXT(course* khoahoc, int Ncourse, string classScheduleTXT);
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string classScheduleTXT);
 void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT);
