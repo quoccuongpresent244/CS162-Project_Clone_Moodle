@@ -516,13 +516,13 @@ void staffFeature(staff a)
 			AddASpecificStu();
 			break;
 		case 16:
-			listofCourse();
+			viewlistofCourse();
 			break;
 		case 17:
-			listofStuinCourse();
+			viewlistofStuinCourse();
 			break;
 		case 18:
-			listofAttendance();
+			viewlistofAttendance();
 			break;
 		case 19:
 			viewLecturer();
@@ -1201,7 +1201,7 @@ void editACourse()
 	delete[] khoahoc;
 }
 
-void listofCourse()
+void viewlistofCourse()
 {
 	course *khoahoc = nullptr;
 	int Ncourse = 0;
@@ -1247,7 +1247,7 @@ void listofCourse()
 	}
 }
 
-void listofStuinCourse()
+void viewlistofStuinCourse()
 {
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
@@ -1287,7 +1287,7 @@ void listofStuinCourse()
 	delete[] khoahoc;
 }
 
-void listofAttendance(){
+void viewlistofAttendance(){
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
 	int NleaveCourse = 0;

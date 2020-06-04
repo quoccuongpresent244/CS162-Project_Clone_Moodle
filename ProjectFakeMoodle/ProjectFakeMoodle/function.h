@@ -117,9 +117,9 @@ void editACourse();
 void removeACourse();
 void RemoveASpecificStu();
 void AddASpecificStu();
-void listofCourse(); //task 20: view List of Course
-void listofStuinCourse(); //task21: view student in a course
-void listofAttendance(); //task 23: view attendance list
+void viewlistofCourse(); //task 20: view List of Course
+void viewlistofStuinCourse(); //task21: view student in a course
+void viewlistofAttendance(); //task 23: view attendance list
 void viewLecturer(); //task 23: view all lecturer
 void viewScoreBoard();
 void exportSBtoCSV();
