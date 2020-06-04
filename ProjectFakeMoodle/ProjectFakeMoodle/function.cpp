@@ -2269,3 +2269,61 @@ string changePassword(string pass) {
 		}
 	}
 }
+
+void viewSchedule(student hocsinh){
+
+	course *khoahoc = nullptr;
+	int Ncourse = 0;
+
+	stuincourse *stuinCourse = nullptr;
+	int NstuinCourse;
+	int NstuinCourseLeave;
+
+	string acayear, semester;
+	//cin.ignore(1000, '\n');
+	cout << "Choose academic year: "; 
+	getline(cin, acayear, '\n');
+	cout << "Choose semester: ";
+	getline(cin, semester, '\n'); 
+
+	for (int i = 0; i < Nclass; ++i){
+	string schefilename = acayear + "-" + semester + "-schedule-" + lophoc[i].classname + "-.txt";
+	ifstream fi; 
+	fi.open(schefilename);
+
+	if (!fi.is_open())
+		cout << "Cannot open Schedule file of " << lophoc[i].classname << endl;
+	else
+	{
+		loadClassScheduleTXT(khoahoc, Ncourse, schefilename);
+		for (int j = 0; j < Ncourse; j++){
+			string file = acayear + "-" + semester + lophoc[i].classname + "-" + khoahoc[i].courseID + "-.txt";
+			ifstream fi2;
+			fi2.open(file);
+
+			if (!fi2.is_open())
+				cout << "cannot open " << file << endl;
+			else{
+				loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, file);
+				for (int k = 0; k < NstuinCourse; ++k)
+					if (hocsinh.id == stuinCourse[k].id){
+						cout << left << setw(14) << setfill(' ') << khoahoc[j].courseID;
+						cout << left << setw(28) << setfill(' ') << khoahoc[j].courseName;
+						cout << left << setw(10) << setfill(' ') << khoahoc[j].clas;
+						cout << left << setw(20) << setfill(' ') << khoahoc[j].instructor;
+						cout << left << setw(25) << setfill(' ') << khoahoc[j].instructorUsername;
+						cout << left << setw(12) << setfill(' ') << khoahoc[j].degree;
+						cout << left << setw(12) << setfill(' ') << khoahoc[j].gender;
+						cout << left << setw(16) << setfill(' ') << khoahoc[j].startDate;
+						cout << left << setw(14) << setfill(' ') << khoahoc[j].endDate;
+						cout << left << setw(17) << setfill(' ') << khoahoc[j].dayOfWeek;
+						cout << left << setw(16) << setfill(' ') << khoahoc[j].startTime;
+						cout << left << setw(14) << setfill(' ') << khoahoc[j].endTime;
+						cout << left << setw(10) << setfill(' ') << khoahoc[j].room;
+						cout << endl;
+					}
+			}
+	 	}
+	}
+}
+} 
