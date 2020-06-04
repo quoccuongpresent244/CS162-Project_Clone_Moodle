@@ -102,6 +102,7 @@ void updateStudentTXT(string filename);
 void updatePosition(string filename);
 
 void updateStaffTXT();
+void updateLecturerTXT();
 
 //CLASS
 void importCSV();

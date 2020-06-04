@@ -62,9 +62,9 @@ void login()
 	string usernameX, passwordX;
 	cout << "username: ";
 	cin.ignore();
-	getline(cin, usernameX);
+	getline(cin, usernameX,'\n');
 	cout << "password: ";
-	getline(cin, passwordX);
+	getline(cin, passwordX, '\n');
 	//system("cls");
 	for (int i = 0; i < Nstaff; i++)
 	{
@@ -179,7 +179,8 @@ void loadStudent()
 			getline(fin, hocsinh[i].dob);
 			getline(fin, hocsinh[i].clas);
 			fin >> hocsinh[i].status;
-			fin.get();
+			fin.ignore(1000, '\n');
+			//fin.get();
 
 			if (Nclass == 0)
 			{
@@ -393,27 +394,6 @@ void updatePosition(string filename)
 			fin.get();
 		}
 		fin.close();
-
-
-		/*fout.open(filename);
-		if(!fout.is_open())
-			cout << "Can not open file." << endl;
-		else
-		{
-			fout << Nstudent << " " << Nleave;
-			for (int i = 0; i < Nstudent + Nleave; i++)
-			{
-				fout << endl
-					<< endl;
-				fout << hocsinh[i].id << endl;
-				fout << hocsinh[i].password << endl;
-				fout << hocsinh[i].fullname << endl;
-				fout << hocsinh[i].dob << endl;
-				fout << hocsinh[i].clas << endl;
-				fout << hocsinh[i].status;
-			}
-			fout.close();
-		}*/
 	}
 }
 
@@ -435,7 +415,25 @@ void updateStaffTXT() {
 	}
 	fout.close();
 }
-
+void updateLecturerTXT() {
+	ofstream fout;
+	fout.open("lecturer.txt");
+	if (!fout.is_open()) {
+		cout << "cannot open file";
+	}
+	else {
+		fout << Nlecturer;
+		for (int i = 0; i < Nlecturer; i++) {
+			fout << endl << endl;
+			fout << giaovien[i].username << endl;
+			fout << giaovien[i].password << endl;
+			fout << giaovien[i].fullname << endl;
+			fout << giaovien[i].degree << endl;
+			fout << giaovien[i].gender;
+		}
+	}
+	fout.close();
+}
 
 
 void staffMenuShow()
@@ -1961,8 +1959,10 @@ void lecturerMenuShow()
 	cout << "5. Import scoreboard of a course (midterm, final, bonus) from CSV file\n";
 	cout << "6. Edit grade of a student\n";
 	cout << "7. View a scoreboard\n";
+	cout << "8. Change your password\n";
 
-	cout << "Please choose menu (1-7): ";
+
+	cout << "Please choose menu (1-8): ";
 }
 void lecturerFeature(lecturer a)
 {
@@ -2010,6 +2010,15 @@ void lecturerFeature(lecturer a)
 		case 7:
 			viewScoreBoard();
 			break;
+		case 8:
+			for (int i = 0; i < Nlecturer; i++) {
+				if (a.username == giaovien[i].username) {
+					giaovien[i].password = changePassword(a.password);
+					break;
+				}
+			}
+			updateLecturerTXT();
+			break;
 		default:
 			cout << "Wrong choice\n";
 			break;
@@ -2034,9 +2043,10 @@ void studentMenuShow() {
 	cout << "2. View check-in result\n";
 	cout << "3. View schedules\n";
 	cout << "4. View his/her score of a course\n";
+	cout << "5. Change your password\n";
 
 
-	cout << "Please choose menu (1-4): ";
+	cout << "Please choose menu (1-5): ";
 }
 void studentFeature(student a)
 {
@@ -2065,6 +2075,15 @@ void studentFeature(student a)
 		case 3:
 			break;
 		case 4:
+			break;
+		case 5:
+			for (int i = 0; i < Nstudent; i++) {
+				if (a.id == hocsinh[i].id) {
+					hocsinh[i].password = changePassword(a.password);
+					break;
+				}
+			}
+			updateStudentTXT("student.txt");
 			break;
 		default:
 			cout << "Wrong choice\n";

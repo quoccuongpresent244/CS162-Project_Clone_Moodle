@@ -9,6 +9,11 @@ int main()
 	loadLecturer();
 	loadStudent();
 
+	/*cout << hocsinh[0].id << endl;
+	cout << hocsinh[0].password << endl;
+	cout << hocsinh[1].id << endl;
+	cout << hocsinh[1].password << endl;
+	cout << Nstudent<<" "<<Nleave;*/
 	firstMenu();
 	//login();
 
