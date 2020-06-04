@@ -1182,7 +1182,7 @@ void editACourse()
 			createAttendance(khoahoc[i]);
 			
 			string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
-			updateStuinCourseTXT(filename);
+			//updateStuinCourseTXT(filename);
 
 			break;
 		}
@@ -1755,9 +1755,36 @@ void setupCourseStudentTXT(string stuinCourseTXT, string classname)
 	delete[] hs;
 }
 
-void updateStuinCourseTXT(string stuinCourseTXT)
+void updateStuinCourseTXT(stuincourse* stuinCourse, int NstuinCourse, int NstuinCourseLeave, string stuinCourseTXT)
 {
-	stuincourse* hs = nullptr;
+	ofstream fout;
+	fout.open(stuinCourseTXT);
+	if (!fout.is_open())
+		cout << "Can not open file." << endl;
+	else
+	{
+		fout << NstuinCourse << " " << NstuinCourseLeave;
+		fout << endl;
+		for (int i = 0; i < NstuinCourse + NstuinCourseLeave; i++)
+		{
+			fout << endl;
+			fout << stuinCourse[i].id << endl;
+			fout << stuinCourse[i].password << endl;
+			fout << stuinCourse[i].fullname << endl;
+			fout << stuinCourse[i].dob << endl;
+			fout << stuinCourse[i].clas << endl;
+			fout << stuinCourse[i].status << endl;
+			fout << stuinCourse[i].midterm << endl;
+			fout << stuinCourse[i].final << endl;
+			fout << stuinCourse[i].bonus << endl;
+			fout << stuinCourse[i].total << endl;
+			for (int j = 0; j < 10; ++j)
+				fout << stuinCourse[i].attendance[j] << endl;
+			fout << stuinCourse[i].statusCourse << endl;
+		}
+		fout.close();
+	}
+	/*stuincourse* hs = nullptr;
 	int NstuinCourse;
 	int NstuinCourseLeave;
 
@@ -1818,7 +1845,7 @@ void updateStuinCourseTXT(string stuinCourseTXT)
 			fo3.close();
 		}
 		delete[]hs;
-	}
+	}*/
 }
 
 void viewLecturer()
@@ -1998,7 +2025,9 @@ void importScoreboardCSV() {
 		}
 	}
 
-	ofstream fout;
+
+	updateStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, stuinCourseTXT);
+	/*ofstream fout;
 	fout.open(stuinCourseTXT);
 	if (!fout.is_open()) {
 		cout << "cannot create fout";
@@ -2019,11 +2048,47 @@ void importScoreboardCSV() {
 			for (int j = 0; j < 10; ++j)
 				fout << stuinCourse[i].attendance[j] << endl;
 		}
-	}
+	}*/
 
 	cout << "Import successfully!!";
 
 	delete[] stuinCourse;
-	fout.close();
+	//fout.close();
 	fin.close();
 }
+void editGradeOfStu() {
+	stuincourse* stuinCourse = nullptr;
+	int NstuinCourse = 0, NstuinCourseLeave = 0;
+	string courseID, classname;
+	//cin.ignore(1000, '\n');
+	cout << "Class: ";
+	getline(cin, classname, '\n');
+	cout << "Course: ";
+	getline(cin, courseID, '\n');
+	string stuinCourseTXT = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
+
+	loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, stuinCourseTXT);
+
+
+	string tmpStudentID;
+	cout << "Enter student ID you want to change their grade: ";
+	getline(cin, tmpStudentID, '\n');
+	for (int i = 0; i < NstuinCourse; i++) {
+		if (stuinCourse[i].id == tmpStudentID) {
+			cout << "Midterm: ";
+			cin >> stuinCourse[i].midterm;
+			cout << "Final: ";
+			cin >> stuinCourse[i].final;
+			cout << "Bonus: ";
+			cin >> stuinCourse[i].bonus;
+			cout << "Total: ";
+			cin >> stuinCourse[i].total;
+			break;
+		}
+	}
+
+	updateStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, stuinCourseTXT);
+
+	delete[] stuinCourse;
+}
+

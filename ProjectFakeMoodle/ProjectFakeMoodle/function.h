@@ -127,7 +127,7 @@ void updateClassScheduleTXT(course* khoahoc, int Ncourse, string classScheduleTX
 void loadClassScheduleTXT(course*& khoahoc, int& Ncourse, string classScheduleTXT);
 void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT);
 void setupCourseStudentTXT(string stuinCourseTXT, string classname);
-void updateStuinCourseTXT(string stuinCourseTXT);
+void updateStuinCourseTXT(stuincourse* stuinCourse, int NstuinCourse, int NstuinCourseLeave, string stuinCourseTXT);
 //for attendance 
 void plus7days(int &y, int &m, int &d);
 void createAttendance(course khoahoc);
@@ -141,4 +141,6 @@ void studentFeature(student a);
 
 //Function for lecturer
 void importScoreboardCSV();
+void editGradeOfStu();
+
 #endif
