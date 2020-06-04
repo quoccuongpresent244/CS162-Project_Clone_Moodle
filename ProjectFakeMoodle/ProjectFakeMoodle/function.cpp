@@ -163,7 +163,7 @@ void loadStudent()
 	else
 	{
 		fin >> Nstudent >> Nleave;
-		hocsinh = new student[Nstudent + 10];
+		hocsinh = new student[Nstudent + Nleave + 10];
 
 		fin.ignore(1000, '\n');
 		for (int i = 0; i < Nstudent + Nleave; i++)
@@ -217,7 +217,7 @@ void loadStudent()
 			}
 		}
 		fin.close();
-		studentCapa = Nstudent + 10;
+		studentCapa = Nstudent + Nleave + 10;
 	}
 	updateAllClassTXT();
 }
