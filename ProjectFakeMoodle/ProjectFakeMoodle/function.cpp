@@ -1716,13 +1716,22 @@ void AddASpecificStu()
 
 	cout << "Enter student's ID: ";
 	getline(cin, hs[NStudent + NCourseLeave].id, '\n');
-	cout << "Enter student's password: ";
-	getline(cin, hs[NStudent + NCourseLeave].password, '\n');
-	cout << "Enter student's fullname: ";
-	getline(cin, hs[NStudent + NCourseLeave].fullname, '\n');
-	cout << "Enter student's Date of birth (yyyy mm dd): ";
-	getline(cin, hs[NStudent + NCourseLeave].dob, '\n');
-	hs[NStudent + NCourseLeave].clas = classname;
+	for (int i = 0; i < Nstudent; ++i)
+	{
+		if (hocsinh[i].id == hs[NStudent + NCourseLeave].id)
+		{
+			cout << "-------INFORMATION-------" << endl;
+			hs[NStudent + NCourseLeave].password = hocsinh[i].password;
+			hs[NStudent + NCourseLeave].fullname = hocsinh[i].fullname;
+			hs[NStudent + NCourseLeave].dob = hocsinh[i].dob;
+			hs[NStudent + NCourseLeave].clas = classname;
+			cout << "Student's ID: " << hs[NStudent + NCourseLeave].id << endl;
+			cout << "Student's fullname: " << hs[NStudent + NCourseLeave].fullname << endl;
+			cout << "Student's Date of birth: " << hs[NStudent + NCourseLeave].dob << endl;
+			cout << "Class: " << hocsinh[i].clas << endl;
+			break;
+		}
+	}
 	hs[NStudent + NCourseLeave].status = 1;
 	hs[NStudent + NCourseLeave].midterm = -1;
 	hs[NStudent + NCourseLeave].final = -1;
