@@ -9,7 +9,6 @@ int main()
 	loadLecturer();
 	loadStudent();
 
-
 	firstMenu();
 	//login();
 
