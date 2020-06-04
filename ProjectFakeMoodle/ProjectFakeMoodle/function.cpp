@@ -137,6 +137,7 @@ void loadLecturer()
 	{
 		fin >> Nlecturer;
 		giaovien = new lecturer[Nlecturer + 10];
+		fin.ignore(1000, '\n');
 
 		for (int i = 0; i < Nlecturer; i++)
 		{
@@ -443,6 +444,14 @@ void staffMenuShow()
 	cout << "18. View attendance list of a course\n";
 	cout << "19. View list of lecturer\n";
 
+	cout << "------------------------SCOREBOARD------------------------\n";
+	cout << "20. Search and view the scoreboard of a course\n";
+	cout << "21. Export a scoreboard to a csv file\n";
+
+	cout << "------------------------ATTENDANCE LIST------------------------\n";
+	cout << "22. Search and view attendance list of a course\n";
+	cout << "23. Export an attendance list to a csv file\n";
+
 	cout << "Please choose menu (1-19): ";
 }
 void staffFeature(staff a)
@@ -516,18 +525,24 @@ void staffFeature(staff a)
 			AddASpecificStu();
 			break;
 		case 16:
-			listofCourse();
+			viewlistofCourse();
 			break;
 		case 17:
-			listofStuinCourse();
+			viewlistofStuinCourse();
 			break;
 		case 18:
-			listofAttendance();
+			viewlistofAttendance();
 			break;
 		case 19:
 			viewLecturer();
 			break;
 		case 20:
+			break;
+		case 21:
+			break;
+		case 22:
+			break;
+		case 23:
 			break;
 		default:
 			cout << "Wrong choice\n";
@@ -1203,7 +1218,7 @@ void editACourse()
 	delete[] khoahoc;
 }
 
-void listofCourse()
+void viewlistofCourse()
 {
 	course *khoahoc = nullptr;
 	int Ncourse = 0;
@@ -1249,7 +1264,7 @@ void listofCourse()
 	}
 }
 
-void listofStuinCourse()
+void viewlistofStuinCourse()
 {
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
@@ -1289,7 +1304,7 @@ void listofStuinCourse()
 	delete[] khoahoc;
 }
 
-void listofAttendance(){
+void viewlistofAttendance(){
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
 	int NleaveCourse = 0;
@@ -1349,6 +1364,45 @@ void viewScoreBoard(){
 		cout << endl;
 	}
 	delete[] khoahoc;
+}
+
+void exportSBtoCSV(){
+	stuincourse *khoahoc = nullptr;
+	int NstuinCourse = 0;
+	int NleaveCourse = 0;
+	string courseID, classname, acayear, semester;
+	cin.ignore(1000, '\n');
+	cout << "Choose class do you want to view: ";
+	getline(cin, classname, '\n');
+	cout << "Choose course do you want to view: ";
+	getline(cin, courseID, '\n');
+	cout << "Choose academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Choose semester: ";
+	getline(cin, semester, '\n');
+	string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
+	string SBfile = acayear + "-" + semester + "-" + classname + "-" + courseID + "-scoreboard.csv";
+
+	loadStuinCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
+
+
+	ofstream fo; 
+	fo.open(SBfile);
+	if (!fo.is_open())
+		cout << "Can't not open Score Board file" << endl;
+	else 
+	{
+		fo << "No,Student ID,Fullname,Midterm,Final,Bonus,Total" << endl;
+		for (int i = 0; i < NstuinCourse; i++){
+			fo << i + 1 << ","
+			   << khoahoc[i].id << "," 
+			   << khoahoc[i].fullname << "," 
+			   << khoahoc[i].midterm << "," 
+			   << khoahoc[i].final << "," 
+			   << khoahoc[i].bonus << ","
+			   << khoahoc[i].total << endl;
+		}
+	}
 }
 
 void loadStuinCourseTXT(stuincourse*& stuinCourse, int& NstuinCourse, int& NstuinCourseLeave, string stuinCourseTXT)
@@ -1900,18 +1954,24 @@ void lecturerFeature(lecturer a)
 		switch (t)
 		{
 		case 1:
+			viewlistofCourse();
 			break;
 		case 2:
+			viewlistofStuinCourse();
 			break;
 		case 3:
+			viewlistofAttendance();
 			break;
 		case 4:
 			break;
 		case 5:
+			importScoreboardCSV();
 			break;
 		case 6:
+			editGradeOfStu();
 			break;
 		case 7:
+			viewScoreBoard();
 			break;
 		default:
 			cout << "Wrong choice\n";
@@ -1962,7 +2022,7 @@ void importScoreboardCSV() {
 	stuincourse* stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	//cin.ignore(1000, '\n');
+	cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
@@ -2047,7 +2107,7 @@ void editGradeOfStu() {
 	stuincourse* stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	//cin.ignore(1000, '\n');
+	cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
