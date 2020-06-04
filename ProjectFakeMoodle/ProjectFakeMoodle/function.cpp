@@ -1729,7 +1729,7 @@ void setupCourseStudentTXT(string stuinCourseTXT, string classname)
 				hs[i].midterm = -1;
 				hs[i].final = -1;
 				hs[i].bonus = -1;
-				hs[i].final = -1;
+				hs[i].total = -1;
 				hs[i].statusCourse = 1;
 
 				fo3 << endl;
@@ -1769,8 +1769,27 @@ void updateStuinCourseTXT(string stuinCourseTXT)
 	{
 		fi4 >> NstuinCourse >> NstuinCourseLeave;
 		hs = new stuincourse[NstuinCourse + NstuinCourseLeave + 1];
-		
+		for (int i = 0; i < NstuinCourse + NstuinCourseLeave; ++i)
+		{
+			fi4.ignore(1000, '\n');
+			fi4.get();
+
+			getline(fi4, hs[i].id, '\n');
+			getline(fi4, hs[i].password, '\n');
+			getline(fi4, hs[i].fullname, '\n');
+			getline(fi4, hs[i].dob, '\n');
+			getline(fi4, hs[i].clas, '\n');
+			fi4 >> hs[i].status;
+			for (int j = 0; j < 10; j++)
+				hs[i].attendance[j] = a[j];
+			fi4 >> hs[i].midterm;
+			fi4 >> hs[i].final;
+			fi4 >> hs[i].bonus;
+			fi4 >> hs[i].total;
+			fi4 >> hs[i].statusCourse;
+		}
 		fi4.close();
+
 		ofstream fo3;
 		fo3.open(stuinCourseTXT);
 		if (!fo3.is_open())
