@@ -720,6 +720,8 @@ void editStudent()
 
 			cout << "This student has been edited!!!" << endl;
 
+
+
 			break;
 		}
 	}
@@ -1673,7 +1675,7 @@ void AddASpecificStu()
 	hs[NStudent + NCourseLeave].bonus = -1;
 	hs[NStudent + NCourseLeave].total = -1;
 	for (int j = 0; j < 10; j++)
-		hs[NStudent + NCourseLeave].attendance[j] = a[j];
+		hs[NStudent + NCourseLeave].attendance[j] = hs[0].attendance[j];
 	hs[NStudent + NCourseLeave].statusCourse = 1;
 	++NStudent;
 
