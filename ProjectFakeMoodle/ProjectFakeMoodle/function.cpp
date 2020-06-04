@@ -111,11 +111,12 @@ void loadStaff()
 
 		for (int i = 0; i < Nstaff; i++)
 		{
-			fin.ignore(1000, '\n');
+			fin.get();
 			getline(fin, giaovu[i].username);
 			getline(fin, giaovu[i].password);
 			getline(fin, giaovu[i].fullname);
 			fin >> giaovu[i].gender;
+			fin.ignore(1000, '\n');
 		}
 
 		fin.close();
@@ -138,12 +139,13 @@ void loadLecturer()
 
 		for (int i = 0; i < Nlecturer; i++)
 		{
-			fin.ignore(1000, '\n');
+			fin.get();
 			getline(fin, giaovien[i].username);
 			getline(fin, giaovien[i].password);
 			getline(fin, giaovien[i].fullname);
 			getline(fin, giaovien[i].degree);
 			fin >> giaovien[i].gender;
+			fin.ignore(1000, '\n');
 		}
 
 		fin.close();
