@@ -29,15 +29,15 @@ SAT
 I23
 
 LAW101
-Phap Luat
+PLDC
 19APCS1
-Vu Cong Trang
-vctrang
-ThS
+Nguyen Duy Anh Quoc
+ndaquoc
+TS
 Male
-2020 04 02
-2020 06 18
-MON
-7:30
-11:30
-C69
+2020 06 05
+2020 08 14
+THURS
+11:00
+13:00
+C22

@@ -2069,6 +2069,7 @@ void studentFeature(student a)
 		switch (t)
 		{
 		case 1:
+			checkin(a);
 			break;
 		case 2:
 			break;
@@ -2269,6 +2270,116 @@ string changePassword(string pass) {
 			getline(cin, curPass, '\n');
 		}
 	}
+}
+/*--------------------------------------STUDENT--------------------------------------*/
+void checkin(student hocsinh){
+	time_t now = time(0);
+	tm *lmt = localtime(&now);
+
+	int stuY, stuM, stuD, stuStart_h, stuStart_m;
+	string tmpY, tmpM, tmpD, tmpStart_h, tmpStart_m, tmpEnd_h, tmpEnd_m; 
+	int y, m, d, start_h, start_m, end_h, end_m;
+
+	stuY = 1900 + lmt->tm_year;
+	stuM = 1 + lmt->tm_mon;
+	stuD = lmt->tm_mday;
+	stuStart_h = 1 + lmt->tm_hour;
+	stuStart_m = 1 + lmt->tm_min;
+
+	classShow(hocsinh);
+
+	string classname;
+	cin.ignore(1000,'\n');
+	cout << "Choose class (Classname-CourseID): ";
+	getline(cin, classname, '\n');
+
+	stuincourse *stuinCourse = nullptr;
+	int NstuinCourse;
+	int NstuinCourseLeave;
+	string file = "2019-2020-HK2-" + classname +  "-student.txt";
+	loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, file);
+	for (int i = 0; i < NstuinCourse; ++i){
+		if (hocsinh.id == stuinCourse[i].id){
+			for (int j = 0; j < 10; ++j){
+				for (int k = 0; k < 4; k++)
+					tmpY += stuinCourse[i].attendance[j][k];
+				for (int k = 5; k < 7; k++)
+					tmpM += stuinCourse[i].attendance[j][k];
+				for (int k = 8; k < 10; ++k)
+					tmpD += stuinCourse[i].attendance[j][k];
+				for (int k = 11; k < 13; ++k)
+					tmpStart_h += stuinCourse[i].attendance[j][k]; 
+				for (int k = 14; k < 16; ++k)
+					tmpStart_m += stuinCourse[i].attendance[j][k];
+				for (int k = 17; k < 19; ++k)
+					tmpEnd_h += stuinCourse[i].attendance[j][k];
+				for (int k = 20; k < 22; ++k)
+					tmpEnd_m += stuinCourse[i].attendance[j][k];
+				d = stoi(tmpD);
+				m = stoi(tmpM);
+				y = stoi(tmpY);
+				start_h = stoi(tmpStart_h);
+				start_m = stoi(tmpStart_m);
+				end_h = stoi(tmpEnd_h);
+				end_m = stoi(tmpEnd_m);
+				if (d == stuD && m == stuM && y == stuY){
+					if (stuStart_h >= start_h && stuStart_m >= start_m && stuStart_h <= end_h){
+						stuinCourse[i].attendance[j][23] = '1';
+						stuinCourse[i].attendance[j][24] = ' ';
+						cout << "Checkin successfully!!!!";
+						updateStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, file);
+						break;
+					}
+				}
+				
+			}
+			break;
+		}
+	}
+
+
+
+	delete [] stuinCourse;
+}
+
+void classShow(student hocsinh){
+	course *khoahoc = nullptr;
+	int Ncourse = 0;
+
+	stuincourse *stuinCourse = nullptr;
+	int NstuinCourse;
+	int NstuinCourseLeave;
+
+	for (int i = 0; i < Nclass; ++i){
+	string schefilename = "2019-2020-HK2-schedule-" + lophoc[i].classname + ".txt";
+	ifstream fi; 
+	fi.open(schefilename);
+
+	if (fi.is_open())
+	{
+		loadClassScheduleTXT(khoahoc, Ncourse, schefilename);
+		for (int j = 0; j < Ncourse; j++){
+			string file = "2019-2020-HK2-" + lophoc[i].classname + "-" + khoahoc[j].courseID +  "-student.txt";
+			ifstream fi2;
+			fi2.open(file);
+
+			if (fi2.is_open()){
+				loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, file);
+				for (int k = 0; k < NstuinCourse; ++k)
+					if (hocsinh.id == stuinCourse[k].id){
+						cout << left << setw(14) << setfill(' ') << khoahoc[j].courseID;
+						cout << left << setw(28) << setfill(' ') << khoahoc[j].courseName;
+						cout << left << setw(10) << setfill(' ') << khoahoc[j].clas;
+						cout << left << setw(20) << setfill(' ') << khoahoc[j].instructor;
+						cout << endl;
+					}
+			}
+			fi2.close();
+	 	}
+	}
+	fi.close();
+}
+
 }
 
 void viewSchedule(student hocsinh){
