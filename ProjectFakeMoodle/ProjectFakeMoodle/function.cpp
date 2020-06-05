@@ -1248,12 +1248,16 @@ void viewlistofCourse()
 {
 	course *khoahoc = nullptr;
 	int Ncourse = 0;
-	string className;
+	string className, acayear, semester;
 	cin.ignore(1000, '\n');
+	cout << "Enter academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
 	cout << "Please enter Class you want to view: ";
 	getline(cin, className, '\n');
 
-	string scheduleFileName = "2019-2020-HK2-schedule-" + className + ".txt";
+	string scheduleFileName = acayear + "-" +semester +"-schedule-" + className + ".txt";
 	loadClassScheduleTXT(khoahoc, Ncourse, scheduleFileName);
 
 	cout << left << setw(14) << setfill(' ') << "Course ID";
@@ -1295,13 +1299,17 @@ void viewlistofStuinCourse()
 	stuincourse *khoahoc = nullptr;
 	int NstuinCourse = 0;
 	int NleaveCourse = 0;
-	string courseID, classname;
+	string courseID, classname, acayear, semester;
 	cin.ignore(1000, '\n');
+	cout << "Enter academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Enter semester: ";
+	getline(cin, semester, '\n');
 	cout << "Choose class do you want to view: ";
 	getline(cin, classname, '\n');
 	cout << "Choose course do you want to view: ";
 	getline(cin, courseID, '\n');
-	string filename = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
+	string filename = acayear + "-" +semester + "-" + classname + "-" + courseID + "-student.txt";
 
 	loadStuinCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
 
