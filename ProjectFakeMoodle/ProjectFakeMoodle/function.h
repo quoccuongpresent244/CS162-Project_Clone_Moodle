@@ -10,6 +10,7 @@
 #include <ctime>
 #include <Windows.h>
 #include <conio.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -140,6 +141,8 @@ void plus7days(int &y, int &m, int &d);
 void createAttendance(course khoahoc);
 
 void staffMenuShow();
+void scrollingMenu(staff a);
+void continueMenu(staff a);
 void staffFeature(staff a);
 void lecturerMenuShow();
 void lecturerFeature(lecturer a);
