@@ -2315,62 +2315,9 @@ void lecturerFeature(lecturer a)
 	cout << endl
 		 << endl;
 
-	lecturerMenuShow();
+	system("pause");
+	LecScrollingMenu(a);
 
-	int con = 1;
-	int t;
-	cin >> t;
-	while (con == 1)
-	{
-		switch (t)
-		{
-		case 1:
-			viewlistofCourse();
-			break;
-		case 2:
-			viewlistofStuinCourse();
-			break;
-		case 3:
-			viewlistofAttendance();
-			break;
-		case 4:
-			break;
-		case 5:
-			importScoreboardCSV();
-			break;
-		case 6:
-			editGradeOfStu();
-			break;
-		case 7:
-			viewScoreBoard();
-			break;
-		case 8:
-			for (int i = 0; i < Nlecturer; i++)
-			{
-				if (a.username == giaovien[i].username)
-				{
-					giaovien[i].password = changePassword(a.password);
-					break;
-				}
-			}
-			updateLecturerTXT();
-			break;
-		default:
-			cout << "Wrong choice\n";
-			break;
-		}
-
-		cout << "Do you want to continue (0.No 1.Yes): ";
-		cin >> con;
-
-		if (con == 1)
-		{
-			lecturerMenuShow();
-			cin >> t;
-		}
-		else
-			return;
-	}
 }
 void studentMenuShow()
 {
@@ -2384,6 +2331,144 @@ void studentMenuShow()
 
 	cout << "Please choose menu (1-5): ";
 }
+
+void StuContinueMenu(student a){
+	int color[] = { 10, 12 };
+	int index[2];
+	index[0] = 1; 
+	for (int i = 1; i < 2; ++i)
+		index[i] = 0;
+	int ptr = 0;
+	int keystroke = 0;
+	while (keystroke != 13) { // 13: enter
+		system("cls");
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
+		cout << "Do you want to continue\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[0]]);
+		cout << "1. YES\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[1]]);
+		cout << "2. NO\n";
+
+		keystroke = _getch();
+		fflush(stdin);
+        
+        //UP_ARROW: 72
+		if (keystroke == 72) {
+			index[ptr] = 0;
+			if (ptr == 0)
+				ptr = 1;
+			else
+				ptr--;
+			index[ptr] = 1;
+		}
+
+        //DOWN_ARROW: 80
+		else if (keystroke==80) {
+			index[ptr] = 0;
+			if (ptr == 1)
+				ptr = 0;
+			else
+				ptr++;
+			index[ptr] = 1;
+		}
+	}
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+	switch (ptr) {
+		case 0:
+			StuScrollingMenu(a);
+			break;
+		case 1:
+			cout << "Thanks for using our software\n";
+			return;
+	}
+}
+
+void StuScrollingMenu(student a){
+	int color[] = { 10, 12 };
+	int index[6];
+	index[0] = 1; 
+	for (int i = 1; i < 6; ++i)
+		index[i] = 0;
+	int ptr = 0;
+	int keystroke = 0;
+	while (keystroke != 13) { // 13: enter
+		system("cls");
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+		cout << "------------------------STUDENT------------------------\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[0]]);
+		cout << "1. Check-in\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[1]]);
+		cout << "2. View check-in result\n";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[2]]);
+		cout << "3. View schedules\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[3]]);
+		cout << "4. View his/her score of a course\n";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[4]]);
+		cout << "5. Change your password\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[5]]);
+		cout << "6. EXIT\n";
+		
+
+
+		keystroke = _getch();
+		fflush(stdin);
+        
+        //UP_ARROW: 72
+		if (keystroke == 72) {
+			index[ptr] = 0;
+			if (ptr == 0)
+				ptr = 5;
+			else
+				ptr--;
+			index[ptr] = 1;
+		}
+
+        //DOWN_ARROW: 80
+		else if (keystroke==80) {
+			index[ptr] = 0;
+			if (ptr == 5)
+				ptr = 0;
+			else
+				ptr++;
+			index[ptr] = 1;
+		}
+	}
+	switch (ptr)
+		{
+		case 0:
+			checkin(a);
+			break;
+		case 1:
+			break;
+		case 2:
+			viewSchedule(a);
+			break;
+		case 3:
+			break;
+		case 4:
+			for (int i = 0; i < Nstudent; i++)
+			{
+				if (a.id == hocsinh[i].id)
+				{
+					hocsinh[i].password = changePassword(a.password);
+					break;
+				}
+			}
+			updateStudentTXT("student.txt");
+			break;
+		case 5:
+			cout << "Thanks for using our software!" << endl;
+			return;
+		}
+		system("pause");
+		StuContinueMenu(a);
+}
+
 void studentFeature(student a)
 {
 	cout << "\t \tXin chao ban " << a.fullname << endl;
@@ -2395,52 +2480,9 @@ void studentFeature(student a)
 	cout << "Lop: " << a.clas << endl;
 	cout << "\n\n";
 
-	studentMenuShow();
+	system("pause");
+	StuScrollingMenu(a);
 
-	int con = 1;
-	int t;
-	cin >> t;
-	while (con == 1)
-	{
-		switch (t)
-		{
-		case 1:
-			checkin(a);
-			break;
-		case 2:
-			break;
-		case 3:
-			viewSchedule(a);
-			break;
-		case 4:
-			break;
-		case 5:
-			for (int i = 0; i < Nstudent; i++)
-			{
-				if (a.id == hocsinh[i].id)
-				{
-					hocsinh[i].password = changePassword(a.password);
-					break;
-				}
-			}
-			updateStudentTXT("student.txt");
-			break;
-		default:
-			cout << "Wrong choice\n";
-			break;
-		}
-
-		cout << "Do you want to continue (0.No 1.Yes): ";
-		cin >> con;
-
-		if (con == 1)
-		{
-			studentMenuShow();
-			cin >> t;
-		}
-		else
-			return;
-	}
 }
 
 //For Attendance

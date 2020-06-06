@@ -14,9 +14,9 @@ int main()
 {
 	
 	int color[] = { 10, 12 };
-	int index[9];
+	int index[6];
 	index[0] = 1; 
-	for (int i = 1; i < 9; ++i)
+	for (int i = 1; i < 6; ++i)
 		index[i] = 0;
 	int ptr = 0;
 	int keystroke = 0;
@@ -24,33 +24,23 @@ int main()
 		system("cls");
 
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
-		cout << "------------------------COURSE------------------------\n";
+		cout << "------------------------STUDENT------------------------\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[0]]);
-		cout << "1. View list of courses in the current semester\n";
+		cout << "1. Check-in\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[1]]);
-		cout << "2. View list of students of a course\n";
+		cout << "2. View check-in result\n";
 
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
-		cout << "------------------------ATTENDANCE------------------------\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[2]]);
-		cout << "3. View attendance list of a course\n";
+		cout << "3. View schedules\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[3]]);
-		cout << "4. Edit an attendance\n";
+		cout << "4. View his/her score of a course\n";
 
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
-		cout << "------------------------SCORE BOARD------------------------\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[4]]);
-		cout << "5. Import scoreboard of a course (midterm, final, bonus) from CSV file\n";
+		cout << "5. Change your password\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[5]]);
-		cout << "6. Edit grade of a student\n";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[6]]);
-		cout << "7. View a scoreboard\n";
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[7]]);
-		cout << "8. Change your password\n";
+		cout << "6. EXIT\n";
+		
 
-
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[8]]);
-		cout << "23. EXIT";
 
 		keystroke = _getch();
 		fflush(stdin);
@@ -59,7 +49,7 @@ int main()
 		if (keystroke == 72) {
 			index[ptr] = 0;
 			if (ptr == 0)
-				ptr = 8;
+				ptr = 5;
 			else
 				ptr--;
 			index[ptr] = 1;
@@ -68,7 +58,7 @@ int main()
         //DOWN_ARROW: 80
 		else if (keystroke==80) {
 			index[ptr] = 0;
-			if (ptr == 8)
+			if (ptr == 5)
 				ptr = 0;
 			else
 				ptr++;

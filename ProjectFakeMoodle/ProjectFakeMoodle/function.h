@@ -153,6 +153,8 @@ void lecturerFeature(lecturer a);
 
 
 void studentMenuShow();
+void StuContinueMenu(student a);
+void StuScrollingMenu(student a);
 void studentFeature(student a);
 
 
