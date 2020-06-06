@@ -2134,6 +2134,170 @@ void lecturerMenuShow()
 
 	cout << "Please choose menu (1-8): ";
 }
+
+void LecContinueMenu(lecturer a){
+	int color[] = { 10, 12 };
+	int index[2];
+	index[0] = 1; 
+	for (int i = 1; i < 2; ++i)
+		index[i] = 0;
+	int ptr = 0;
+	int keystroke = 0;
+	while (keystroke != 13) { // 13: enter
+		system("cls");
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
+		cout << "Do you want to continue\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[0]]);
+		cout << "1. YES\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[1]]);
+		cout << "2. NO\n";
+
+		keystroke = _getch();
+		fflush(stdin);
+        
+        //UP_ARROW: 72
+		if (keystroke == 72) {
+			index[ptr] = 0;
+			if (ptr == 0)
+				ptr = 1;
+			else
+				ptr--;
+			index[ptr] = 1;
+		}
+
+        //DOWN_ARROW: 80
+		else if (keystroke==80) {
+			index[ptr] = 0;
+			if (ptr == 1)
+				ptr = 0;
+			else
+				ptr++;
+			index[ptr] = 1;
+		}
+	}
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+	switch (ptr) {
+		case 0:
+			LecScrollingMenu(a);
+			break;
+		case 1:
+			cout << "Thanks for using our software\n";
+			return;
+	}
+}
+
+void LecScrollingMenu(lecturer a){
+	int color[] = { 10, 12 };
+	int index[9];
+	index[0] = 1; 
+	for (int i = 1; i < 9; ++i)
+		index[i] = 0;
+	int ptr = 0;
+	int keystroke = 0;
+	while (keystroke != 13) { // 13: enter
+		system("cls");
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+		cout << "------------------------COURSE------------------------\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[0]]);
+		cout << "1. View list of courses in the current semester\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[1]]);
+		cout << "2. View list of students of a course\n";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+		cout << "------------------------ATTENDANCE------------------------\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[2]]);
+		cout << "3. View attendance list of a course\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[3]]);
+		cout << "4. Edit an attendance\n";
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+		cout << "------------------------SCORE BOARD------------------------\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[4]]);
+		cout << "5. Import scoreboard of a course (midterm, final, bonus) from CSV file\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[5]]);
+		cout << "6. Edit grade of a student\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[6]]);
+		cout << "7. View a scoreboard\n";
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[7]]);
+		cout << "8. Change your password\n";
+
+
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[8]]);
+		cout << "9. EXIT";
+
+		keystroke = _getch();
+		fflush(stdin);
+        
+        //UP_ARROW: 72
+		if (keystroke == 72) {
+			index[ptr] = 0;
+			if (ptr == 0)
+				ptr = 8;
+			else
+				ptr--;
+			index[ptr] = 1;
+		}
+
+        //DOWN_ARROW: 80
+		else if (keystroke==80) {
+			index[ptr] = 0;
+			if (ptr == 8)
+				ptr = 0;
+			else
+				ptr++;
+			index[ptr] = 1;
+		}
+	}
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
+	switch (ptr)
+		{
+		case 0:
+			viewlistofCourse();
+			break;
+		case 1:
+			viewlistofStuinCourse();
+			break;
+		case 2:
+			viewlistofAttendance();
+			break;
+		case 3:
+			cout << "edit attendance!" << endl;
+			break;
+		case 4:
+			importScoreboardCSV();
+			break;
+		case 5:
+			editGradeOfStu();
+			break;
+		case 6:
+			viewScoreBoard();
+			break;
+		case 7:
+			for (int i = 0; i < Nlecturer; i++)
+			{
+				if (a.username == giaovien[i].username)
+				{
+					giaovien[i].password = changePassword(a.password);
+					break;
+				}
+			}
+			updateLecturerTXT();
+			break;
+		
+		case 8:
+			cout << "Thanks for using our software!" << endl;
+			return;
+		}
+
+		system("pause");
+		LecContinueMenu(a);
+
+}
+
 void lecturerFeature(lecturer a)
 {
 	if (a.gender == 0)

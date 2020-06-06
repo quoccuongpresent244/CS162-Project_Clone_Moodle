@@ -144,8 +144,14 @@ void staffMenuShow();
 void scrollingMenu(staff a);
 void continueMenu(staff a);
 void staffFeature(staff a);
+
+
 void lecturerMenuShow();
+void LecContinueMenu(lecturer a);
+void LecScrollingMenu(lecturer a);
 void lecturerFeature(lecturer a);
+
+
 void studentMenuShow();
 void studentFeature(student a);
 
