@@ -1,43 +1,43 @@
 3
 
 CS162
-Introduction to Programming
+Computer Science
 19APCS1
 Dinh Ba Tien
 dbtien
 TS
 Male
-2020 04 06
-2020 06 01
-MON
-7:30
-11:30
+2020 06 13
+2020 07 15
+SAT
+07:00
+12:00
 I42
 
 CM101
-Communications
+Comunication Manangement
 19APCS1
 Duong Nguyen Vu
 dnvu
-GS
+TS
 Male
-2020 04 07
-2020 06 02
+2020 06 13
+2020 07 15
 SAT
-13:30
-17:30
-I23
+07:00
+12:00
+I42
 
 LAW101
 PLDC
 19APCS1
-Nguyen Duy Anh Quoc
-ndaquoc
+Dang Cong Trang
+dctrang
 TS
 Male
-2020 06 05
-2020 08 14
-THURS
-11:00
-13:00
-C22
+2020 06 13
+2020 07 15
+SAT
+07:00
+12:00
+I42
