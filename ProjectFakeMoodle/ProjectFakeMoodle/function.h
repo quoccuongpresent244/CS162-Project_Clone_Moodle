@@ -167,6 +167,7 @@ void editGradeOfStu();
 void checkin(student hocsinh);
 void classShow(student hocsinh);
 void viewSchedule(student hocsinh);
+void viewSB(student hocsinh);
 
 // Change password
 string changePassword(string pass);

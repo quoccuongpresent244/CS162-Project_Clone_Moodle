@@ -2487,6 +2487,7 @@ void StuScrollingMenu(student a)
 		viewSchedule(a);
 		break;
 	case 3:
+		viewSB(a);
 		break;
 	case 4:
 		for (int i = 0; i < Nstudent; i++)
@@ -2879,6 +2880,69 @@ void viewSchedule(student hocsinh)
 							cout << left << setw(16) << setfill(' ') << khoahoc[j].startTime;
 							cout << left << setw(14) << setfill(' ') << khoahoc[j].endTime;
 							cout << left << setw(10) << setfill(' ') << khoahoc[j].room;
+							cout << endl;
+						}
+					}
+				}
+				fi2.close();
+			}
+		}
+		fi.close();
+	}
+}
+
+void viewSB(student hocsinh){
+	course *khoahoc = nullptr;
+	int Ncourse = 0;
+
+	stuincourse *stuinCourse = nullptr;
+	int NstuinCourse;
+	int NstuinCourseLeave;
+
+	string acayear, semester;
+	//cin.ignore(1000, '\n');
+	cout << "Choose academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Choose semester: ";
+	getline(cin, semester, '\n');
+
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+	cout << left << setw(15) << setfill(' ') << "CourseID";
+	cout << left << setw(14) << setfill(' ') << "Midterm";
+	cout << left << setw(12) << setfill(' ') << "Final";
+	cout << left << setw(12) << setfill(' ') << "Bonus";
+	cout << left << setw(12) << setfill(' ') << "Total";
+	cout << endl;
+
+	for (int i = 0; i < Nclass; ++i)
+	{
+		string schefilename = acayear + "-" + semester + "-schedule-" + lophoc[i].classname + ".txt";
+		ifstream fi;
+		fi.open(schefilename);
+
+		if (fi.is_open())
+		{
+			loadClassScheduleTXT(khoahoc, Ncourse, schefilename);
+			for (int j = 0; j < Ncourse; j++)
+			{
+				string file = acayear + "-" + semester + "-" + lophoc[i].classname + "-" + khoahoc[j].courseID + "-student.txt";
+				ifstream fi2;
+				fi2.open(file);
+
+				if (fi2.is_open())
+				{
+
+					loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, file);
+					for (int k = 0; k < NstuinCourse; ++k)
+					{
+						if (hocsinh.id == stuinCourse[k].id)
+						{
+							//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
+							cout << left << setw(15) << setfill(' ') << khoahoc[j].courseID;
+							cout << left << setw(14) << setfill(' ') << stuinCourse[k].midterm;
+							cout << left << setw(12) << setfill(' ') << stuinCourse[k].final;
+							cout << left << setw(12) << setfill(' ') << stuinCourse[k].bonus;
+							cout << left << setw(12) << setfill(' ') << stuinCourse[k].total;
 							cout << endl;
 						}
 					}
