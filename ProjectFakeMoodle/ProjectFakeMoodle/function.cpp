@@ -532,6 +532,7 @@ void continueMenu(staff a)
 	switch (ptr)
 	{
 	case 0:
+		cin.ignore(1000, '\n');
 		scrollingMenu(a);
 		break;
 	case 1:
@@ -906,6 +907,7 @@ void editStudent()
 	{
 		if (tmpID == hocsinh[i].id)
 		{
+			cout << "UPDATED INFORMATION: \n";
 			cout << "Student ID: ";
 			getline(cin, hocsinh[i].id, '\n');
 
@@ -992,14 +994,16 @@ void ChangeClass()
 			cout << "Enter the new class of this student: ";
 			cin.get();
 			getline(cin, tmpNew);
+			
 			hocsinh[i].clas = tmpNew;
 
 			bool newclass = true;
 			for (int j = 0; j < Nclass; ++j)
 			{
-				if (lophoc[j].classname == tmpNew)
+				if (lophoc[j].classname == tmpNew) {
 					newclass = false;
-				break;
+					break;
+				}
 			}
 
 			if (newclass)
@@ -1008,14 +1012,16 @@ void ChangeClass()
 				lophoc[Nclass].numofstu = 1;
 				++Nclass;
 			}
+			
 
 			for (int j = 0; j < Nclass; ++j)
 			{
 				if (lophoc[j].classname == tmpClass)
 					--lophoc[j].numofstu;
 
-				if (!newclass && lophoc[j].classname == tmpNew)
-					++lophoc[j].numofstu;
+				if (!newclass && lophoc[j].classname == tmpNew) {
+					++lophoc[j].numofstu;				
+				}
 			}
 			cout << "The class of this student have been changed !" << endl;
 			break;
@@ -1099,6 +1105,8 @@ void importCourseCSV()
 	getline(cin, addressCSV, '\n');
 
 	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\All files\\19APCS1-schedule.csv
+	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS2-schedule.csv
+
 	// C:\\Users\\dbcha\\Documents\\GitHub\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS1-schedule.csv
 
 	course *khoahoc = new course[10];
@@ -1177,6 +1185,8 @@ void importCourseCSV()
 		createAttendance(khoahoc[i]);
 		setupCourseStudentTXT(coursestudent, classname);
 	}
+
+	cout << "Import Successfully! \n";
 	delete[] khoahoc;
 }
 
@@ -1330,6 +1340,7 @@ void addANewCourse()
 
 	setupCourseStudentTXT(coursestudent, classname);
 
+	cout << "Adding successfully! \n";
 	delete[] khoahoc;
 }
 
@@ -1401,6 +1412,7 @@ void editACourse()
 	}
 
 	updateClassScheduleTXT(khoahoc, Ncourse, coursename);
+	cout << "Editting Successfully! \n";
 
 	delete[] khoahoc;
 }
@@ -1536,14 +1548,15 @@ void viewScoreBoard()
 	int NleaveCourse = 0;
 	string courseID, classname, acayear, semester;
 	//cin.ignore(1000, '\n');
-	cout << "Choose class do you want to view: ";
-	getline(cin, classname, '\n');
-	cout << "Choose course do you want to view: ";
-	getline(cin, courseID, '\n');
-	cout << "Choose academic year: ";
+	cout << "Academic year: ";
 	getline(cin, acayear, '\n');
-	cout << "Choose semester: ";
+	cout << "Semester: ";
 	getline(cin, semester, '\n');
+	cout << "Class: ";
+	getline(cin, classname, '\n');
+	cout << "Course you want to view: ";
+	getline(cin, courseID, '\n');
+	
 	string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 
 	loadStuinCourseTXT(khoahoc, NstuinCourse, NleaveCourse, filename);
@@ -1576,14 +1589,15 @@ void exportSBtoCSV()
 	int NleaveCourse = 0;
 	string courseID, classname, acayear, semester;
 	//cin.ignore(1000, '\n');
-	cout << "Choose class do you want to view: ";
-	getline(cin, classname, '\n');
-	cout << "Choose course do you want to view: ";
-	getline(cin, courseID, '\n');
-	cout << "Choose academic year: ";
+	cout << "Academic year: ";
 	getline(cin, acayear, '\n');
-	cout << "Choose semester: ";
+	cout << "Semester: ";
 	getline(cin, semester, '\n');
+	cout << "Class: ";
+	getline(cin, classname, '\n');
+	cout << "Course: ";
+	getline(cin, courseID, '\n');
+	
 	string filename = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 	string SBfile = acayear + "-" + semester + "-" + classname + "-" + courseID + "-scoreboard.csv";
 
@@ -1607,6 +1621,7 @@ void exportSBtoCSV()
 			   << khoahoc[i].total << endl;
 		}
 	}
+	cout << "Export Successfully! \n";
 }
 
 void loadStuinCourseTXT(stuincourse *&stuinCourse, int &NstuinCourse, int &NstuinCourseLeave, string stuinCourseTXT)
@@ -1805,6 +1820,7 @@ void removeACourse()
 		f << " ";
 		f.close();
 	}
+
 }
 
 void RemoveASpecificStu()
@@ -2241,7 +2257,7 @@ void LecScrollingMenu(lecturer a)
 		cout << "8. Change your password\n";
 
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[8]]);
-		cout << "9. EXIT";
+		cout << "9. EXIT\n";
 
 		keystroke = _getch();
 		fflush(stdin);
@@ -2515,13 +2531,17 @@ void importScoreboardCSV()
 
 	stuincourse *stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
-	string courseID, classname;
+	string acayear, semester, courseID, classname;
 	//cin.ignore(1000, '\n');
+	cout << "Academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Semester: ";
+	getline(cin, semester, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
 	getline(cin, courseID, '\n');
-	string stuinCourseTXT = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
+	string stuinCourseTXT = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 
 	loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, stuinCourseTXT);
 
@@ -2602,13 +2622,17 @@ void editGradeOfStu()
 {
 	stuincourse *stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
-	string courseID, classname;
+	string acayear, semester, courseID, classname;
 	//cin.ignore(1000, '\n');
+	cout << "Academic year: ";
+	getline(cin, acayear, '\n');
+	cout << "Semester: ";
+	getline(cin, semester, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
 	getline(cin, courseID, '\n');
-	string stuinCourseTXT = "2019-2020-HK2-" + classname + "-" + courseID + "-student.txt";
+	string stuinCourseTXT = acayear + "-" + semester + "-" + classname + "-" + courseID + "-student.txt";
 
 	loadStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, stuinCourseTXT);
 
@@ -2633,6 +2657,7 @@ void editGradeOfStu()
 
 	updateStuinCourseTXT(stuinCourse, NstuinCourse, NstuinCourseLeave, stuinCourseTXT);
 
+	cout << "Editting Successfully! \n";
 	delete[] stuinCourse;
 }
 
@@ -2660,6 +2685,7 @@ string changePassword(string pass)
 				if (newPass == newPass2)
 				{
 					k = 1;
+					cout << "Change Successfully!\n";
 					return newPass;
 				}
 				else

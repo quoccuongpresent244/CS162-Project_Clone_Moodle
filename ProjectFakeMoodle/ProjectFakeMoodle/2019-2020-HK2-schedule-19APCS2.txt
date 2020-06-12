@@ -1,0 +1,29 @@
+2
+
+CS162
+Introduction to Programming
+19APCS2
+Loc Truong
+dbtien
+TS
+Male
+2020 04 06
+2020 06 01
+MON
+7:30
+11:30
+I24
+
+CM101
+Communications
+19APCS2
+Duong Nguyen Vu
+dnvu
+GS
+Male
+2020 04 07
+2020 06 02
+SAT
+13:30
+17:30
+I23

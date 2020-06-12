@@ -1,5 +1,6 @@
 #ifndef _FUNCTION_H_
 #define _FUNCTION_H_
+#pragma warning(disable : 4996)
 
 #include <iostream>
 #include <iomanip>
