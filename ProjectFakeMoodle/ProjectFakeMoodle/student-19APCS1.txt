@@ -1,4 +1,4 @@
-2
+4
 
 chan
 123456
@@ -11,6 +11,20 @@ Duong Chan
 20010424
 Nguyen Phuong Nam
 2001 01 01
+19APCS1
+1
+
+19125999
+20010424
+Nguyen Duy Anh Chan
+2001 04 24
+19APCS1
+1
+
+19127779
+20010401
+Nguyen Van A
+2001 04 01
 19APCS1
 1
 

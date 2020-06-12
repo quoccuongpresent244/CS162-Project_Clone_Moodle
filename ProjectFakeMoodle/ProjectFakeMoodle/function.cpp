@@ -756,7 +756,7 @@ void importCSV()
 
 	ifstream fin;
 	cout << "Enter address of csv file: ";
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	getline(cin, addressCSV, '\n'); // You must have file CSV first, then find the address of that file, and modify it to look like the one below
 	fin.open(addressCSV);
 
@@ -848,7 +848,7 @@ void addAStudenttoClass()
 	}
 
 	cout << "Enter student ID: ";
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	getline(cin, hocsinh[Nstudent + Nleave].id, '\n');
 	cout << "Enter fullname: ";
 	getline(cin, hocsinh[Nstudent + Nleave].fullname, '\n');
@@ -896,7 +896,7 @@ void editStudent()
 	string tmpID;
 	string tmpClass;
 	cout << "Enter Student-ID you want to edit: ";
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	getline(cin, tmpID, '\n');
 
 	ifstream fi;
@@ -932,7 +932,7 @@ void RemoveAStudent()
 	string tmpID;
 	string tmpClass;
 	cout << "Enter the class of this student: ";
-	cin.ignore();
+	//cin.ignore();
 	getline(cin, tmpClass);
 	cout << "ID: ";
 	getline(cin, tmpID);
@@ -973,7 +973,7 @@ void ChangeClass()
 	string tmpClass;
 	string tmpNew;
 	cout << "Enter the class of this student: ";
-	cin.ignore();
+	//cin.ignore();
 	getline(cin, tmpClass);
 	cout << "ID: ";
 	getline(cin, tmpID);
@@ -1042,7 +1042,7 @@ void viewListOfStudentsInClass()
 {
 	string classname;
 	cout << "Enter classname you want to view: ";
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	getline(cin, classname, '\n');
 
 	string filename = "student-" + classname + ".txt";
@@ -1088,7 +1088,7 @@ void importCourseCSV()
 	string no, courseID, courseName, clas, instructor, instructorUsername, degree, gender, startDate,
 		endDate, dayOfWeek, startTime, endTime, room;
 
-	cin.ignore(100, '\n');
+	//cin.ignore(100, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1280,7 +1280,7 @@ void addANewCourse()
 {
 	string acayear, semester, classname, classcourses;
 
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1337,7 +1337,7 @@ void editACourse()
 {
 	string acayear, semester, classname, coursename;
 
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1410,7 +1410,7 @@ void viewlistofCourse()
 	course *khoahoc = nullptr;
 	int Ncourse = 0;
 	string className, acayear, semester;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year: ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1461,7 +1461,7 @@ void viewlistofStuinCourse()
 	int NstuinCourse = 0;
 	int NleaveCourse = 0;
 	string courseID, classname, acayear, semester;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year: ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1506,7 +1506,7 @@ void viewlistofAttendance()
 	int NleaveCourse = 0;
 	string courseID, classname;
 	string acayear, semester;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year: ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1535,7 +1535,7 @@ void viewScoreBoard()
 	int NstuinCourse = 0;
 	int NleaveCourse = 0;
 	string courseID, classname, acayear, semester;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Choose class do you want to view: ";
 	getline(cin, classname, '\n');
 	cout << "Choose course do you want to view: ";
@@ -1575,7 +1575,7 @@ void exportSBtoCSV()
 	int NstuinCourse = 0;
 	int NleaveCourse = 0;
 	string courseID, classname, acayear, semester;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Choose class do you want to view: ";
 	getline(cin, classname, '\n');
 	cout << "Choose course do you want to view: ";
@@ -1687,7 +1687,7 @@ void loadClassScheduleTXT(course *&khoahoc, int &Ncourse, string classScheduleTX
 	fin.open(classScheduleTXT);
 	if (!fin.is_open())
 	{
-		cout << "cannot open file\n";
+		cout << "There is no course\n";
 		khoahoc = new course[1];
 	}
 	else
@@ -1721,7 +1721,7 @@ void removeACourse()
 	ofstream f;
 	string acayear, semester, classname, classcourses, tmpCourseID;
 
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1813,7 +1813,7 @@ void RemoveASpecificStu()
 	int NStudent;
 	int NCourseLeave;
 	stuincourse *hs = nullptr;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -1907,7 +1907,7 @@ void AddASpecificStu()
 	int NStudent;
 	int NCourseLeave;
 	stuincourse *hs = nullptr;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Enter academic year (yyyy-yyyy): ";
 	getline(cin, acayear, '\n');
 	cout << "Enter semester: ";
@@ -2131,10 +2131,10 @@ void lecturerMenuShow()
 
 	cout << "------------------------COURSE------------------------\n";
 	cout << "1. View list of courses in the current semester\n";
-	cout << "2. View list of students of a course\n";
+	cout << "2. View list of students of a course\n\n";
 	cout << "------------------------ATTENDANCE------------------------\n";
 	cout << "3. View attendance list of a course\n";
-	cout << "4. Edit an attendance\n";
+	cout << "4. Edit an attendance\n\n";
 	cout << "------------------------SCOREBOARD------------------------\n";
 	cout << "5. Import scoreboard of a course (midterm, final, bonus) from CSV file\n";
 	cout << "6. Edit grade of a student\n";
@@ -2516,7 +2516,7 @@ void importScoreboardCSV()
 	stuincourse *stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
@@ -2603,7 +2603,7 @@ void editGradeOfStu()
 	stuincourse *stuinCourse = nullptr;
 	int NstuinCourse = 0, NstuinCourseLeave = 0;
 	string courseID, classname;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Class: ";
 	getline(cin, classname, '\n');
 	cout << "Course: ";
@@ -2640,7 +2640,7 @@ void editGradeOfStu()
 string changePassword(string pass)
 {
 	string curPass, newPass, newPass2;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Current password: ";
 	getline(cin, curPass, '\n');
 
@@ -2701,7 +2701,7 @@ void checkin(student hocsinh)
 	classShow(hocsinh);
 
 	string classname;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Choose class (Classname-CourseID): ";
 	getline(cin, classname, '\n');
 
@@ -2811,7 +2811,7 @@ void viewSchedule(student hocsinh)
 	int NstuinCourseLeave;
 
 	string acayear, semester;
-	cin.ignore(1000, '\n');
+	//cin.ignore(1000, '\n');
 	cout << "Choose academic year: ";
 	getline(cin, acayear, '\n');
 	cout << "Choose semester: ";

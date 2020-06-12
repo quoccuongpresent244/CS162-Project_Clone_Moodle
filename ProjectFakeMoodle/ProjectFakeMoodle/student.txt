@@ -1,4 +1,4 @@
-5 5
+9 5
 
 chan
 123456
@@ -33,6 +33,34 @@ Tran Dai Hoang Trung
 Pham Trong Vinh Khue
 2001 04 26
 19CLC2
+1
+
+19125999
+20010424
+Nguyen Duy Anh Chan
+2001 04 24
+19APCS1
+1
+
+19127779
+20010401
+Nguyen Van A
+2001 04 01
+19APCS1
+1
+
+19127889
+20010402
+Nguyen Van B
+2001 04 02
+19APCS2
+1
+
+19127669
+20010403
+Nguyen Van C
+2001 04 03
+19APCS3
 1
 
 19129998
