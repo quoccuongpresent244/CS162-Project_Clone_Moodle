@@ -164,7 +164,7 @@ void importScoreboardCSV();
 void editGradeOfStu();
 
 //STUDENT
-void checkin(student hocsinh);
+void checkin(student hocsinh, int);
 void classShow(student hocsinh);
 void viewSchedule(student hocsinh);
 void viewSB(student hocsinh);

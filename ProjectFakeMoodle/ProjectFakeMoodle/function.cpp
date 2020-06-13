@@ -763,7 +763,7 @@ void importCSV()
 
 	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\ProjectFakeMoodle\\19APCS1-student.csv
 	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\ProjectFakeMoodle\\19CLC-student.csv
-
+    // F:\\QUOC\\UNIVERSITY\\COMPUTER_SCIENCE\\CS162\\Final_Proj\\Test_with_git\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS1-student.csv
 	if (!fin.is_open())
 	{
 		cout << "cannot open file fin";
@@ -1108,6 +1108,8 @@ void importCourseCSV()
 	// C:\\Users\\THINKPAD\\Desktop\\university\\Semester 2\\CS162\\Lab\\Project\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS2-schedule.csv
 
 	// C:\\Users\\dbcha\\Documents\\GitHub\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS1-schedule.csv
+	// F:\\QUOC\\UNIVERSITY\\COMPUTER_SCIENCE\\CS162\\Final_Proj\\Test_with_git\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS1-schedule.csv
+	// F:\\QUOC\\UNIVERSITY\\COMPUTER_SCIENCE\\CS162\\Final_Proj\\Test_with_git\\CS162-Project_Fake_Moodle\\ProjectFakeMoodle\\19APCS2-schedule.csv
 
 	course *khoahoc = new course[10];
 	int Ncourse = 0;
@@ -2236,14 +2238,14 @@ void LecScrollingMenu(lecturer a)
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[0]]);
 		cout << "1. View list of courses in the current semester\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[1]]);
-		cout << "2. View list of students of a course\n";
+		cout << "2. View list of students of a course\n\n";
 
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
 		cout << "------------------------ATTENDANCE------------------------\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[2]]);
 		cout << "3. View attendance list of a course\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[3]]);
-		cout << "4. Edit an attendance\n";
+		cout << "4. Edit an attendance\n\n";
 
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
 		cout << "------------------------SCORE BOARD------------------------\n";
@@ -2254,7 +2256,7 @@ void LecScrollingMenu(lecturer a)
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[6]]);
 		cout << "7. View a scoreboard\n";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[7]]);
-		cout << "8. Change your password\n";
+		cout << "8. Change your password\n\n";
 
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color[index[8]]);
 		cout << "9. EXIT\n";
@@ -2423,6 +2425,7 @@ void StuContinueMenu(student a)
 
 void StuScrollingMenu(student a)
 {
+	int week = 0;
 	int color[] = {10, 12};
 	int index[6];
 	index[0] = 1;
